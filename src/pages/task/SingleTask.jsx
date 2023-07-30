@@ -4,10 +4,12 @@ import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 
 const SingleTask = () => {
   return (
-    <div className="py-3 border-t-2 border-gray-100">
+    <div className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
       <div className=" flex justify-between items-start">
         <div>
-          <h1 className=" font-semibold text-xl ">Complete Inspections</h1>
+          <h1 className=" font-semibold text-dark text-xl  singleTaskTitle">
+            Complete Inspections
+          </h1>
           <p className=" text-sm  pt-2 pb-4 text-dark-light">
             Complete municipality and internal inspections Complete municipality
             and internal inspections municipality and internal inspections

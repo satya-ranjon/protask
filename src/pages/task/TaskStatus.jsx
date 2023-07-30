@@ -9,7 +9,7 @@ const TaskStatus = () => {
   };
   return (
     <div className="relative">
-      <div className="text-xs cursor-pointer mr-3" onClick={handleTask}>
+      <div className="text-xs cursor-pointer " onClick={handleTask}>
         <RxDotFilled />
         <RxDotFilled />
       </div>

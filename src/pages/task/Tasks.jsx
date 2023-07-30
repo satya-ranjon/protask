@@ -6,22 +6,9 @@ import TaskStatus from "./TaskStatus";
 import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import SingleTask from "./SingleTask";
 import TaskGroup from "./TaskGroup";
+import AddTaskBtn from "./AddTaskBtn";
 
 const Tasks = () => {
-  const [isMobile, setIsMobile] = useState(768 > window.innerWidth);
-  console.log(isMobile);
-
-  const handleResize = () => {
-    setIsMobile(700 > window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div>
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10  flex justify-between items-start">
@@ -37,17 +24,12 @@ const Tasks = () => {
             Here all tasks in the project.
           </p>
         </div>
-        <div className="">
-          <button
-            type="button"
-            className="p-3 2xl:p-4 sm:px-5 2xl:px-8 rounded-full sm:rounded-none 
-             font-medium bg-dark text-white text-2xl sm:text-sm 2xl:text-base">
-            {isMobile ? <AiOutlinePlus /> : "Create Task"}
-          </button>
+        <div>
+          <AddTaskBtn />
         </div>
       </div>
 
-      <div className="mx-3  2xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 ">
+      <div className="2xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 ">
         <TaskGroup title="To Do" taskCount="3">
           <SingleTask />
           <SingleTask />

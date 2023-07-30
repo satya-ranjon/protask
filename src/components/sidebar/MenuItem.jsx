@@ -6,7 +6,7 @@ const MenuItem = ({ path, children }) => {
   return (
     <Link
       to={path}
-      className={`group relative transition-all text-3xl sm:text-4xl duration-500  ${
+      className={`group relative transition-all text-3xl sm:text-4xl duration-500 hover:text-primary  ${
         pathname === path && "text-primary -top-3 sm:-top-0"
       }`}>
       {children}
