@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { RxDotFilled } from "react-icons/rx";
+import { TiTick } from "react-icons/ti";
+import TaskStatus from "./TaskStatus";
+import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
+import SingleTask from "./SingleTask";
+import TaskGroup from "./TaskGroup";
+
 const Tasks = () => {
   const [isMobile, setIsMobile] = useState(768 > window.innerWidth);
   console.log(isMobile);
@@ -38,6 +45,35 @@ const Tasks = () => {
             {isMobile ? <AiOutlinePlus /> : "Create Task"}
           </button>
         </div>
+      </div>
+
+      <div className="mx-3  2xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 ">
+        <TaskGroup title="To Do" taskCount="3">
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+        </TaskGroup>
+        <TaskGroup title="In Progress" taskCount="5">
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+        </TaskGroup>
+        <TaskGroup title="On Hold" taskCount="5">
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+        </TaskGroup>
+        <TaskGroup title="Done" taskCount="5">
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+          <SingleTask />
+        </TaskGroup>
       </div>
     </div>
   );
