@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { RxDotFilled } from "react-icons/rx";
-import { TiTick } from "react-icons/ti";
-import TaskStatus from "./TaskStatus";
-import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import SingleTask from "./SingleTask";
 import TaskGroup from "./TaskGroup";
 import AddTaskBtn from "./AddTaskBtn";
+import tasks from "../../data/tasks";
+import { useGetAllTasksQuery } from "../../services/task/taskApi";
+import Modal from "../../components/common/Modal";
+import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const handleModal = () => {
+    setModalIsOpen((prv) => !prv);
+  };
+
+  const taskCreateFullPageHandle = () => {
+    navigate("/task/create");
+    handleModal();
+  };
+
+  const todo = tasks.filter((item) => item.status === "start");
+
+  // const { data } = useGetAllTasksQuery();
+  // console.log(data);
+
   return (
-    <div>
+    <>
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10  flex justify-between items-start">
         <div className=" w-[80%]">
           <h1 className="font-bold text-4xl  lg:text-5xl 2xl:text-6xl">
@@ -25,17 +40,17 @@ const Tasks = () => {
           </p>
         </div>
         <div>
-          <AddTaskBtn />
+          <AddTaskBtn onClick={handleModal} />
         </div>
       </div>
 
       <div className="2xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 ">
-        <TaskGroup title="To Do" taskCount="3">
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
+        <TaskGroup title="To Do" taskCount={todo.length}>
+          {todo.map((task) => (
+            <SingleTask key={task._id} task={task} />
+          ))}
         </TaskGroup>
-        <TaskGroup title="In Progress" taskCount="5">
+        {/* <TaskGroup title="In Progress" taskCount="5">
           <SingleTask />
           <SingleTask />
           <SingleTask />
@@ -55,9 +70,15 @@ const Tasks = () => {
           <SingleTask />
           <SingleTask />
           <SingleTask />
-        </TaskGroup>
+        </TaskGroup> */}
       </div>
-    </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={handleModal}
+        fullPage={taskCreateFullPageHandle}>
+        <h1>KHOKON</h1>
+      </Modal>
+    </>
   );
 };
 
