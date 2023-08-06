@@ -3,40 +3,23 @@ import TitleInput from "./TitleInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
 import BlockNoteView from "./BlockNoteView";
+import { useSelector } from "react-redux";
 
 const CreateTask = () => {
-  const [title, setTitle] = useState("");
-  const [status, setStatus] = useState("");
-  const [tags, setTags] = useState("");
-  const [document, setDocument] = useState("");
+  const state = useSelector((state) => state.createTask);
+  console.log(state);
 
-  const titleHandle = (value) => {
-    setTitle(value);
-  };
-
-  const statusHandle = (value) => {
-    setStatus(value);
-  };
-
-  const tagsHandle = (value) => {
-    setTags(value);
-  };
-
-  const handleDocument = (value) => {
-    setDocument(value);
-  };
-  console.log(document);
   return (
     <div className="p-8">
-      <TitleInput titleHandle={titleHandle} />
+      <TitleInput />
 
-      <StatusSet statusHandle={statusHandle} />
+      <StatusSet />
 
-      <TagsSet tagsHandle={tagsHandle} />
+      <TagsSet />
 
       <hr className="my-4" />
 
-      <BlockNoteView handleDocument={handleDocument} />
+      <BlockNoteView />
     </div>
   );
 };

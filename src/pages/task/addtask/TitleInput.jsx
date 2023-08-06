@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTitle } from "../../../services/task/createTaskSlice";
 
-const TitleInput = ({ titleHandle }) => {
-  const [textareaValue, setTextareaValue] = useState("");
+const TitleInput = () => {
+  // const [textareaValue, setTextareaValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
+  const textareaValue = useSelector((state) => state.createTask.title);
+
   // Ref to access the textarea DOM element
   const textareaRef = useRef(null);
+  const dispatch = useDispatch();
 
   // Function to check if the textarea content overflows
   const isOverflowing = () => {
@@ -27,8 +32,7 @@ const TitleInput = ({ titleHandle }) => {
   // Event handler for textarea change
   const handleTextareaChange = (event) => {
     const { value } = event.target;
-    setTextareaValue(value);
-    titleHandle(value);
+    dispatch(updateTitle(value));
   };
 
   // Run adjustHeight whenever textareaValue changes

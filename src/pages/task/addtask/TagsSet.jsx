@@ -3,6 +3,8 @@ import { LiaTagsSolid } from "react-icons/lia";
 import { AiOutlineClose } from "react-icons/ai";
 import { CgMenuMotion } from "react-icons/cg";
 import backgroundColorArray from "../../../data/backgroundColor";
+import { useDispatch, useSelector } from "react-redux";
+import { addTag, removeTag } from "../../../services/task/createTaskSlice";
 
 // Initial status options
 const initialStatus = [
@@ -12,11 +14,9 @@ const initialStatus = [
   { id: "4", tag: "Programming", color: "bg-green-200" },
 ];
 
-const TagsSet = ({ tagsHandle }) => {
+const TagsSet = () => {
   // To control the open/close state of the dropdown
   const [isOpen, setIsOpen] = useState(false);
-
-  const [selectTag, setSelectTag] = useState([]);
 
   // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,18 +24,17 @@ const TagsSet = ({ tagsHandle }) => {
   // this state handle redux just practice //TODO
   const [initialTags, setInitialTags] = useState(initialStatus);
 
-  // To store the filtered status options
-  const [filteredData, setFilteredData] = useState(initialTags);
+  const selectTag = useSelector((state) => state.createTask.tags);
+
+  const [filteredData, setFilteredData] = useState(selectTag);
 
   const tagList = searchQuery ? filteredData : initialTags;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFilteredData(initialTags);
   }, [initialTags]);
-
-  useEffect(() => {
-    tagsHandle(selectTag);
-  }, [selectTag]);
 
   const dropdownRef = useRef(null);
 
@@ -82,15 +81,14 @@ const TagsSet = ({ tagsHandle }) => {
     const searchTag = initialStatus.find((item) => item.id === id);
     const findIdex = selectTag?.findIndex((item) => item.id === id);
     if (findIdex === -1) {
-      setSelectTag((prv) => [...prv, searchTag]);
+      dispatch(addTag(searchTag));
     }
   };
 
   // Function to remove the selected status
   const removeSelectTag = (id, event) => {
     event.stopPropagation(); // Stop the event from propagating to the parent container
-    setIsOpen(true);
-    setSelectTag((prv) => prv.filter((tag) => tag.id !== id));
+    dispatch(removeTag(id));
   };
 
   const bgColor =
@@ -98,10 +96,11 @@ const TagsSet = ({ tagsHandle }) => {
       Math.round(Math.random() * backgroundColorArray.length - 1)
     ];
 
-  const createTags = () => {
+  const createTags = (e) => {
+    e.stopPropagation();
     const newTag = { id: Math.random() * 50, tag: searchQuery, color: bgColor };
-    setSelectTag((prv) => [...prv, newTag]);
     setInitialTags((prv) => [...prv, newTag]);
+    dispatch(addTag(newTag));
     setSearchQuery("");
   };
 
@@ -178,10 +177,10 @@ const TagsSet = ({ tagsHandle }) => {
                 </div>
               ))}
             </div>
-            {filteredData?.length === 0 && (
+            {filteredData?.length === 0 && searchQuery?.length > 0 && (
               <div
                 className="flex justify-start cursor-pointer gap-2 items-center p-1 bg-gray-100"
-                onClick={createTags}>
+                onClick={(e) => createTags(e)}>
                 <p className="text-dark text-xs p-1 ">Create</p>
                 <span
                   className={` ${bgColor} mr-1 text-dark p-1 px-2 text-xs rounded-sm`}>

@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { updateStatus } from "../../../services/task/createTaskSlice";
 
 // Initial status options
 const initialStatus = [
@@ -10,17 +12,22 @@ const initialStatus = [
   { id: "4", status: "Done", color: "bg-green-200" },
 ];
 
-const StatusSet = ({ statusHandle }) => {
+const StatusSet = () => {
   // To control the open/close state of the dropdown
   const [isOpen, setIsOpen] = useState(false);
   // To store the selected status
-  const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState("");
   // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
   // To store the filtered status options
   const [filteredData, setFilteredData] = useState(initialStatus);
 
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateStatus(status.status));
+  }, [status]);
 
   // Function to handle opening/closing of the dropdown
   const handleIsOpen = () => {
@@ -61,7 +68,6 @@ const StatusSet = ({ statusHandle }) => {
   // Function to handle selecting a status option
   const selectStatus = (id) => {
     const selectedStatus = initialStatus.find((item) => item.id === id);
-    statusHandle(selectedStatus.status);
     setStatus(selectedStatus);
     // Close the dropdown
     setIsOpen(false);
