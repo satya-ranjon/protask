@@ -1,33 +1,33 @@
 import { useState, useRef, useEffect } from "react";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateStatus } from "../../../services/task/createTaskSlice";
+import selectStatusBgColor from "../../../utils/selectStatusBgColor";
 
 // Initial status options
-const initialStatus = [
-  { id: "1", status: "Start", color: "bg-red-200" },
-  { id: "2", status: "In Process", color: "bg-teal-200" },
-  { id: "3", status: "On Hold", color: "bg-orange-200" },
-  { id: "4", status: "Done", color: "bg-green-200" },
-];
+// const initialStatus = [
+//   { id: "1", status: "Start", color: "bg-red-200" },
+//   { id: "2", status: "In Process", color: "bg-teal-200" },
+//   { id: "3", status: "On Hold", color: "bg-orange-200" },
+//   { id: "4", status: "Done", color: "bg-green-200" },
+// ];
+
+const initialStatus = ["Start", "In Process", "On Hold", "Done"];
 
 const StatusSet = () => {
   // To control the open/close state of the dropdown
   const [isOpen, setIsOpen] = useState(false);
-  // To store the selected status
-  const [status, setStatus] = useState("");
+
   // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
   // To store the filtered status options
   const [filteredData, setFilteredData] = useState(initialStatus);
 
+  const status = useSelector((state) => state.createTask.status);
+
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(updateStatus(status.status));
-  }, [status]);
 
   // Function to handle opening/closing of the dropdown
   const handleIsOpen = () => {
@@ -43,7 +43,6 @@ const StatusSet = () => {
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
-
     return () => {
       // Cleanup the event listener when the component is unmounted
       document.removeEventListener("click", handleOutsideClick);
@@ -60,22 +59,22 @@ const StatusSet = () => {
   // Function to filter data based on the search query
   const filterData = (query) => {
     const filtered = initialStatus.filter((item) =>
-      item.status.toLowerCase().includes(query.toLowerCase())
+      item.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
   };
 
   // Function to handle selecting a status option
-  const selectStatus = (id) => {
-    const selectedStatus = initialStatus.find((item) => item.id === id);
-    setStatus(selectedStatus);
+  const selectStatus = (status) => {
+    dispatch(updateStatus(status));
     // Close the dropdown
     setIsOpen(false);
   };
 
   // Function to remove the selected status
-  const removeStatus = () => {
-    setStatus(undefined);
+  const removeStatus = (e) => {
+    e.stopPropagation();
+    dispatch(updateStatus(""));
   };
 
   return (
@@ -93,8 +92,10 @@ const StatusSet = () => {
           {/* Display the selected status or "Empty" */}
           {status ? (
             <span
-              className={`${status.color} text-dark p-1 px-2 text-xs rounded-sm`}>
-              {status.status}
+              className={`${selectStatusBgColor(
+                status
+              )} text-dark p-1 px-2 text-xs rounded-sm`}>
+              {status}
             </span>
           ) : (
             <span>Empty</span>
@@ -107,11 +108,13 @@ const StatusSet = () => {
               {/* Display the selected status (if any) with a close button */}
               {status && (
                 <span
-                  className={`${status.color} text-dark p-1 px-2 text-xs rounded-sm flex justify-start gap-1 items-center min-w-fit`}>
-                  <p> {status.status} </p>
+                  className={`${selectStatusBgColor(
+                    status
+                  )} text-dark p-1 px-2 text-xs rounded-sm flex justify-start gap-1 items-center min-w-fit`}>
+                  <p> {status} </p>
                   <AiOutlineClose
                     className="cursor-pointer"
-                    onClick={removeStatus}
+                    onClick={(e) => removeStatus(e)}
                   />
                 </span>
               )}
@@ -133,10 +136,13 @@ const StatusSet = () => {
               {filteredData?.map((item) => (
                 <div
                   className="cursor-pointer"
-                  key={item.id}
-                  onClick={() => selectStatus(item.id)}>
-                  <span className={`p-1 px-3 text-dark ${item.color}`}>
-                    {item.status}
+                  key={item}
+                  onClick={() => selectStatus(item)}>
+                  <span
+                    className={`p-1 px-3 text-dark ${selectStatusBgColor(
+                      item
+                    )}`}>
+                    {item}
                   </span>
                 </div>
               ))}

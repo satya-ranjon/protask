@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 const CreateTask = () => {
   const state = useSelector((state) => state.createTask);
-  console.log(state);
 
   return (
     <div className="p-8">
