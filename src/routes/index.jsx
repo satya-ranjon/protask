@@ -9,23 +9,23 @@ import PublicRoute from "./PublicRoute";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import CreateTask from "../pages/task/addtask/CreateTask";
+import useAuthCheck from "../hooks/useAuthCheck";
 
 const Router = () => {
-  const isAuthenticated = true;
-  return (
+  const authenticationCheck = useAuthCheck();
+
+  return !authenticationCheck ? (
+    <h1> Checking Authentication </h1>
+  ) : (
     <Routes>
-      <Route
-        path="/"
-        element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+      <Route path="/" element={<PrivateRoute />}>
         <Route path="/task" element={<Tasks />} />
         <Route path="/create-task" element={<CreateTask />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/document" element={<Document />} />
         <Route path="/event" element={<Event />} />
       </Route>
-      <Route
-        path="/"
-        element={<PublicRoute isAuthenticated={isAuthenticated} />}>
+      <Route path="/" element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
