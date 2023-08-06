@@ -15,7 +15,7 @@ const Tasks = () => {
   };
 
   const taskCreateFullPageHandle = () => {
-    navigate("/task/create");
+    navigate("/create-task");
     handleModal();
   };
 
