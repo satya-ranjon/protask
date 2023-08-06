@@ -39,7 +39,7 @@ const TitleInput = ({ titleHandle }) => {
   return (
     <textarea
       ref={textareaRef}
-      className="p-2 w-full font-bold text-4xl h-fit  overflow-hidden outline-none border-none placeholder:text-gray-300"
+      className="p-2 w-full font-bold text-5xl h-fit  overflow-hidden outline-none border-none placeholder:text-gray-300"
       placeholder="Untitled"
       value={textareaValue}
       style={{ height: `${textareaHeight}px` }}

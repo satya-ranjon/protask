@@ -2,11 +2,13 @@ import { useState } from "react";
 import TitleInput from "./TitleInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
+import BlockNoteView from "./BlockNoteView";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("");
   const [tags, setTags] = useState("");
+  const [document, setDocument] = useState("");
 
   const titleHandle = (value) => {
     setTitle(value);
@@ -20,8 +22,10 @@ const CreateTask = () => {
     setTags(value);
   };
 
-  console.log(title, status, tags);
-
+  const handleDocument = (value) => {
+    setDocument(value);
+  };
+  console.log(document);
   return (
     <div className="p-8">
       <TitleInput titleHandle={titleHandle} />
@@ -29,6 +33,10 @@ const CreateTask = () => {
       <StatusSet statusHandle={statusHandle} />
 
       <TagsSet tagsHandle={tagsHandle} />
+
+      <hr className="my-4" />
+
+      <BlockNoteView handleDocument={handleDocument} />
     </div>
   );
 };

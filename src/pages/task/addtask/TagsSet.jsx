@@ -152,7 +152,7 @@ const TagsSet = ({ tagsHandle }) => {
               <input
                 type="text"
                 name="search"
-                placeholder="Search"
+                placeholder="Search and Add Tags"
                 className="bg-transparent w-full p-1 outline-none"
                 onChange={handleSearchInputChange}
                 value={searchQuery}

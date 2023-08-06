@@ -6,6 +6,7 @@ import tasks from "../../data/tasks";
 import { useGetAllTasksQuery } from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
 import { useNavigate } from "react-router-dom";
+import CreateTask from "./addtask/CreateTask";
 
 const Tasks = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -78,6 +79,7 @@ const Tasks = () => {
         onClose={handleModal}
         fullPage={taskCreateFullPageHandle}>
         <h1 className="text-center font-bold text-3xl">KHOKON</h1>
+        <CreateTask />
       </Modal>
     </>
   );
