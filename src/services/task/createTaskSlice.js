@@ -27,9 +27,16 @@ const createTaskSlice = createSlice({
     updateDocument: (state, action) => {
       state.document = action.payload;
     },
+    resetCreateTaskState: () => initialState,
   },
 });
 
-export const { updateTitle, updateStatus, addTag, removeTag, updateDocument } =
-  createTaskSlice.actions;
+export const {
+  updateTitle,
+  updateStatus,
+  addTag,
+  removeTag,
+  updateDocument,
+  resetCreateTaskState,
+} = createTaskSlice.actions;
 export default createTaskSlice.reducer;

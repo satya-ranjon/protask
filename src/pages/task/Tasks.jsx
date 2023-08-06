@@ -78,7 +78,6 @@ const Tasks = () => {
         isOpen={modalIsOpen}
         onClose={handleModal}
         fullPage={taskCreateFullPageHandle}>
-        <h1 className="text-center font-bold text-3xl">KHOKON</h1>
         <CreateTask />
       </Modal>
     </>

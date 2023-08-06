@@ -1,5 +1,4 @@
 const selectStatusBgColor = (value) => {
-  console.log(value);
   switch (value) {
     case "Start":
       return "bg-red-200";
