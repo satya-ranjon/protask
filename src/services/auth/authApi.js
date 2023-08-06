@@ -1,4 +1,4 @@
-import apiSlice from "../api/api";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { authError, userLogin } from "./authSlice";
 
 const handleAuthResult = async (queryFulfilled, dispatch) => {
@@ -22,7 +22,11 @@ const handleAuthResult = async (queryFulfilled, dispatch) => {
   }
 };
 
-const authApi = apiSlice.injectEndpoints({
+const authApi = createApi({
+  reducerPath: "authApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_AUTH_API_URL,
+  }),
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (data) => ({

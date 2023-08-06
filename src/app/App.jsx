@@ -1,14 +1,11 @@
 import { Provider } from "react-redux";
-import AppWrapper from "../layouts/AppWrapper";
-import Tasks from "../pages/task/Tasks";
 import store from "./store";
+import Router from "../routes";
 
 const App = () => {
   return (
     <Provider store={store}>
-      <AppWrapper>
-        <Tasks />
-      </AppWrapper>
+      <Router />
     </Provider>
   );
 };

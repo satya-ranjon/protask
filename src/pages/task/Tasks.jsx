@@ -4,7 +4,7 @@ import TaskGroup from "./TaskGroup";
 import AddTaskBtn from "./AddTaskBtn";
 import tasks from "../../data/tasks";
 import { useGetAllTasksQuery } from "../../services/task/taskApi";
-import Modal from "../../components/common/Modal";
+import Modal from "../../components/modal/Modal";
 import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
@@ -73,10 +73,11 @@ const Tasks = () => {
         </TaskGroup> */}
       </div>
       <Modal
+        cls="top-[10%]"
         isOpen={modalIsOpen}
         onClose={handleModal}
         fullPage={taskCreateFullPageHandle}>
-        <h1>KHOKON</h1>
+        <h1 className="text-center font-bold text-3xl">KHOKON</h1>
       </Modal>
     </>
   );
