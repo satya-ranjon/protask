@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -20,10 +20,28 @@ const StatusSet = ({ statusHandle }) => {
   // To store the filtered status options
   const [filteredData, setFilteredData] = useState(initialStatus);
 
+  const dropdownRef = useRef(null);
+
   // Function to handle opening/closing of the dropdown
   const handleIsOpen = () => {
     setIsOpen((prev) => !prev);
   };
+
+  // Function to handle clicks outside the dropdown
+  const handleOutsideClick = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      // Cleanup the event listener when the component is unmounted
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   // Function to handle search input changes
   const handleSearchInputChange = (e) => {
@@ -55,7 +73,9 @@ const StatusSet = ({ statusHandle }) => {
   };
 
   return (
-    <div className="flex justify-start items-center w-full text-dark-light text-sm">
+    <div
+      ref={dropdownRef}
+      className="flex justify-start items-center w-full text-dark-light text-sm">
       {/* Dropdown header */}
       <div className="w-[25%] flex justify-start items-center gap-2 p-1 ">
         <MdOutlineArrowDropDownCircle className="text-xl" />
@@ -76,7 +96,7 @@ const StatusSet = ({ statusHandle }) => {
         </div>
         {/* Dropdown menu */}
         {isOpen && (
-          <div className="absolute w-full top-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2">
+          <div className="absolute w-full top-0 left-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2 z-50">
             <div className="flex w-full bg-gray-200 p-1">
               {/* Display the selected status (if any) with a close button */}
               {status && (
