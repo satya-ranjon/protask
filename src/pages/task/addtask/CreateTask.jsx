@@ -1,10 +1,13 @@
 import { useState } from "react";
 import TitleInput from "./TitleInput";
-import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+import StatusSet from "./StatusSet";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
   const titleHandle = (value) => {
+    setTitle(value);
+  };
+  const statusHandle = (value) => {
     setTitle(value);
   };
   console.log(title);
@@ -13,9 +16,8 @@ const CreateTask = () => {
       <div className="">
         <TitleInput titleHandle={titleHandle} />
       </div>
-      <div className="">
-        <MdOutlineArrowDropDownCircle />
-      </div>
+
+      <StatusSet statusHandle={statusHandle} />
     </div>
   );
 };
