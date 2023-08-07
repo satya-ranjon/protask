@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const PrivateRoute = () => {
   const { accessToken } = useSelector((state) => state.auth);
   // console.log(!accessToken);
-  return accessToken ? (
+  return !accessToken ? (
     <Navigate to="/login" />
   ) : (
     <AppWrapper>

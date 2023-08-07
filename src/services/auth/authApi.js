@@ -7,13 +7,13 @@ const handleAuthResult = async (queryFulfilled, dispatch) => {
     localStorage.setItem(
       "auth",
       JSON.stringify({
-        accessToken: result.data.accessToken,
+        accessToken: result.data.token,
         user: result.data.user,
       })
     );
     dispatch(
       userLogin({
-        accessToken: result.data.accessToken,
+        accessToken: result.data.token,
         user: result.data.user,
       })
     );

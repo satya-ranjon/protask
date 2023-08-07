@@ -3,52 +3,124 @@ import { PiKeyholeDuotone } from "react-icons/pi";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../services/auth/authApi";
+import authInputValidator from "../../utils/authInputValidator";
 
 const initialState = { name: "", email: "", password: "" };
 
 const Form = () => {
   const [inputValue, setInputValue] = useState(initialState);
+  const [errors, setErrors] = useState(initialState);
+
+  // Determine if it's a registration form based on the URL path
   const { pathname } = useLocation();
   const isRegister = pathname === "/register";
 
+  // Auth-related mutations for registration and login
+  const [register, { isLoading: isLoadingRegister }] = useRegisterMutation();
+  const [login, { isLoading: isLoadingLogin }] = useLoginMutation();
+
+  // Handle input changes in the form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    setErrors({ ...errors, [name]: "" });
     setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate form input and update errors state
+    const inputErrors = authInputValidator(inputValue, isRegister);
+    setErrors(inputErrors);
+
+    // If there are no input errors, proceed with registration or login
+    if (Object.keys(inputErrors).length === 0) {
+      try {
+        if (isRegister) {
+          // Perform registration using the register mutation
+          await register({
+            name: inputValue.name,
+            email: inputValue.email,
+            password: inputValue.password,
+          }).unwrap();
+        } else {
+          // Perform login using the login mutation
+          await login({
+            email: inputValue.email,
+            password: inputValue.password,
+          }).unwrap();
+        }
+      } catch (error) {
+        // Handle API request errors and update the errors state
+        setErrors({ ...errors, requestError: error.data.message });
+      }
+    }
+  };
+
   return (
-    <form action="" className="w-full flex flex-col gap-8">
-      {isRegister && (
+    <>
+      {/* Display request error message if present */}
+      <p className="h-2 text-red-500 text-xs">{errors?.requestError}</p>
+      <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
+        {isRegister && (
+          // Display name input field only for registration form
+          <>
+            <p className=" h-2 text-red-500 text-xs"> {errors?.name}</p>
+            <InputField
+              focus={isRegister}
+              onChange={handleInputChange}
+              value={inputValue.name}
+              type="text"
+              name="name"
+              // required
+              placeholder="Name ">
+              <AiOutlineUser className=" text-xl text-dark-light" />
+            </InputField>
+          </>
+        )}
+
+        {/* Display email input field */}
+        <p className="h-2 text-red-500 text-xs"> {errors?.email}</p>
         <InputField
-          focus={isRegister}
+          focus={!isRegister}
           onChange={handleInputChange}
-          type="text"
-          name="name"
-          placeholder="Name ">
-          <AiOutlineUser className=" text-xl text-dark-light" />
+          value={inputValue.email}
+          type="email"
+          name="email"
+          // required
+          placeholder="Email">
+          <AiOutlineMail className=" text-xl text-dark-light" />
         </InputField>
-      )}
 
-      <InputField
-        focus={!isRegister}
-        onChange={handleInputChange}
-        type="email"
-        name="email"
-        placeholder="Email">
-        <AiOutlineMail className=" text-xl text-dark-light" />
-      </InputField>
-      <InputField
-        onChange={handleInputChange}
-        type="password"
-        name="password"
-        placeholder="Password">
-        <PiKeyholeDuotone className=" text-xl text-dark-light" />
-      </InputField>
+        {/* Display password input field */}
+        <p className="h-2 text-red-500 text-xs"> {errors?.password}</p>
+        <InputField
+          onChange={handleInputChange}
+          value={inputValue.password}
+          // required
+          type="password"
+          name="password"
+          placeholder="Password">
+          <PiKeyholeDuotone className=" text-xl text-dark-light" />
+        </InputField>
 
-      <button className=" w-full bg-primary text-white p-2 rounded-md hover:opacity-90 duration-300 transition-opacity">
-        {isRegister ? "Register" : "Login"}
-      </button>
-    </form>
+        {/* Submit button */}
+        <button className=" w-full bg-primary text-white p-2 rounded-md hover:opacity-90 duration-300 transition-opacity">
+          {isRegister
+            ? isLoadingRegister
+              ? "Registering..."
+              : "Register"
+            : isLoadingLogin
+            ? "Login..."
+            : "Login"}
+        </button>
+      </form>
+    </>
   );
 };
 
