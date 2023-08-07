@@ -16,8 +16,11 @@ const Register = () => {
             <img className=" w-12" src={images.Logo} alt="" />
             Create a Account
           </h1>
+
+          {/* Render the registration form */}
           <Form />
 
+          {/* Link to navigate to the login page */}
           <p className=" text-sm font-normal text-dark-light my-4">
             You have an account already !{" "}
             <Link to="/login" className=" text-primary">

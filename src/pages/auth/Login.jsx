@@ -16,7 +16,11 @@ const Login = () => {
             <img className=" w-12" src={images.Logo} alt="" />
             Login
           </h1>
+
+          {/* Render the login form */}
           <Form />
+
+          {/* Link to create a new account */}
           <p className=" text-sm font-normal text-dark-light my-4">
             You have no account !{" "}
             <Link to="/register" className=" text-primary">
