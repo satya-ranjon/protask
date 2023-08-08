@@ -4,16 +4,20 @@ import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
 import BlockNoteView from "./BlockNoteView";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resetCreateTaskState } from "../../../services/task/createTaskSlice";
 
 const CreateTask = () => {
   const title = useSelector((state) => state.createTask.title);
 
+  // Get current pathname and navigation function from React Router
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  /**
+   * Navigates back to the tasks list and resets create task state.
+   */
   const backToTasks = () => {
     dispatch(resetCreateTaskState());
     navigate("/task");
@@ -21,6 +25,7 @@ const CreateTask = () => {
 
   return (
     <div className="p-8 pt-4">
+      {/* Breadcrumb navigation */}
       {pathname === "/create-task" && (
         <div className="text-dark-light flex justify-start gap-2 items-center">
           <span
@@ -35,6 +40,7 @@ const CreateTask = () => {
         </div>
       )}
 
+      {/* Input fields for task creation */}
       <TitleInput />
 
       <StatusSet />
@@ -43,6 +49,7 @@ const CreateTask = () => {
 
       <hr className="my-4" />
 
+      {/* BlockNoteView for entering task notes */}
       <BlockNoteView />
     </div>
   );

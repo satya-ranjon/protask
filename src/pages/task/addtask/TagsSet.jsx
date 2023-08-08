@@ -5,14 +5,7 @@ import { CgMenuMotion } from "react-icons/cg";
 import backgroundColorArray from "../../../data/backgroundColor";
 import { useDispatch, useSelector } from "react-redux";
 import { addTag, removeTag } from "../../../services/task/createTaskSlice";
-
-// Initial status options
-const initialStatus = [
-  { id: "1", tag: "Javascript", color: "bg-red-200" },
-  { id: "2", tag: "Python", color: "bg-teal-200" },
-  { id: "3", tag: "Exam", color: "bg-orange-200" },
-  { id: "4", tag: "Programming", color: "bg-green-200" },
-];
+import { useGetAllTagsQuery } from "../../../services/user/userApi";
 
 const TagsSet = () => {
   // To control the open/close state of the dropdown
@@ -21,20 +14,19 @@ const TagsSet = () => {
   // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
 
-  // this state handle redux just practice //TODO
-  const [initialTags, setInitialTags] = useState(initialStatus);
+  const { data, isSuccess } = useGetAllTagsQuery();
 
   const selectTag = useSelector((state) => state.createTask.tags);
 
   const [filteredData, setFilteredData] = useState(selectTag);
 
-  const tagList = searchQuery ? filteredData : initialTags;
+  const tagList = searchQuery ? filteredData : isSuccess && data.tags;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setFilteredData(initialTags);
-  }, [initialTags]);
+    setFilteredData(data);
+  }, [data]);
 
   const dropdownRef = useRef(null);
 
@@ -70,15 +62,17 @@ const TagsSet = () => {
 
   // Function to filter data based on the search query
   const filterData = (query) => {
-    const filtered = initialStatus.filter((item) =>
-      item.tag.toLowerCase().includes(query.toLowerCase())
-    );
+    const filtered = isSuccess
+      ? data.tags?.filter((item) =>
+          item.name.toLowerCase().includes(query.toLowerCase())
+        )
+      : [];
     setFilteredData(filtered);
   };
 
   // Function to handle selecting a status option
   const selectTags = (id) => {
-    const searchTag = initialStatus.find((item) => item.id === id);
+    const searchTag = data.tags?.find((item) => item.id === id);
     const findIdex = selectTag?.findIndex((item) => item.id === id);
     if (findIdex === -1) {
       dispatch(addTag(searchTag));
@@ -98,8 +92,12 @@ const TagsSet = () => {
 
   const createTags = (e) => {
     e.stopPropagation();
-    const newTag = { id: Math.random() * 50, tag: searchQuery, color: bgColor };
-    setInitialTags((prv) => [...prv, newTag]);
+    const newTag = {
+      id: Math.random() * 50,
+      name: searchQuery,
+      color: bgColor,
+    };
+    // setInitialTags((prv) => [...prv, newTag]);
     dispatch(addTag(newTag));
     setSearchQuery("");
   };
@@ -122,7 +120,7 @@ const TagsSet = () => {
               <span
                 key={tag.id}
                 className={`${tag.color} mr-1 text-dark p-1 px-2 text-xs rounded-sm`}>
-                {tag.tag}
+                {tag.name}
               </span>
             ))
           ) : (
@@ -139,7 +137,7 @@ const TagsSet = () => {
                   <span
                     key={tag.id}
                     className={`${tag.color} text-dark p-1 px-2 text-xs rounded-sm flex justify-start gap-1 items-center min-w-fit mr-1`}>
-                    <p> {tag.tag} </p>
+                    <p> {tag.name} </p>
                     <AiOutlineClose
                       className="cursor-pointer"
                       onClick={(event) => removeSelectTag(tag.id, event)} // Pass the event here
@@ -172,7 +170,7 @@ const TagsSet = () => {
                   <span
                     className={`p-1 px-3 text-dark ${item.color}`}
                     onClick={() => selectTags(item.id)}>
-                    {item.tag}
+                    {item.name}
                   </span>
                 </div>
               ))}
