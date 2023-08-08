@@ -3,7 +3,7 @@ import { updateDocument } from "../../../services/task/createTaskSlice";
 
 const BlockNoteView = () => {
   const dispatch = useDispatch();
-  const document = useSelector((state) => state.createTask.document);
+  const description = useSelector((state) => state.createTask.description);
 
   const handleDocument = (value) => {
     dispatch(updateDocument(value));
@@ -15,7 +15,7 @@ const BlockNoteView = () => {
       rows="10"
       placeholder="Write hare"
       className="w-full outline-none "
-      value={document}
+      value={description}
       onChange={(e) => handleDocument(e.target.value)}
     />
   );

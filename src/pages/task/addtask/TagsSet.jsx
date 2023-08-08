@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { LiaTagsSolid } from "react-icons/lia";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
-import { CgMenuMotion } from "react-icons/cg";
 import backgroundColorArray from "../../../data/backgroundColor";
 import { useDispatch, useSelector } from "react-redux";
 import { addTag, removeTag } from "../../../services/task/createTaskSlice";

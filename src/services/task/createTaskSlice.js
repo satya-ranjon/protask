@@ -1,19 +1,43 @@
-// createTaskSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ *  
+        "name": "",
+        "description": "",
+        "tags": [],
+        "assignedUsers": [],
+        "status": "start",
+        "_id": "64d256494cc3992b460fafde",
+        "createdAt": "2023-08-08T14:50:49.629Z",
+        "updatedAt": "2023-08-08T14:50:49.629Z",
+ */
 const initialState = {
-  title: "",
+  id: "",
+  name: "",
+  description: "",
   status: "",
+  createdAt: "",
+  updatedAt: "",
   tags: [],
-  document: "",
+  assignedUsers: [],
 };
 
 const createTaskSlice = createSlice({
   name: "createTask",
   initialState,
   reducers: {
+    updateTask: (state, action) => {
+      state.id = action.payload._id;
+      state.name = action.payload.name;
+      state.description = action.payload.description;
+      state.tags = action.payload.tags;
+      state.assignedUsers = action.payload.assignedUsers;
+      state.status = action.payload.status;
+      state.createdAt = action.payload.createdAt;
+      state.updatedAt = action.payload.updatedAt;
+    },
     updateTitle: (state, action) => {
-      state.title = action.payload;
+      state.name = action.payload;
     },
     updateStatus: (state, action) => {
       state.status = action.payload;
@@ -25,13 +49,14 @@ const createTaskSlice = createSlice({
       state.tags = state.tags.filter((tag) => tag?.id !== action.payload);
     },
     updateDocument: (state, action) => {
-      state.document = action.payload;
+      state.description = action.payload;
     },
     resetCreateTaskState: () => initialState,
   },
 });
 
 export const {
+  updateTask,
   updateTitle,
   updateStatus,
   addTag,

@@ -5,8 +5,10 @@ import AddTaskBtn from "./AddTaskBtn";
 import tasks from "../../data/tasks";
 import { useGetAllTasksQuery } from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
+import { useDispatch, useSelector } from "react-redux";
+import { resetCreateTaskState } from "../../services/task/createTaskSlice";
 
 const Tasks = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -14,11 +16,21 @@ const Tasks = () => {
   const handleModal = () => {
     setModalIsOpen((prv) => !prv);
   };
-
+  const { id: taskId } = useSelector((state) => state.createTask);
   const taskCreateFullPageHandle = () => {
-    navigate("/create-task");
+    navigate(`/task/${taskId}`);
     handleModal();
   };
+
+  const { taskId: taskIdParm } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!taskIdParm && !modalIsOpen) {
+      dispatch(resetCreateTaskState());
+    }
+  }, [taskIdParm, modalIsOpen]);
+  console.log(taskIdParm);
 
   const todo = tasks.filter((item) => item.status === "start");
 

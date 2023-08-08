@@ -5,7 +5,7 @@ import { updateTitle } from "../../../services/task/createTaskSlice";
 const TitleInput = () => {
   // const [textareaValue, setTextareaValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
-  const textareaValue = useSelector((state) => state.createTask.title);
+  const textareaValue = useSelector((state) => state.createTask.name);
 
   // Ref to access the textarea DOM element
   const textareaRef = useRef(null);

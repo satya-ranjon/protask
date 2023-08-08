@@ -5,14 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateStatus } from "../../../services/task/createTaskSlice";
 import selectStatusBgColor from "../../../utils/selectStatusBgColor";
 
-// Initial status options
-// const initialStatus = [
-//   { id: "1", status: "Start", color: "bg-red-200" },
-//   { id: "2", status: "In Process", color: "bg-teal-200" },
-//   { id: "3", status: "On Hold", color: "bg-orange-200" },
-//   { id: "4", status: "Done", color: "bg-green-200" },
-// ];
-
 const initialStatus = ["Start", "In Process", "On Hold", "Done"];
 
 const StatusSet = () => {
