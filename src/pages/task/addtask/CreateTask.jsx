@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TitleInput from "./TitleInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";

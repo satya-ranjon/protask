@@ -30,7 +30,6 @@ const Tasks = () => {
       dispatch(resetCreateTaskState());
     }
   }, [taskIdParm, modalIsOpen]);
-  console.log(taskIdParm);
 
   const todo = tasks.filter((item) => item.status === "start");
 
