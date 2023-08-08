@@ -22,8 +22,8 @@ const Tasks = () => {
 
   const todo = tasks.filter((item) => item.status === "start");
 
-  // const { data } = useGetAllTasksQuery();
-  // console.log(data);
+  const { data } = useGetAllTasksQuery();
+  console.log(data);
 
   return (
     <>

@@ -3,7 +3,7 @@ import MenuItem from "./MenuItem";
 import menuItems from "../../data/menu";
 import { images } from "../../constants";
 
-const SaidBar = () => {
+const SaidBar = ({ avatarClick }) => {
   return (
     <div className=" fixed bottom-0 w-full  left-0  sm:h-screen sm:block overflow-x-hidden sm:w-28 bg-white border-r-2 border-gray-100">
       <div className=" sm:flex sm:flex-col justify-between h-full items-center py-5">
@@ -22,7 +22,7 @@ const SaidBar = () => {
             url={"http://source.unsplash.com/100x100/?woman"}
           />
         </div>
-        <div className="hidden sm:block">
+        <div className="hidden sm:block cursor-pointer" onClick={avatarClick}>
           <Avatar url={"http://source.unsplash.com/100x100/?woman"} />
         </div>
       </div>
