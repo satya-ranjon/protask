@@ -5,8 +5,8 @@ const AvatarGroup = ({ avatar = [] }) => {
     return (
       <img
         className="w-8 h-8 rounded-full border-2 border-white"
-        src={avatar[0].pic}
-        alt={avatar[0].pic}
+        src={avatar[0].avatar}
+        alt={avatar[0].avatar}
       />
     );
   } else {
@@ -16,8 +16,8 @@ const AvatarGroup = ({ avatar = [] }) => {
           <img
             key={item._id}
             className="w-8 h-8 rounded-full border-2 border-white -ml-3"
-            src={item.pic}
-            alt={item.pic}
+            src={item.avatar}
+            alt={item.avatar}
           />
         ))}
         <span className="flex items-center justify-center font-semibold text-gray-600 text-xs w-8 h-8 rounded-full bg-gray-200 border-2 border-white -ml-3">

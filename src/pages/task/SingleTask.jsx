@@ -7,16 +7,18 @@ const SingleTask = ({ task }) => {
   if (!task) {
     return;
   }
-  const { title, tags, doc, createdAt, members, author } = task || {};
+  const { name, tags, description, createdAt, assignedUsers, user } =
+    task || {};
 
+  console.log(task);
   // Tags
   const Tags =
     tags?.length > 0 &&
     tags?.map((item) => (
       <span
         className=" bg-slate-100 text-xs font-normal text-dark-light p-2 px-3 mr-2"
-        key={item}>
-        {item}
+        key={item.id}>
+        {item.name}
       </span>
     ));
 
@@ -25,11 +27,11 @@ const SingleTask = ({ task }) => {
       <div className=" flex justify-between items-start">
         <div>
           <h1 className=" font-semibold text-dark text-xl  singleTaskTitle">
-            {title}
+            {name}
           </h1>
           <p className=" text-sm  pt-2 pb-4 text-dark-light">
-            {doc.slice(0, 200)}
-            {doc?.length > 200 && "....."}
+            {description?.slice(0, 200)}
+            {description?.length > 200 && "....."}
           </p>
         </div>
         <TaskStatus />
@@ -41,7 +43,7 @@ const SingleTask = ({ task }) => {
           {convertISOToCustomFormat(createdAt)}
         </p>
         {/* <AvatarGroup /> */}
-        <AvatarGroup avatar={[author, ...members]} />
+        <AvatarGroup avatar={[user, ...assignedUsers]} />
       </div>
     </div>
   );

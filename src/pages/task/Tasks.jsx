@@ -31,10 +31,11 @@ const Tasks = () => {
     }
   }, [taskIdParm, modalIsOpen]);
 
-  const todo = tasks.filter((item) => item.status === "start");
+  const { data: taskData, isSuccess } = useGetAllTasksQuery();
 
-  // const { data } = useGetAllTasksQuery();
-  // console.log(data);
+  const todo = isSuccess
+    ? taskData.filter((item) => item.status === "Start")
+    : [];
 
   return (
     <>
