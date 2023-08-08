@@ -5,7 +5,14 @@ const userApi = apiSlice.injectEndpoints({
     getAllTags: builder.query({
       query: () => `/tags`,
     }),
+    createTags: builder.mutation({
+      query: (data) => ({
+        url: "/tags",
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllTagsQuery } = userApi;
+export const { useGetAllTagsQuery, useCreateTagsMutation } = userApi;

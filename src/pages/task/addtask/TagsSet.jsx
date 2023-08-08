@@ -5,7 +5,10 @@ import { CgMenuMotion } from "react-icons/cg";
 import backgroundColorArray from "../../../data/backgroundColor";
 import { useDispatch, useSelector } from "react-redux";
 import { addTag, removeTag } from "../../../services/task/createTaskSlice";
-import { useGetAllTagsQuery } from "../../../services/user/userApi";
+import {
+  useCreateTagsMutation,
+  useGetAllTagsQuery,
+} from "../../../services/user/userApi";
 
 const TagsSet = () => {
   // To control the open/close state of the dropdown
@@ -15,18 +18,19 @@ const TagsSet = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data, isSuccess } = useGetAllTagsQuery();
+  const [createTag] = useCreateTagsMutation();
 
   const selectTag = useSelector((state) => state.createTask.tags);
 
-  const [filteredData, setFilteredData] = useState(selectTag);
+  const [filteredData, setFilteredData] = useState(data?.tags);
 
   const tagList = searchQuery ? filteredData : isSuccess && data.tags;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+    setFilteredData(data?.tags);
+  }, [data?.tags]);
 
   const dropdownRef = useRef(null);
 
@@ -45,7 +49,6 @@ const TagsSet = () => {
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
     return () => {
-      // Cleanup the event listener when the component is unmounted
       document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
@@ -57,18 +60,19 @@ const TagsSet = () => {
   };
 
   useEffect(() => {
+    // Function to filter data based on the search query
+    const filterData = (query) => {
+      const filtered = isSuccess
+        ? data.tags?.filter((item) =>
+            item.name.toLowerCase().includes(query.toLowerCase())
+          )
+        : [];
+      setFilteredData(filtered);
+    };
     filterData(searchQuery);
   }, [searchQuery]);
 
   // Function to filter data based on the search query
-  const filterData = (query) => {
-    const filtered = isSuccess
-      ? data.tags?.filter((item) =>
-          item.name.toLowerCase().includes(query.toLowerCase())
-        )
-      : [];
-    setFilteredData(filtered);
-  };
 
   // Function to handle selecting a status option
   const selectTags = (id) => {
@@ -81,7 +85,7 @@ const TagsSet = () => {
 
   // Function to remove the selected status
   const removeSelectTag = (id, event) => {
-    event.stopPropagation(); // Stop the event from propagating to the parent container
+    event.stopPropagation();
     dispatch(removeTag(id));
   };
 
@@ -90,14 +94,14 @@ const TagsSet = () => {
       Math.round(Math.random() * backgroundColorArray.length - 1)
     ];
 
-  const createTags = (e) => {
+  const createTags = async (e) => {
     e.stopPropagation();
     const newTag = {
       id: Math.random() * 50,
       name: searchQuery,
       color: bgColor,
     };
-    // setInitialTags((prv) => [...prv, newTag]);
+    await createTag({ name: searchQuery, color: bgColor });
     dispatch(addTag(newTag));
     setSearchQuery("");
   };
