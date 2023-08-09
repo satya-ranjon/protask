@@ -141,7 +141,7 @@ const TagsSet = () => {
         </div>
         {/* Dropdown menu */}
         {isOpen && (
-          <div className="absolute w-full max-w-[800px] top-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2">
+          <div className="absolute w-full max-w-[800px] z-50 top-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2">
             <div className="flex w-full bg-gray-200 p-1 z-50 flex-wrap">
               {/* Display the selected status (if any) with a close button */}
               {selectTag?.length > 0 &&

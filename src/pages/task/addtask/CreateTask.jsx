@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import TitleInput from "./TitleInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
-import BlockNoteView from "./BlockNoteView";
+import DocumentAdd from "./DocumentAdd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetCreateTaskState } from "../../../services/task/createTaskSlice";
@@ -81,8 +81,12 @@ const CreateTask = () => {
 
       <hr className="my-4" />
 
-      {/* BlockNoteView for entering task notes */}
-      <BlockNoteView />
+      {/* DocumentAdd for entering task notes */}
+      {taskId ? (
+        taskDetails.description?.length > 0 && <DocumentAdd />
+      ) : (
+        <DocumentAdd />
+      )}
     </div>
   );
 };

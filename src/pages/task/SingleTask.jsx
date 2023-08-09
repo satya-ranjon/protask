@@ -10,7 +10,7 @@ const SingleTask = ({ task }) => {
   const { name, tags, description, createdAt, assignedUsers, user } =
     task || {};
 
-  console.log(task);
+  // console.log(description[0]);
   // Tags
   const Tags =
     tags?.length > 0 &&
@@ -30,8 +30,8 @@ const SingleTask = ({ task }) => {
             {name}
           </h1>
           <p className=" text-sm  pt-2 pb-4 text-dark-light">
-            {description?.slice(0, 200)}
-            {description?.length > 200 && "....."}
+            {/* {description[0]?.slice(0, 100)} */}
+            {/* {description?.length > 200 && "....."} */}
           </p>
         </div>
         <TaskStatus />

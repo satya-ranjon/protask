@@ -1,20 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-/**
- *  
-        "name": "",
-        "description": "",
-        "tags": [],
-        "assignedUsers": [],
-        "status": "start",
-        "_id": "64d256494cc3992b460fafde",
-        "createdAt": "2023-08-08T14:50:49.629Z",
-        "updatedAt": "2023-08-08T14:50:49.629Z",
- */
 const initialState = {
   id: "",
   name: "",
-  description: "",
+  description: null,
   status: "",
   createdAt: "",
   updatedAt: "",

@@ -8,6 +8,7 @@ const taskApi = apiSlice.injectEndpoints({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+          console.log("data", data);
           dispatch(updateTask(data));
         } catch {}
       },

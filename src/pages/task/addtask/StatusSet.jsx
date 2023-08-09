@@ -95,7 +95,7 @@ const StatusSet = () => {
         </div>
         {/* Dropdown menu */}
         {isOpen && (
-          <div className="absolute w-full top-0 left-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2 z-50">
+          <div className="absolute w-full  top-0 left-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2 z-[9999]">
             <div className="flex w-full bg-gray-200 p-1">
               {/* Display the selected status (if any) with a close button */}
               {status && (
@@ -124,7 +124,7 @@ const StatusSet = () => {
               Select an option from the Status
             </p>
             {/* Status options */}
-            <div className="flex flex-col gap-2 mt-2">
+            <div className="flex flex-col gap-2 mt-2 ">
               {filteredData?.map((item) => (
                 <div
                   className="cursor-pointer"
