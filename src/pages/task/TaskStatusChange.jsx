@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { RxDotFilled } from "react-icons/rx";
+import { AiFillDelete } from "react-icons/ai";
 import taskStatus from "../../data/taskStatus";
-import { useUpdateTaskMutation } from "../../services/task/taskApi";
+import {
+  useDeleteTaskMutation,
+  useUpdateTaskMutation,
+} from "../../services/task/taskApi";
+import { useDeleteTagMutation } from "../../services/user/userApi";
 
 const TaskStatusChange = ({ id, status }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +33,14 @@ const TaskStatusChange = ({ id, status }) => {
   }, []);
 
   const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const handleUpdate = (value) => {
     updateTask({ data: { status: value }, taskId: id });
+  };
+
+  const handleDelete = () => {
+    deleteTask(id);
   };
 
   return (
@@ -52,6 +62,12 @@ const TaskStatusChange = ({ id, status }) => {
                 <span>{item}</span> <TiTick />
               </li>
             ))}
+            <li
+              className={` text-red-400  cursor-pointer hover:text-primary duration-200 transition-colors  px-4 py-2 w-full flex justify-start  items-center gap-3`}
+              onClick={handleDelete}>
+              <AiFillDelete className="text-sm" />
+              <span className="text-xs font-semibold">Delete</span>
+            </li>
           </ul>
         </div>
       )}
