@@ -14,8 +14,6 @@ import {
 
 const CreateTask = () => {
   const taskDetails = useSelector((state) => state.createTask);
-  console.log("taskDetails", taskDetails);
-  console.log("taskDetails description", taskDetails.description?.length);
 
   // Get current pathname and navigation function from React Router
   const { taskId } = useParams();

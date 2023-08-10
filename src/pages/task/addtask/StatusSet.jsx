@@ -4,8 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStatus } from "../../../services/task/createTaskSlice";
 import selectStatusBgColor from "../../../utils/selectStatusBgColor";
-
-const initialStatus = ["Start", "In Process", "On Hold", "Done"];
+import taskStatus from "../../../data/taskStatus";
 
 const StatusSet = () => {
   // To control the open/close state of the dropdown
@@ -14,7 +13,7 @@ const StatusSet = () => {
   // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
   // To store the filtered status options
-  const [filteredData, setFilteredData] = useState(initialStatus);
+  const [filteredData, setFilteredData] = useState(taskStatus);
 
   const status = useSelector((state) => state.createTask.status);
 
@@ -50,7 +49,7 @@ const StatusSet = () => {
 
   // Function to filter data based on the search query
   const filterData = (query) => {
-    const filtered = initialStatus.filter((item) =>
+    const filtered = taskStatus.filter((item) =>
       item.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);

@@ -9,7 +9,6 @@ const taskApi = apiSlice.injectEndpoints({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("data", data);
           dispatch(updateTask(data));
         } catch {}
       },
@@ -27,7 +26,20 @@ const taskApi = apiSlice.injectEndpoints({
           const {
             data: { task },
           } = await queryFulfilled;
+
+          // update creteTask slice data
           dispatch(updateTask(task));
+
+          // update getAllTasks cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAllTasks",
+              undefined,
+              (taskData) => {
+                taskData.push(task);
+              }
+            )
+          );
         } catch {}
       },
     }),
@@ -37,6 +49,29 @@ const taskApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          // update getAllTasks cache
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAllTasks",
+              undefined,
+              (taskData) => {
+                const findTaskData = taskData.find(
+                  (item) => item._id === data._id
+                );
+                findTaskData.name = data.name;
+                findTaskData.description = data.description;
+                findTaskData.tags = data.tags;
+                findTaskData.assignedUsers = data.assignedUsers;
+                findTaskData.status = data.status;
+              }
+            )
+          );
+        } catch {}
+      },
     }),
   }),
 });

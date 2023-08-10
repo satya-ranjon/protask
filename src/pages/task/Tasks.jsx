@@ -37,6 +37,18 @@ const Tasks = () => {
     ? taskData.filter((item) => item.status === "Start")
     : [];
 
+  const inProcess = isSuccess
+    ? taskData.filter((item) => item.status === "In Process")
+    : [];
+
+  const onHold = isSuccess
+    ? taskData.filter((item) => item.status === "On Hold")
+    : [];
+
+  const done = isSuccess
+    ? taskData.filter((item) => item.status === "Done")
+    : [];
+
   return (
     <>
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10  flex justify-between items-start">
@@ -63,27 +75,24 @@ const Tasks = () => {
             <SingleTask key={task._id} task={task} />
           ))}
         </TaskGroup>
-        {/* <TaskGroup title="In Progress" taskCount="5">
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
+
+        <TaskGroup title="In Process" taskCount={inProcess.length}>
+          {inProcess.map((task) => (
+            <SingleTask key={task._id} task={task} />
+          ))}
         </TaskGroup>
-        <TaskGroup title="On Hold" taskCount="5">
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
+
+        <TaskGroup title="On Hold" taskCount={onHold.length}>
+          {onHold.map((task) => (
+            <SingleTask key={task._id} task={task} />
+          ))}
         </TaskGroup>
-        <TaskGroup title="Done" taskCount="5">
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-          <SingleTask />
-        </TaskGroup> */}
+
+        <TaskGroup title="Done" taskCount={done.length}>
+          {done.map((task) => (
+            <SingleTask key={task._id} task={task} />
+          ))}
+        </TaskGroup>
       </div>
       <Modal
         cls="top-[10%]"

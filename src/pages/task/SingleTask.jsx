@@ -8,16 +8,23 @@ const SingleTask = ({ task }) => {
   if (!task) {
     return;
   }
-  const { _id, name, tags, description, createdAt, assignedUsers, user } =
-    task || {};
+  const {
+    _id,
+    name,
+    tags,
+    description,
+    createdAt,
+    assignedUsers,
+    user,
+    status,
+  } = task || {};
 
-  // console.log(description);
   // Tags
   const Tags =
     tags?.length > 0 &&
     tags?.map((item) => (
       <span
-        className=" bg-slate-100 text-xs font-normal text-dark-light p-2 px-3 mr-2"
+        className={` bg-gray-100 text-xs font-normal mb-1 text-dark-light p-2 px-3 mr-2`}
         key={item.id}>
         {item.name}
       </span>
@@ -28,24 +35,26 @@ const SingleTask = ({ task }) => {
   };
 
   return (
-    <div
-      onClick={handleNavigate}
-      className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
+    <div className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
       <div className=" flex justify-between items-start">
         <div>
-          <h1 className=" font-semibold text-dark text-xl  singleTaskTitle">
+          <h1
+            onClick={handleNavigate}
+            className=" font-semibold text-dark text-xl mb-2 singleTaskTitle">
             {name}
           </h1>
-          <p className=" text-sm  pt-2 pb-4 text-dark-light">
-            {/* {description[0]?.slice(0, 100)} */}
-            {/* {description?.length > 200 && "....."} */}
-          </p>
+          {/* <p className=" text-sm  pt-2 pb-4 text-dark-light">
+            {description[0]?.slice(0, 100)}
+            {description?.length > 200 && "....."}
+          </p> */}
         </div>
-        <TaskStatus />
+        <TaskStatus status={status} id={_id} />
+      </div>
+      <div className=" flex flex-wrap" onClick={handleNavigate}>
+        {Tags}
       </div>
 
-      {Tags}
-      <div className="flex justify-between w-full items-center py-4">
+      <div className="flex justify-between w-full items-center ">
         <p className=" text-dark-light text-base font-medium">
           {convertISOToCustomFormat(createdAt)}
         </p>
