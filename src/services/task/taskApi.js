@@ -5,6 +5,7 @@ const taskApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTask: builder.query({
       query: (taskId) => `/task/${taskId}`,
+      keepUnusedDataFor: 0,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;

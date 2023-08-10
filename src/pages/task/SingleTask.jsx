@@ -2,15 +2,16 @@ import React from "react";
 import TaskStatus from "./TaskStatus";
 import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import AvatarGroup from "./AvatarGroup";
+import { useNavigate } from "react-router-dom";
 
 const SingleTask = ({ task }) => {
   if (!task) {
     return;
   }
-  const { name, tags, description, createdAt, assignedUsers, user } =
+  const { _id, name, tags, description, createdAt, assignedUsers, user } =
     task || {};
 
-  // console.log(description[0]);
+  // console.log(description);
   // Tags
   const Tags =
     tags?.length > 0 &&
@@ -21,9 +22,15 @@ const SingleTask = ({ task }) => {
         {item.name}
       </span>
     ));
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/task/${_id}`);
+  };
 
   return (
-    <div className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
+    <div
+      onClick={handleNavigate}
+      className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
       <div className=" flex justify-between items-start">
         <div>
           <h1 className=" font-semibold text-dark text-xl  singleTaskTitle">
