@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SingleTask from "./SingleTask";
 import TaskGroup from "./TaskGroup";
 import AddTaskBtn from "./AddTaskBtn";
-import tasks from "../../data/tasks";
 import { useGetAllTasksQuery } from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
 import { useNavigate, useParams } from "react-router-dom";

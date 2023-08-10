@@ -4,7 +4,7 @@ import { RxDotFilled } from "react-icons/rx";
 import taskStatus from "../../data/taskStatus";
 import { useUpdateTaskMutation } from "../../services/task/taskApi";
 
-const TaskStatus = ({ id, status }) => {
+const TaskStatusChange = ({ id, status }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleTask = () => {
     setIsOpen((prv) => !prv);
@@ -59,4 +59,4 @@ const TaskStatus = ({ id, status }) => {
   );
 };
 
-export default TaskStatus;
+export default TaskStatusChange;

@@ -1,5 +1,5 @@
 import React from "react";
-import TaskStatus from "./TaskStatus";
+import TaskStatus from "./TaskStatusChange";
 import TaskSelector from "./TaskSelector";
 
 const TaskGroup = ({ title, taskCount, children }) => {
@@ -14,7 +14,7 @@ const TaskGroup = ({ title, taskCount, children }) => {
         <TaskStatus />
       </div>
       <div
-        className=" lg:max-h-[45.3rem] 2xl:max-h-[40.7rem] overflow-scroll overflow-x-hidden
+        className=" lg:h-[45.3rem] 2xl:h-[40.7rem] overflow-scroll overflow-x-hidden
       scroll-m-1 w-full task">
         {children}
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import TaskStatus from "./TaskStatus";
+import TaskStatusChange from "./TaskStatusChange";
 import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import AvatarGroup from "./AvatarGroup";
 import { useNavigate } from "react-router-dom";
@@ -48,13 +48,15 @@ const SingleTask = ({ task }) => {
             {description?.length > 200 && "....."}
           </p> */}
         </div>
-        <TaskStatus status={status} id={_id} />
+        <TaskStatusChange status={status} id={_id} />
       </div>
       <div className=" flex flex-wrap" onClick={handleNavigate}>
         {Tags}
       </div>
 
-      <div className="flex justify-between w-full items-center ">
+      <div
+        className="flex justify-between w-full items-center "
+        onClick={handleNavigate}>
         <p className=" text-dark-light text-base font-medium">
           {convertISOToCustomFormat(createdAt)}
         </p>

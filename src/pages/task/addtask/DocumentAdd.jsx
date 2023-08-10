@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateDocument } from "../../../services/task/createTaskSlice";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
+import "@blocknote/core/style.css";
 
 const DocumentAdd = () => {
   const dispatch = useDispatch();

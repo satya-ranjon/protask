@@ -11,6 +11,7 @@ import {
   useGetTaskQuery,
   useUpdateTaskMutation,
 } from "../../../services/task/taskApi";
+import CreatedDate from "./CreatedDate";
 
 const CreateTask = () => {
   const taskDetails = useSelector((state) => state.createTask);
@@ -74,6 +75,8 @@ const CreateTask = () => {
 
       {/* Input fields for task creation */}
       <TitleInput />
+
+      <CreatedDate date={taskDetails.createdAt} />
 
       <StatusSet />
 
