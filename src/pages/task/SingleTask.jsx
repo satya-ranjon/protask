@@ -5,62 +5,54 @@ import AvatarGroup from "./AvatarGroup";
 import { useNavigate } from "react-router-dom";
 
 const SingleTask = ({ task }) => {
+  // Destructure task properties
   if (!task) {
-    return;
+    return null; // Return null if no task is provided
   }
-  const {
-    _id,
-    name,
-    tags,
-    description,
-    createdAt,
-    assignedUsers,
-    user,
-    status,
-  } = task || {};
+  const { _id, name, tags, createdAt, assignedUsers, user, status } = task;
 
-  // Tags
+  // Tags: Render tags if they exist
   const Tags =
     tags?.length > 0 &&
     tags?.map((item) => (
       <span
-        className={` bg-gray-100 text-xs font-normal mb-1 text-dark-light p-2 px-3 mr-2`}
+        className={`bg-gray-100 text-xs font-normal mb-1 text-dark-light p-2 px-3 mr-2`}
         key={item.id}>
         {item.name}
       </span>
     ));
+
+  // Use the react-router-dom hook for navigation
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/task/${_id}`);
+    navigate(`/task/${_id}`); // Navigate to the task details page when clicked
   };
 
   return (
-    <div className="py-3 px-4 cursor-pointer border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
-      <div className=" flex justify-between items-start">
+    <div className="py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
+      <div className="flex justify-between items-start">
         <div>
+          {/* Task title: Make the title clickable */}
           <h1
             onClick={handleNavigate}
-            className=" font-semibold text-dark text-xl mb-2 singleTaskTitle">
+            className="font-semibold cursor-pointer text-dark text-xl mb-2 singleTaskTitle">
             {name}
           </h1>
-          {/* <p className=" text-sm  pt-2 pb-4 text-dark-light">
-            {description[0]?.slice(0, 100)}
-            {description?.length > 200 && "....."}
-          </p> */}
         </div>
+        {/* Task status change component */}
         <TaskStatusChange status={status} id={_id} />
       </div>
-      <div className=" flex flex-wrap" onClick={handleNavigate}>
-        {Tags}
+      <div className="cursor-pointer flex flex-wrap" onClick={handleNavigate}>
+        {Tags} {/* Display tags */}
       </div>
-
       <div
-        className="flex justify-between w-full items-center "
+        className="flex justify-between w-full items-center cursor-pointer"
         onClick={handleNavigate}>
-        <p className=" text-dark-light text-base font-medium">
+        {/* Display task creation date */}
+        <p className="text-dark-light text-base font-medium">
           {convertISOToCustomFormat(createdAt)}
         </p>
-        {/* <AvatarGroup /> */}
+        {/* Display the avatar group */}
         <AvatarGroup avatar={[user, ...assignedUsers]} />
       </div>
     </div>

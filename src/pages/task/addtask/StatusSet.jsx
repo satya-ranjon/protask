@@ -1,68 +1,54 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStatus } from "../../../services/task/createTaskSlice";
+import { updateStatus } from "../../../services/task/taskSlice";
 import selectStatusBgColor from "../../../utils/selectStatusBgColor";
 import taskStatus from "../../../data/taskStatus";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 const StatusSet = () => {
-  // To control the open/close state of the dropdown
+  // State
   const [isOpen, setIsOpen] = useState(false);
-
-  // To hold the search query entered by the user
   const [searchQuery, setSearchQuery] = useState("");
-  // To store the filtered status options
-  const [filteredData, setFilteredData] = useState(taskStatus);
+  const [filteredStatusOptions, setFilteredStatusOptions] =
+    useState(taskStatus);
 
-  const status = useSelector((state) => state.createTask.status);
-
-  const dropdownRef = useRef(null);
+  // Redux
+  const status = useSelector((state) => state.taskSlice.task.status);
   const dispatch = useDispatch();
 
-  // Function to handle opening/closing of the dropdown
-  const handleIsOpen = () => {
+  // Ref for the dropdown
+  const dropdownRef = useRef(null);
+
+  // Toggle the dropdown
+  const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
-  // Function to handle clicks outside the dropdown
-  const handleOutsideClick = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-    return () => {
-      // Cleanup the event listener when the component is unmounted
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
-  // Function to handle search input changes
-  const handleSearchInputChange = (e) => {
-    const { value } = e.target;
-    setSearchQuery(value);
-    filterData(value);
-  };
-
-  // Function to filter data based on the search query
-  const filterData = (query) => {
-    const filtered = taskStatus.filter((item) =>
-      item.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
-
-  // Function to handle selecting a status option
-  const selectStatus = (status) => {
-    dispatch(updateStatus(status));
-    // Close the dropdown
+  // Handle clicks outside the dropdown
+  useOutsideClick(dropdownRef, () => {
     setIsOpen(false);
+  });
+
+  // Handle search input changes and filter the status options
+  useEffect(() => {
+    const filterData = () => {
+      const filtered = taskStatus.filter((item) =>
+        item.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredStatusOptions(filtered);
+    };
+    filterData();
+  }, [searchQuery]);
+
+  // Handle selecting a status option
+  const selectStatusOption = (selectedStatus) => {
+    dispatch(updateStatus(selectedStatus));
+    setIsOpen(false); // Close the dropdown
   };
 
-  // Function to remove the selected status
+  // Handle removing the selected status
   const removeStatus = (e) => {
     e.stopPropagation();
     dispatch(updateStatus(""));
@@ -78,8 +64,8 @@ const StatusSet = () => {
         <span>Status</span>
       </div>
       {/* Dropdown content */}
-      <div className="w-[75%]  hover:bg-gray-100 p-2 duration-300 transition-colors relative">
-        <div className="w-full cursor-pointer" onClick={handleIsOpen}>
+      <div className="w-[75%] hover:bg-gray-100 p-2 duration-300 transition-colors relative">
+        <div className="w-full cursor-pointer" onClick={toggleDropdown}>
           {/* Display the selected status or "Empty" */}
           {status ? (
             <span
@@ -94,7 +80,7 @@ const StatusSet = () => {
         </div>
         {/* Dropdown menu */}
         {isOpen && (
-          <div className="absolute w-full  top-0 left-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2 z-[9999]">
+          <div className="absolute w-full top-0 left-0 bg-white shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] p-2 z-[9999]">
             <div className="flex w-full bg-gray-200 p-1">
               {/* Display the selected status (if any) with a close button */}
               {status && (
@@ -115,7 +101,7 @@ const StatusSet = () => {
                 name="search"
                 placeholder="Search"
                 className="bg-transparent w-full p-1 outline-none"
-                onChange={handleSearchInputChange}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 value={searchQuery}
               />
             </div>
@@ -123,12 +109,12 @@ const StatusSet = () => {
               Select an option from the Status
             </p>
             {/* Status options */}
-            <div className="flex flex-col gap-2 mt-2 ">
-              {filteredData?.map((item) => (
+            <div className="flex flex-col gap-2 mt-2">
+              {filteredStatusOptions?.map((item) => (
                 <div
                   className="cursor-pointer"
                   key={item}
-                  onClick={() => selectStatus(item)}>
+                  onClick={() => selectStatusOption(item)}>
                   <span
                     className={`p-1 px-3 text-dark ${selectStatusBgColor(
                       item

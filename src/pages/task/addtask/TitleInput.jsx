@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTitle } from "../../../services/task/createTaskSlice";
+import { updateTitle } from "../../../services/task/taskSlice";
 
 const TitleInput = () => {
   // const [textareaValue, setTextareaValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
-  const textareaValue = useSelector((state) => state.createTask.name);
+  const textareaValue = useSelector((state) => state.taskSlice.task.name);
 
   // Ref to access the textarea DOM element
   const textareaRef = useRef(null);

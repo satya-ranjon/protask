@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import apiSlice from "../services/api/api";
 import authReducer from "../services/auth/authSlice";
-import createTaskReducer from "../services/task/createTaskSlice";
+import taskReducer from "../services/task/taskSlice";
 import authApi from "../services/auth/authApi";
 
 const store = configureStore({
@@ -9,7 +9,7 @@ const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
     auth: authReducer,
-    createTask: createTaskReducer,
+    taskSlice: taskReducer,
   },
   middleware: (defaultMiddleware) =>
     defaultMiddleware().concat(apiSlice.middleware, authApi.middleware),

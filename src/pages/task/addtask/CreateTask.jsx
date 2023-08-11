@@ -5,7 +5,7 @@ import TagsSet from "./TagsSet";
 import DocumentAdd from "./DocumentAdd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { resetCreateTaskState } from "../../../services/task/createTaskSlice";
+import { resetCreateTaskState } from "../../../services/task/taskSlice";
 import {
   useCreateTaskMutation,
   useGetTaskQuery,
@@ -14,28 +14,32 @@ import {
 import CreatedDate from "./CreatedDate";
 
 const CreateTask = () => {
-  const taskDetails = useSelector((state) => state.createTask);
+  const taskDetails = useSelector((state) => state.taskSlice.task);
 
-  // Get current pathname and navigation function from React Router
+  // Get the current pathname and navigation function from React Router
   const { taskId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Navigates back to the tasks list and resets create task state.
+  // Function to navigate back to the tasks list and reset create task state
   const backToTasks = () => {
     dispatch(resetCreateTaskState());
     navigate("/task");
   };
 
   const [createTask] = useCreateTaskMutation();
+
+  // Fetch task data if taskId is provided
   const { data } = useGetTaskQuery(taskId, {
     skip: taskId && !taskDetails.id ? false : true,
   });
 
   const [updateTask] = useUpdateTaskMutation();
 
+  // Automatically update the task when taskDetails change
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
+      // Update the task using the taskDetails
       updateTask({ data: taskDetails, taskId: taskId || taskDetails.id });
     }, 1000);
 
@@ -44,6 +48,7 @@ const CreateTask = () => {
     };
   }, [taskDetails]);
 
+  // Create a new task if taskId is not provided
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (!taskDetails.id && !taskId) {
@@ -75,14 +80,11 @@ const CreateTask = () => {
 
       {/* Input fields for task creation */}
       <TitleInput />
-
       <CreatedDate date={taskDetails.createdAt} />
-
       <StatusSet />
-
       <TagsSet />
-
       <hr className="my-4" />
+
       {/* DocumentAdd for entering task notes */}
       {taskId ? (
         taskDetails.description?.length > 0 && <DocumentAdd />

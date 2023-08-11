@@ -1,5 +1,5 @@
 import apiSlice from "../api/api";
-import { updateTask } from "./createTaskSlice";
+import { updateTask } from "./taskSlice";
 
 const taskApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -78,6 +78,7 @@ const taskApi = apiSlice.injectEndpoints({
         url: `/task/${id}`,
         method: "DELETE",
       }),
+      // Update GetAllTasks cache data
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         const updateTask = dispatch(
           apiSlice.util.updateQueryData("getAllTasks", undefined, (tasks) => {
