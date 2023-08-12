@@ -85,10 +85,9 @@ const TagsSet = () => {
       name: searchQuery,
       color: bgColor,
     };
-    createTag(newTag).then(() => {
-      dispatch(addTag(newTag));
-      setSearchQuery("");
-    });
+    createTag(newTag);
+    dispatch(addTag(newTag));
+    setSearchQuery("");
   };
 
   // Remove a tag from the database

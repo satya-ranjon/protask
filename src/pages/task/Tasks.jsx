@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCreateTaskState } from "../../services/task/taskSlice";
+import TaskSkelton from "../../components/skeleton/TaskSkelton";
 
 const Tasks = () => {
   // State and utility hooks
@@ -61,7 +62,9 @@ const Tasks = () => {
           .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
-  return (
+  return !isSuccess ? (
+    <TaskSkelton />
+  ) : (
     <>
       {/* Header */}
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10 flex justify-between items-start">

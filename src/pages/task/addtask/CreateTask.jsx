@@ -5,13 +5,18 @@ import TagsSet from "./TagsSet";
 import DocumentAdd from "./DocumentAdd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { resetCreateTaskState } from "../../../services/task/taskSlice";
+import {
+  resetCreateTaskState,
+  updateTask,
+} from "../../../services/task/taskSlice";
 import {
   useCreateTaskMutation,
+  useGetAllTasksQuery,
   useGetTaskQuery,
   useUpdateTaskMutation,
 } from "../../../services/task/taskApi";
 import CreatedDate from "./CreatedDate";
+import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
 
 const CreateTask = () => {
   const taskDetails = useSelector((state) => state.taskSlice.task);
@@ -30,17 +35,26 @@ const CreateTask = () => {
   const [createTask] = useCreateTaskMutation();
 
   // Fetch task data if taskId is provided
-  const { data } = useGetTaskQuery(taskId, {
+  const { data, isSuccess, isLoading } = useGetTaskQuery(taskId, {
     skip: taskId && !taskDetails.id ? false : true,
   });
 
-  const [updateTask] = useUpdateTaskMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(updateTask(data));
+    }
+  }, [isSuccess]);
+
+  const [updateTaskMutation] = useUpdateTaskMutation();
 
   // Automatically update the task when taskDetails change
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       // Update the task using the taskDetails
-      updateTask({ data: taskDetails, taskId: taskId || taskDetails.id });
+      updateTaskMutation({
+        data: taskDetails,
+        taskId: taskId || taskDetails.id,
+      });
     }, 1000);
 
     return () => {
@@ -52,7 +66,7 @@ const CreateTask = () => {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (!taskDetails.id && !taskId) {
-        await createTask();
+        createTask();
       }
     }, 500);
 
@@ -61,7 +75,9 @@ const CreateTask = () => {
     };
   }, []);
 
-  return (
+  return isLoading ? (
+    <CreateTaskSkelton />
+  ) : (
     <div className="p-8 pt-4">
       {/* Breadcrumb navigation */}
       {taskId && (

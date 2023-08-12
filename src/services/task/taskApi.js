@@ -5,13 +5,6 @@ const taskApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTask: builder.query({
       query: (taskId) => `/task/${taskId}`,
-      keepUnusedDataFor: 0,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(updateTask(data));
-        } catch {}
-      },
     }),
     getAllTasks: builder.query({
       query: () => `/task`,
@@ -49,10 +42,29 @@ const taskApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted({ data, taskId }, { dispatch, queryFulfilled }) {
+        dispatch(
+          apiSlice.util.updateQueryData(
+            "getAllTasks",
+            undefined,
+            (taskData) => {
+              const findTaskData = taskData.find((item) => item._id === taskId);
+              findTaskData.status = data.status;
+            }
+          )
+        );
         try {
           const { data } = await queryFulfilled;
-
+          // update getTask cache
+          dispatch(
+            apiSlice.util.updateQueryData("getTask", data._id, (taskData) => {
+              taskData.name = data.name;
+              taskData.status = data.status;
+              taskData.description = data.description;
+              taskData.tags = data.tags;
+              taskData.assignedUsers = data.assignedUsers;
+            })
+          );
           // update getAllTasks cache
           dispatch(
             apiSlice.util.updateQueryData(
@@ -60,13 +72,12 @@ const taskApi = apiSlice.injectEndpoints({
               undefined,
               (taskData) => {
                 const findTaskData = taskData.find(
-                  (item) => item._id === data._id
+                  (item) => item._id === taskId
                 );
                 findTaskData.name = data.name;
                 findTaskData.description = data.description;
                 findTaskData.tags = data.tags;
                 findTaskData.assignedUsers = data.assignedUsers;
-                findTaskData.status = data.status;
               }
             )
           );
@@ -80,7 +91,7 @@ const taskApi = apiSlice.injectEndpoints({
       }),
       // Update GetAllTasks cache data
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        const updateTask = dispatch(
+        const updateTaskCache = dispatch(
           apiSlice.util.updateQueryData("getAllTasks", undefined, (tasks) => {
             return tasks.filter((item) => item._id !== id);
           })
@@ -88,7 +99,7 @@ const taskApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
         } catch (error) {
-          updateTask.undo();
+          updateTaskCache.undo();
         }
       },
     }),
