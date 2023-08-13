@@ -43,16 +43,21 @@ const taskApi = apiSlice.injectEndpoints({
         body: data,
       }),
       async onQueryStarted({ data, taskId }, { dispatch, queryFulfilled }) {
-        dispatch(
-          apiSlice.util.updateQueryData(
-            "getAllTasks",
-            undefined,
-            (taskData) => {
-              const findTaskData = taskData.find((item) => item._id === taskId);
-              findTaskData.status = data.status;
-            }
-          )
-        );
+        if (data.status) {
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAllTasks",
+              undefined,
+              (taskData) => {
+                const findTaskData = taskData.find(
+                  (item) => item._id === taskId
+                );
+                findTaskData.status = data.status;
+              }
+            )
+          );
+        }
+
         try {
           const { data } = await queryFulfilled;
           // update getTask cache

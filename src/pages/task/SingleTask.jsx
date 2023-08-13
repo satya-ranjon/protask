@@ -1,7 +1,7 @@
 import React from "react";
 import TaskStatusChange from "./TaskStatusChange";
 import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
-import AvatarGroup from "./AvatarGroup";
+import AvatarGroup from "../../components/common/AvatarGroup";
 import { useNavigate } from "react-router-dom";
 
 const SingleTask = ({ task }) => {
@@ -28,6 +28,11 @@ const SingleTask = ({ task }) => {
     navigate(`/task/${_id}`); // Navigate to the task details page when clicked
   };
 
+  const avatarList = [
+    user?.avatar,
+    ...assignedUsers?.map((item) => item.avatar),
+  ];
+
   return (
     <div className="py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
       <div className="flex justify-between items-start">
@@ -53,7 +58,7 @@ const SingleTask = ({ task }) => {
           {convertISOToCustomFormat(createdAt)}
         </p>
         {/* Display the avatar group */}
-        <AvatarGroup avatar={[user, ...assignedUsers]} />
+        <AvatarGroup avatar={avatarList} />
       </div>
     </div>
   );

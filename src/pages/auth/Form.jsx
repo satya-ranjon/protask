@@ -48,12 +48,14 @@ const Form = () => {
             email: inputValue.email,
             password: inputValue.password,
           }).unwrap();
+          window.location.reload();
         } else {
           // Perform login using the login mutation
           await login({
             email: inputValue.email,
             password: inputValue.password,
           }).unwrap();
+          window.location.reload();
         }
       } catch (error) {
         // Handle API request errors and update the errors state

@@ -13,7 +13,7 @@ const apiSlice = createApi({
       return headers;
     },
   }),
-  keepUnusedDataFor: 3600,
+  keepUnusedDataFor: 60 * 60 * 2,
 
   endpoints: (builder) => ({}),
 });
