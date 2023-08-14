@@ -18,7 +18,7 @@ const Router = () => {
   ) : (
     <Routes>
       <Route path="/" element={<PrivateRoute />}>
-        <Route path="/task" element={<Tasks />} />
+        <Route path="/tasks" element={<Tasks />} />
         <Route path="/task/:taskId" element={<CreateTask />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/document" element={<Document />} />

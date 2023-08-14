@@ -112,7 +112,9 @@ const Form = () => {
         </InputField>
 
         {/* Submit button */}
-        <button className=" w-full bg-primary text-white p-2 rounded-md hover:opacity-90 duration-300 transition-opacity">
+        <button
+          disabled={isLoadingLogin || isLoadingRegister}
+          className=" w-full bg-primary text-white p-2 rounded-md hover:opacity-90 duration-300 transition-opacity">
           {isRegister
             ? isLoadingRegister
               ? "Registering..."

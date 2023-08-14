@@ -5,7 +5,7 @@ import { IoDocumentOutline } from "react-icons/io5";
 const menuItems = [
   { path: "/dashboard", icon: <AiOutlineDashboard /> },
   { path: "/event", icon: <AiOutlineCalendar /> },
-  { path: "/task", icon: <GoTasklist /> },
+  { path: "/tasks", icon: <GoTasklist /> },
   { path: "/document", icon: <IoDocumentOutline /> },
 ];
 
