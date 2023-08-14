@@ -9,6 +9,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import CreateTask from "../pages/task/addtask/CreateTask";
 import useAuthCheck from "../hooks/useAuthCheck";
+import NotFound from "../pages/notfound/NotFound";
 
 const Router = () => {
   const authenticationCheck = useAuthCheck();
@@ -28,7 +29,7 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
-      <Route path="*" element={<h1>Not Found This Page</h1>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

@@ -6,16 +6,20 @@ import useTitleSet from "../../hooks/useTitleSet";
 const Login = () => {
   useTitleSet("Login");
   return (
-    <div className=" container mx-auto font-roboto flex flex-col items-center justify-center h-screen w-full">
+    <div className=" container mx-auto font-roboto flex flex-col items-center justify-center h-screen w-full  select-none ">
       <div className=" flex justify-between gap-10 items-start relative ">
         <img
-          className="w-72 hidden sm:block absolute sm:-left-[80%]"
+          className="w-72 hidden sm:block absolute sm:-left-[80%] pointer-events-none"
           src={images.Registration}
           alt="login"
         />
         <div className="w-full">
           <h1 className="text-center flex gap-3 justify-center items-center text-primary text-4xl font-bold my-3">
-            <img className=" w-12" src={images.Logo} alt="" />
+            <img
+              className="pointer-events-none w-12"
+              src={images.Logo}
+              alt={images.Logo}
+            />
             Login
           </h1>
 

@@ -19,3 +19,7 @@
 .singleTask:hover .singleTaskTitle {
   color: #df5c43;
 }
+
+.notfound {
+  background-image: url(./assets/images/notfound.png);
+}
