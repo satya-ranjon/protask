@@ -11,12 +11,12 @@ import {
 } from "../../../services/task/taskSlice";
 import {
   useCreateTaskMutation,
-  useGetAllTasksQuery,
   useGetTaskQuery,
   useUpdateTaskMutation,
 } from "../../../services/task/taskApi";
 import CreatedDate from "./CreatedDate";
 import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
+import useTitleSet from "../../../hooks/useTitleSet";
 
 const CreateTask = () => {
   const taskDetails = useSelector((state) => state.taskSlice.task);
@@ -25,6 +25,7 @@ const CreateTask = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  useTitleSet("Create Task");
 
   // Function to navigate back to the tasks list and reset create task state
   const backToTasks = () => {

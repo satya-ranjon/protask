@@ -9,6 +9,7 @@ import CreateTask from "./addtask/CreateTask";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCreateTaskState } from "../../services/task/taskSlice";
 import TaskSkelton from "../../components/skeleton/TaskSkelton";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Tasks = () => {
   // State and utility hooks
@@ -16,7 +17,7 @@ const Tasks = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { taskId: taskIdParm } = useParams();
-
+  useTitleSet("Tasks");
   // Selector for task data and filter from Redux store
   const {
     task: { id: taskId },

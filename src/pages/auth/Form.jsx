@@ -59,7 +59,7 @@ const Form = () => {
         }
       } catch (error) {
         // Handle API request errors and update the errors state
-        setErrors({ ...errors, requestError: error.data.message });
+        setErrors({ ...errors, requestError: error.error });
       }
     }
   };

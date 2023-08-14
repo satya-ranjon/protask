@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { images } from "../../constants";
 import Form from "./Form";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Register = () => {
+  useTitleSet("Register");
   return (
     <div className=" container mx-auto font-roboto flex flex-col items-center justify-center h-screen w-full">
       <div className=" flex justify-between gap-10 items-start relative ">

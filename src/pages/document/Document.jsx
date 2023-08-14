@@ -1,12 +1,9 @@
-import CreateTaskSkelton from "../../components/skeleton/CreateTaskSkelton";
-import TaskSkelton from "../../components/skeleton/TaskSkelton";
+import { useEffect } from "react";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Document = () => {
-  return (
-    <div>
-      <CreateTaskSkelton />
-    </div>
-  );
+  useTitleSet("Document");
+  return <div></div>;
 };
 
 export default Document;
