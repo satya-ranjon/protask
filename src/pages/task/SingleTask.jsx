@@ -34,7 +34,7 @@ const SingleTask = ({ task }) => {
   ];
 
   return (
-    <div className="py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-[#f1f0ec] singleTask">
+    <div className="py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-hover singleTask">
       <div className="flex justify-between items-start">
         <div>
           {/* Task title: Make the title clickable */}

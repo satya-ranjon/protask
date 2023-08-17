@@ -43,6 +43,21 @@ const userApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    updateUserInfo: builder.mutation({
+      query: (data) => ({
+        url: "/postcss.config.jsuser/update-profile",
+        method: "PATCH",
+        body: data,
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: (data) => ({
+        url: "/user/update-password",
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +65,6 @@ export const {
   useGetAllTagsQuery,
   useCreateTagsMutation,
   useDeleteTagMutation,
+  useUpdateUserInfoMutation,
+  useChangePasswordMutation,
 } = userApi;

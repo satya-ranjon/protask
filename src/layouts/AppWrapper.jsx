@@ -27,7 +27,7 @@ const AppWrapper = ({ children }) => {
   return (
     <div ref={dropdownRef} className=" flex font-roboto">
       <SaidBar avatarClick={handleLogoutAndSettingBar} />
-      {isOpen && <LogoutAndSetting />}
+      {isOpen && <LogoutAndSetting setIsOpen={setIsOpen} />}
       <div className=" w-full mb-20 sm:mb-0 sm:ml-28">{children}</div>
     </div>
   );

@@ -2,9 +2,11 @@ import { RiSettings6Line } from "react-icons/ri";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../services/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const LogoutAndSetting = () => {
+const LogoutAndSetting = ({ setIsOpen }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   /**
    * Handles the logout action.
@@ -15,11 +17,18 @@ const LogoutAndSetting = () => {
     dispatch(userLogout());
   };
 
+  const handleNavigate = () => {
+    navigate("/setting");
+    setIsOpen(false);
+  };
+
   return (
-    <div className="logout-and-setting absolute  w-32 left-10 bottom-24 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+    <div className="logout-and-setting absolute  w-32 left-10 bottom-24 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] ">
       <ul className="w-full text-center">
         {/* Setting Option */}
-        <li className="hover:text-primary w-full px-4 text-sm border-b-2 border-transparent duration-300 transition-colors  py-2 cursor-pointer flex justify-start gap-3 items-center">
+        <li
+          className="hover:text-primary w-full px-4 text-sm border-b-2 border-transparent duration-300 transition-colors  py-2 cursor-pointer flex justify-start gap-3 items-center"
+          onClick={handleNavigate}>
           <RiSettings6Line /> Setting
         </li>
 

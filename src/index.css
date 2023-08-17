@@ -4,15 +4,15 @@
 @tailwind utilities;
 
 /* This will customize the vertical scrollbar */
-.task::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 5px;
 }
 
-.task::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #71706f;
 }
 
-.task::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background-color: #df5c43;
 }
 
