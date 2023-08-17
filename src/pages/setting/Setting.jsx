@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { BiUser } from "react-icons/bi";
 import { BsKey } from "react-icons/bs";
 import Item from "./Item";
 import ProfilePicture from "./ProfilePicture";
-import ChangeNameEmail from "./ChangeNameEmail";
 import ChangePassword from "./ChangePassword";
-import Message from "./Message";
+import ChangeName from "./ChangeName";
+import ChangeEmail from "./ChangeEmail";
 
 // Define menu items with icons
 const MENU_ITEMS = [
@@ -41,7 +40,12 @@ const Setting = () => {
         </div>
         <div className=" overflow-scroll overflow-x-hidden max-h-[880px]   w-[80%]">
           {/* Render the appropriate content based on the active modal */}
-          {activeModal.id === "Account" && <ChangeNameEmail />}
+          {activeModal.id === "Account" && (
+            <>
+              <ChangeName />
+              <ChangeEmail />
+            </>
+          )}
           {activeModal.id === "Change Password" && <ChangePassword />}
         </div>
       </div>

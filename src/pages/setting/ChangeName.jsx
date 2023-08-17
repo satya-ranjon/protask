@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUpdateUserInfoMutation } from "../../services/user/userApi";
-import { isValidEmail } from "../../utils/authInputValidator";
 import Message from "./Message";
 
-const ChangeNameEmail = () => {
-  const { email, name } = useSelector((state) => state.auth.user);
-  const [inputValue, setInputValue] = useState({ name, email });
+const ChangeName = () => {
+  const { name } = useSelector((state) => state.auth.user);
+  const [inputValue, setInputValue] = useState(name);
   const [showMessage, setShowMessage] = useState({
     type: "error",
     message: "",
   });
 
-  const [updateUserInfo, { isSuccess, isError, isLoading }] =
+  const [updateUserInfo, { isSuccess, isError, isLoading, error }] =
     useUpdateUserInfoMutation();
 
   const clearMessages = () => {
@@ -35,7 +34,9 @@ const ChangeNameEmail = () => {
     if (isError) {
       setShowMessage({
         type: "error",
-        message: "Error , Please check your credentials !",
+        message: error.data.message
+          ? error.data.message
+          : "Error , Please check your credentials !",
       });
       clearMessages();
     }
@@ -44,19 +45,7 @@ const ChangeNameEmail = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!isValidEmail(inputValue.email)) {
-      setShowMessage({
-        type: "error",
-        message: "Define Valid Email !",
-      });
-      clearMessages();
-    } else if (inputValue.email === email) {
-      setShowMessage({
-        type: "error",
-        message: "Email already exist !",
-      });
-      clearMessages();
-    } else if (!inputValue.name) {
+    if (!inputValue) {
       setShowMessage({
         type: "error",
         message: "Define Your Name !",
@@ -64,8 +53,7 @@ const ChangeNameEmail = () => {
       clearMessages();
     } else {
       updateUserInfo({
-        name: inputValue.name,
-        email: inputValue.email,
+        name: inputValue,
       });
     }
   };
@@ -80,35 +68,19 @@ const ChangeNameEmail = () => {
             Change Name
           </label>
           <input
-            value={inputValue.name}
-            onChange={(e) =>
-              setInputValue({ ...inputValue, name: e.target.value })
-            }
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             type="text"
             name="name"
             className=" outline-none border-2 p-2"
             placeholder="Change Your Name"
           />
         </div>
-        <div className="flex w-full flex-col mt-3">
-          <label htmlFor="" className=" text-xl my-2 font-semibold">
-            Change Email
-          </label>
-          <input
-            value={inputValue.email}
-            onChange={(e) =>
-              setInputValue({ ...inputValue, email: e.target.value })
-            }
-            type="text"
-            className=" outline-none border-2 p-2"
-            placeholder="Change Your Email"
-          />
-        </div>
         <div className=" w-full flex justify-end mt-4">
           <button
             disabled={isLoading}
             className=" text-lg bg-black text-white rounded-sm p-2 px-8">
-            {isLoading ? "Updating..." : "Update"}
+            {isLoading ? "Updating..." : "Update Name"}
           </button>
         </div>
       </form>
@@ -116,4 +88,4 @@ const ChangeNameEmail = () => {
   );
 };
 
-export default ChangeNameEmail;
+export default ChangeName;

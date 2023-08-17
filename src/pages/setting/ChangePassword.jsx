@@ -15,7 +15,7 @@ const ChangePassword = () => {
     message: "",
   });
 
-  const [changePassword, { isSuccess, isLoading, isError }] =
+  const [changePassword, { isSuccess, isLoading, isError, error }] =
     useChangePasswordMutation();
 
   const clearMessages = () => {
@@ -39,7 +39,9 @@ const ChangePassword = () => {
     if (isError) {
       setShowMessage({
         type: "error",
-        message: "Error , Please check your credentials !",
+        message: error.data.message
+          ? error.data.message
+          : "Error , Please check your credentials !",
       });
       clearMessages();
     }
