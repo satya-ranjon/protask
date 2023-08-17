@@ -51,6 +51,12 @@ const ChangeName = () => {
         message: "Define Your Name !",
       });
       clearMessages();
+    } else if (inputValue === name) {
+      setShowMessage({
+        type: "error",
+        message: "Already Update ",
+      });
+      clearMessages();
     } else {
       updateUserInfo({
         name: inputValue,
