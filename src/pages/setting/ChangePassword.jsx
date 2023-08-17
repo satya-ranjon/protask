@@ -9,9 +9,6 @@ const initialState = {
 };
 
 const ChangePassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
   const [inputValue, setInputValue] = useState(initialState);
   const [showMessage, setShowMessage] = useState({
     type: "error",
@@ -30,18 +27,12 @@ const ChangePassword = () => {
   useEffect(() => {
     // Handle success message display and timeout
     if (isSuccess) {
-      setNewPassword("");
-      setConfirmPassword("");
-      setOldPassword("");
       setShowMessage({
         type: "success",
         message: "Password change successfully",
       });
-      setTimeout(() => {
-        setShowMessage({
-          message: "",
-        });
-      }, 3000);
+      clearMessages();
+      setInputValue(initialState);
     }
 
     // Handle error message display and timeout
@@ -50,48 +41,41 @@ const ChangePassword = () => {
         type: "error",
         message: "Error , Please check your credentials !",
       });
-      setTimeout(() => {
-        setShowMessage({
-          message: "",
-        });
-      }, 3000);
+      clearMessages();
     }
   }, [isSuccess, isError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newPassword.length === 0) {
+    if (inputValue.newPassword.length === 0) {
       setShowMessage({
         type: "error",
         message: "Define New Password",
       });
-      setTimeout(() => {
-        setShowMessage({
-          message: "",
-        });
-      }, 3000);
-    } else if (newPassword !== confirmPassword) {
+      clearMessages();
+    } else if (inputValue.newPassword !== inputValue.confirmPassword) {
       setShowMessage({
         type: "error",
         message: "Password Not Match",
       });
-      setTimeout(() => {
-        setShowMessage({
-          message: "",
-        });
-      }, 3000);
-    } else if (newPassword.length < 6 || oldPassword.length < 6) {
+      clearMessages();
+    } else if (inputValue.newPassword.length < 6) {
       setShowMessage({
         type: "error",
         message: "Password More then 6 character",
       });
-      setTimeout(() => {
-        setShowMessage({
-          message: "",
-        });
-      }, 3000);
+      clearMessages();
+    } else if (!inputValue.oldPassword.length) {
+      setShowMessage({
+        type: "error",
+        message: "Define old password !",
+      });
+      clearMessages();
     } else {
-      changePassword({ newPassword: newPassword, oldPassword: oldPassword });
+      changePassword({
+        newPassword: inputValue.newPassword,
+        oldPassword: inputValue.oldPassword,
+      });
     }
   };
 
@@ -107,8 +91,10 @@ const ChangePassword = () => {
           </label>
           <input
             type="text"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            value={inputValue.newPassword}
+            onChange={(e) =>
+              setInputValue({ ...inputValue, newPassword: e.target.value })
+            }
             className=" outline-none border-2 p-2"
             placeholder=" New Password"
           />
@@ -118,8 +104,10 @@ const ChangePassword = () => {
             Confirm New Password
           </label>
           <input
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={inputValue.confirmPassword}
+            onChange={(e) =>
+              setInputValue({ ...inputValue, confirmPassword: e.target.value })
+            }
             type="text"
             className=" outline-none border-2 p-2"
             placeholder="Confirm New Password"
@@ -130,8 +118,10 @@ const ChangePassword = () => {
             Old Password
           </label>
           <input
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
+            value={inputValue.oldPassword}
+            onChange={(e) =>
+              setInputValue({ ...inputValue, oldPassword: e.target.value })
+            }
             type="text"
             className=" outline-none border-2 p-2"
             placeholder="Old Password"
