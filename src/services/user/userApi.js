@@ -1,4 +1,5 @@
 import apiSlice from "../api/api";
+import { userLogin } from "../auth/authSlice";
 
 const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -46,10 +47,26 @@ const userApi = apiSlice.injectEndpoints({
 
     updateUserInfo: builder.mutation({
       query: (data) => ({
-        url: "/postcss.config.jsuser/update-profile",
+        url: "/user/update-profile",
         method: "PATCH",
         body: data,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data._id) {
+            // update user Info
+            const existingData = JSON.parse(localStorage.getItem("auth"));
+            existingData.user = data;
+            localStorage.setItem("auth", JSON.stringify(existingData));
+            dispatch(
+              userLogin({
+                user: data,
+              })
+            );
+          }
+        } catch {}
+      },
     }),
     changePassword: builder.mutation({
       query: (data) => ({
