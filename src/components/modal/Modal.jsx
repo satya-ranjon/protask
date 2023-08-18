@@ -10,9 +10,13 @@ const Modal = ({ isOpen = false, onClose, children, cls, fullPage }) => {
       <div
         className={`absolute w-[90%]  lg:w-[60%] bg-white  p-1 border-gray-500  shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]  ${cls} `}>
         <div className=" flex justify-between">
-          <ButtonIcon onClick={fullPage} tooltipLeft="Open in full page">
-            <MdOpenInFull />
-          </ButtonIcon>
+          {fullPage ? (
+            <ButtonIcon onClick={fullPage} tooltipLeft="Open in full page">
+              <MdOpenInFull />
+            </ButtonIcon>
+          ) : (
+            <div className=""></div>
+          )}
           <ButtonIcon onClick={onClose} tooltipRight="Close">
             <AiOutlineClose />
           </ButtonIcon>

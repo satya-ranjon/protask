@@ -23,3 +23,7 @@
 .notfound {
   background-image: url(./assets/images/notfound.png);
 }
+
+.profile_imagContainer:hover .selectImage {
+  top: 0;
+}
