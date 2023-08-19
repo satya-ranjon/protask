@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { images } from "../../constants";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const NotFound = () => {
   const navigate = useNavigate();
+  useTitleSet("Not Found");
   return (
     <div
       className={`notfound text-dark bg-cover bg-no-repeat bg-center h-screen flex justify-center items-center text-center select-none`}>

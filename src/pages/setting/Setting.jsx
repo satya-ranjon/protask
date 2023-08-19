@@ -6,6 +6,7 @@ import ProfilePicture from "./ProfilePicture";
 import ChangePassword from "./ChangePassword";
 import ChangeName from "./ChangeName";
 import ChangeEmail from "./ChangeEmail";
+import useTitleSet from "../../hooks/useTitleSet";
 
 // Define menu items with icons
 const MENU_ITEMS = [
@@ -15,7 +16,7 @@ const MENU_ITEMS = [
 
 const Setting = () => {
   const [activeModal, setActiveModal] = useState({ id: "Account" });
-
+  useTitleSet("Settings");
   // Function to handle changing the active modal
   const handleActiveModal = (value) => {
     setActiveModal({ id: value });

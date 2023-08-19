@@ -2,7 +2,7 @@ import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { PiKeyholeDuotone } from "react-icons/pi";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   useLoginMutation,
   useRegisterMutation,

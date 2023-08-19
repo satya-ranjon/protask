@@ -23,7 +23,7 @@ const LogoutAndSetting = ({ setIsOpen }) => {
   };
 
   return (
-    <div className="logout-and-setting absolute  w-32 left-10 bottom-24 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] ">
+    <div className="logout-and-setting fixed w-32 left-10 bottom-24 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] ">
       <ul className="w-full text-center">
         {/* Setting Option */}
         <li

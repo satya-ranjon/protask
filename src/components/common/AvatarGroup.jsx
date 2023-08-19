@@ -22,6 +22,9 @@ const AvatarGroup = ({ avatar = [] }) => {
     // If there are more than one avatars, display the first two and a count for the rest
     const firstTwoAvatars = avatar.slice(0, 2);
 
+    // TODO
+    console.log("AvatarGroup");
+
     return (
       <div className="flex">
         {firstTwoAvatars.map((item) => renderSingleAvatar(item))}

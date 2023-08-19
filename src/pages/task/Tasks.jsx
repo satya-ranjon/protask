@@ -6,10 +6,11 @@ import { useGetAllTasksQuery } from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { resetCreateTaskState } from "../../services/task/taskSlice";
 import TaskSkelton from "../../components/skeleton/TaskSkelton";
 import useTitleSet from "../../hooks/useTitleSet";
+import { userLogout } from "../../services/auth/authSlice";
 
 const Tasks = () => {
   // State and utility hooks
@@ -43,7 +44,14 @@ const Tasks = () => {
   }, [taskIdParm, modalIsOpen]);
 
   // Fetch task data using query
-  const { data: taskData, isSuccess } = useGetAllTasksQuery();
+  const { data: taskData, isSuccess, isError, error } = useGetAllTasksQuery();
+
+  useEffect(() => {
+    if (error?.status === 404) {
+      dispatch(userLogout());
+      localStorage.removeItem("auth");
+    }
+  }, [isError]);
 
   // Helper function to get filtered and sorted tasks
   function getFilteredTasks(status, order) {

@@ -64,4 +64,4 @@ const SingleTask = ({ task }) => {
   );
 };
 
-export default SingleTask;
+export default React.memo(SingleTask);
