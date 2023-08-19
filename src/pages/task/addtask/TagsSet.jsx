@@ -11,6 +11,7 @@ import {
 } from "../../../services/user/userApi";
 import { v4 as uuidv4 } from "uuid";
 import useOutsideClick from "../../../hooks/useOutsideClick";
+import { selectTaskTags } from "../../../services/task/taskSelector";
 
 const TagsSet = () => {
   // State
@@ -19,7 +20,7 @@ const TagsSet = () => {
   const { data, isSuccess } = useGetAllTagsQuery();
   const [createTag] = useCreateTagsMutation();
   const [deleteTag] = useDeleteTagMutation();
-  const selectTag = useSelector((state) => state.taskSlice.task.tags);
+  const selectTag = useSelector(selectTaskTags);
   const [filteredData, setFilteredData] = useState(data?.tags);
 
   // Dispatch

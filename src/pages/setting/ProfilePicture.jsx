@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Modal from "../../components/modal/Modal";
+import { selectUserAvatar } from "../../services/auth/authSelector";
 
 const ProfilePicture = () => {
-  const { avatar } = useSelector((state) => state.auth.user);
+  const avatar = useSelector(selectUserAvatar);
   const [selectFile, setSelectFile] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const inputRef = useRef(null);

@@ -6,6 +6,7 @@ import { updateStatus } from "../../../services/task/taskSlice";
 import selectStatusBgColor from "../../../utils/selectStatusBgColor";
 import taskStatus from "../../../data/taskStatus";
 import useOutsideClick from "../../../hooks/useOutsideClick";
+import { selectTaskStatus } from "../../../services/task/taskSelector";
 
 const StatusSet = () => {
   // State
@@ -15,7 +16,7 @@ const StatusSet = () => {
     useState(taskStatus);
 
   // Redux
-  const status = useSelector((state) => state.taskSlice.task.status);
+  const status = useSelector(selectTaskStatus);
   const dispatch = useDispatch();
 
   // Ref for the dropdown

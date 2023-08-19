@@ -3,6 +3,7 @@ import { BsThreeDotsVertical, BsArrowUp } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilter } from "../../services/task/taskSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { selectTaskOrder } from "../../services/task/taskSelector";
 
 const FilterTasks = ({ title }) => {
   // State to control the dropdown's open/closed state
@@ -14,12 +15,7 @@ const FilterTasks = ({ title }) => {
   // Redux dispatch function
   const dispatch = useDispatch();
 
-  // Select the task filter order from Redux state
-  const taskFilterOrder = useSelector(
-    (state) =>
-      state.taskSlice.filter.find((item) => item.id === title)?.order ||
-      "oldest"
-  );
+  const taskFilterOrder = useSelector((state) => selectTaskOrder(state, title));
 
   // Function to toggle the dropdown open/closed state
   const toggleDropdown = () => {

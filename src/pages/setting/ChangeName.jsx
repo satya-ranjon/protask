@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUpdateUserInfoMutation } from "../../services/user/userApi";
 import Message from "./Message";
+import { selectUserName } from "../../services/auth/authSelector";
 
 const ChangeName = () => {
-  const { name } = useSelector((state) => state.auth.user);
+  const name = useSelector(selectUserName);
   const [inputValue, setInputValue] = useState(name);
   const [showMessage, setShowMessage] = useState({
     type: "error",

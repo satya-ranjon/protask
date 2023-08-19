@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { useUpdateUserInfoMutation } from "../../services/user/userApi";
 import { isValidEmail } from "../../utils/authInputValidator";
 import Message from "./Message";
+import { selectUserEmail } from "../../services/auth/authSelector";
 
 const ChangeEmail = () => {
-  const { email } = useSelector((state) => state.auth.user);
+  const email = useSelector(selectUserEmail);
   const [inputValue, setInputValue] = useState(email);
   const [showMessage, setShowMessage] = useState({
     type: "error",

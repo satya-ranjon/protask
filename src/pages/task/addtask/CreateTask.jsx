@@ -17,9 +17,10 @@ import {
 import CreatedDate from "./CreatedDate";
 import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
 import useTitleSet from "../../../hooks/useTitleSet";
+import { selectTask } from "../../../services/task/taskSelector";
 
 const CreateTask = () => {
-  const taskDetails = useSelector((state) => state.taskSlice.task);
+  const taskDetails = useSelector(selectTask);
 
   // Get the current pathname and navigation function from React Router
   const { taskId } = useParams();
