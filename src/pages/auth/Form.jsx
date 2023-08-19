@@ -2,7 +2,7 @@ import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { PiKeyholeDuotone } from "react-icons/pi";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useLoginMutation,
   useRegisterMutation,
@@ -59,7 +59,10 @@ const Form = () => {
         }
       } catch (error) {
         // Handle API request errors and update the errors state
-        setErrors({ ...errors, requestError: error.error });
+        setErrors({
+          ...errors,
+          requestError: error?.error || error?.data?.message,
+        });
       }
     }
   };
