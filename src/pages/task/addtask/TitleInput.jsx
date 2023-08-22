@@ -40,7 +40,8 @@ const TitleInput = () => {
   useEffect(() => {
     adjustHeight();
   }, [textareaValue]);
-
+  //TODO
+  console.log("%cTitleInput", "color:green");
   return (
     <textarea
       ref={textareaRef}
@@ -53,4 +54,4 @@ const TitleInput = () => {
   );
 };
 
-export default TitleInput;
+export default React.memo(TitleInput);

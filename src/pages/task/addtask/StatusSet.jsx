@@ -15,6 +15,9 @@ const StatusSet = () => {
   const [filteredStatusOptions, setFilteredStatusOptions] =
     useState(taskStatus);
 
+  //TODO
+  console.log("%cStatusSet", "color:white");
+
   // Redux
   const status = useSelector(selectTaskStatus);
   const dispatch = useDispatch();
@@ -132,4 +135,4 @@ const StatusSet = () => {
   );
 };
 
-export default StatusSet;
+export default React.memo(StatusSet);

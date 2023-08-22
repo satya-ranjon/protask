@@ -14,6 +14,9 @@ const TaskGroup = ({ title, taskCount, children }) => {
     return colorMap[id] || "border-gray-500";
   }
 
+  //TODO
+  console.log("%cTaskGroup = ", "color:yellow", title);
+
   return (
     <div>
       {/* Task group header */}

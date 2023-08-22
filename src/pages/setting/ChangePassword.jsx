@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 import { useChangePasswordMutation } from "../../services/user/userApi";
+import LoadingButton from "../../components/common/LoadingButton";
 
 const initialState = {
   newPassword: "",
@@ -124,17 +125,15 @@ const ChangePassword = () => {
             onChange={(e) =>
               setInputValue({ ...inputValue, oldPassword: e.target.value })
             }
-            type="text"
+            type="password"
             className=" outline-none border-2 p-2"
             placeholder="Old Password"
           />
         </div>
         <div className=" w-full flex justify-end mt-4">
-          <button
-            disabled={isLoading}
-            className=" text-lg  bg-black text-white rounded-sm p-2 px-8">
+          <LoadingButton isLoading={isLoading} disabled={isLoading}>
             {isLoading ? "Waiting.." : "Change Password"}
-          </button>
+          </LoadingButton>
         </div>
       </form>
     </>

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useUpdateUserInfoMutation } from "../../services/user/userApi";
 import Message from "./Message";
 import { selectUserName } from "../../services/auth/authSelector";
+import LoadingButton from "../../components/common/LoadingButton";
 
 const ChangeName = () => {
   const name = useSelector(selectUserName);
@@ -84,11 +85,9 @@ const ChangeName = () => {
           />
         </div>
         <div className=" w-full flex justify-end mt-4">
-          <button
-            disabled={isLoading}
-            className=" text-lg bg-black text-white rounded-sm p-2 px-8">
+          <LoadingButton isLoading={isLoading} disabled={isLoading}>
             {isLoading ? "Updating..." : "Update Name"}
-          </button>
+          </LoadingButton>
         </div>
       </form>
     </>

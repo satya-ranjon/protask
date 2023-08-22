@@ -1,6 +1,23 @@
 import apiSlice from "../api/api";
 import { userLogin } from "../auth/authSlice";
 
+const updateUserCaseDate = async (queryFulfilled, dispatch) => {
+  try {
+    const { data } = await queryFulfilled;
+    if (data._id) {
+      // update user Info
+      const existingData = JSON.parse(localStorage.getItem("auth"));
+      existingData.user = data;
+      localStorage.setItem("auth", JSON.stringify(existingData));
+      dispatch(
+        userLogin({
+          user: data,
+        })
+      );
+    }
+  } catch {}
+};
+
 const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllTags: builder.query({
@@ -52,20 +69,7 @@ const userApi = apiSlice.injectEndpoints({
         body: data,
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data._id) {
-            // update user Info
-            const existingData = JSON.parse(localStorage.getItem("auth"));
-            existingData.user = data;
-            localStorage.setItem("auth", JSON.stringify(existingData));
-            dispatch(
-              userLogin({
-                user: data,
-              })
-            );
-          }
-        } catch {}
+        await updateUserCaseDate(queryFulfilled, dispatch);
       },
     }),
     changePassword: builder.mutation({
@@ -74,6 +78,16 @@ const userApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+    }),
+    updateProfilePicture: builder.mutation({
+      query: (data) => ({
+        url: "/user/update-profile-picture",
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        await updateUserCaseDate(queryFulfilled, dispatch);
+      },
     }),
   }),
 });
@@ -84,4 +98,5 @@ export const {
   useDeleteTagMutation,
   useUpdateUserInfoMutation,
   useChangePasswordMutation,
+  useUpdateProfilePictureMutation,
 } = userApi;

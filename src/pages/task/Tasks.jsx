@@ -71,6 +71,9 @@ const Tasks = () => {
           .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
+  //TODO
+  console.log("%cTask", "color:red");
+
   return !isSuccess ? (
     <TaskSkelton />
   ) : (

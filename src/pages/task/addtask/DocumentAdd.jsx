@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDocument } from "../../../services/task/taskSlice";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
@@ -7,6 +8,9 @@ import { selectTaskDescription } from "../../../services/task/taskSelector";
 const DocumentAdd = () => {
   // Redux dispatch to update the document content
   const dispatch = useDispatch();
+
+  //TODO
+  console.log("%cDocumentAdd", "color:orange");
 
   // Get the current document description from the Redux store
   const description = useSelector(selectTaskDescription);
@@ -24,4 +28,4 @@ const DocumentAdd = () => {
   return <BlockNoteView editor={editor} />;
 };
 
-export default DocumentAdd;
+export default React.memo(DocumentAdd);

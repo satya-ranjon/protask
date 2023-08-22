@@ -23,7 +23,7 @@ const CreateTask = () => {
   const taskDetails = useSelector(selectTask);
 
   // Get the current pathname and navigation function from React Router
-  const { taskId } = useParams();
+  const { taskId: taskParmId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useTitleSet("Create Task");
@@ -36,9 +36,9 @@ const CreateTask = () => {
 
   const [createTask] = useCreateTaskMutation();
 
-  // Fetch task data if taskId is provided
-  const { data, isSuccess, isLoading } = useGetTaskQuery(taskId, {
-    skip: taskId && !taskDetails.id ? false : true,
+  // Fetch task data if taskParmId is provided
+  const { data, isSuccess, isLoading } = useGetTaskQuery(taskParmId, {
+    skip: taskParmId && !taskDetails.id ? false : true,
   });
 
   useEffect(() => {
@@ -53,9 +53,12 @@ const CreateTask = () => {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       // Update the task using the taskDetails
+      //TODO
+      console.log("update  Task request");
+
       updateTaskMutation({
         data: taskDetails,
-        taskId: taskId || taskDetails.id,
+        taskId: taskParmId || taskDetails.id,
       });
     }, 1000);
 
@@ -64,10 +67,11 @@ const CreateTask = () => {
     };
   }, [taskDetails]);
 
-  // Create a new task if taskId is not provided
+  // Create a new task if taskParmId is not provided
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
-      if (!taskDetails.id && !taskId) {
+      if (!taskDetails.id && !taskParmId) {
+        console.log("create Task request");
         createTask();
       }
     }, 500);
@@ -77,12 +81,15 @@ const CreateTask = () => {
     };
   }, []);
 
+  //TODO
+  console.log("%cCreateTask", "color:orange");
+
   return isLoading ? (
     <CreateTaskSkelton />
   ) : (
     <div className="p-8 pt-4">
       {/* Breadcrumb navigation */}
-      {taskId && (
+      {taskParmId && (
         <div className="text-dark-light flex justify-start gap-2 items-center">
           <span
             className="p-1 cursor-pointer hover:bg-gray-100"
@@ -104,7 +111,7 @@ const CreateTask = () => {
       <hr className="my-4" />
 
       {/* DocumentAdd for entering task notes */}
-      {taskId ? (
+      {taskParmId ? (
         taskDetails.description?.length > 0 && <DocumentAdd />
       ) : (
         <DocumentAdd />

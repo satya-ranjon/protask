@@ -23,6 +23,9 @@ const TagsSet = () => {
   const selectTag = useSelector(selectTaskTags);
   const [filteredData, setFilteredData] = useState(data?.tags);
 
+  //TODO
+  console.log("%cTagsSet", "color:pink");
+
   // Dispatch
   const dispatch = useDispatch();
 
@@ -188,4 +191,4 @@ const TagsSet = () => {
   );
 };
 
-export default TagsSet;
+export default React.memo(TagsSet);

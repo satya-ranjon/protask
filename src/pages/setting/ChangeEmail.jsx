@@ -4,6 +4,7 @@ import { useUpdateUserInfoMutation } from "../../services/user/userApi";
 import { isValidEmail } from "../../utils/authInputValidator";
 import Message from "./Message";
 import { selectUserEmail } from "../../services/auth/authSelector";
+import LoadingButton from "../../components/common/LoadingButton";
 
 const ChangeEmail = () => {
   const email = useSelector(selectUserEmail);
@@ -84,11 +85,9 @@ const ChangeEmail = () => {
           />
         </div>
         <div className=" w-full flex justify-end mt-4">
-          <button
-            disabled={isLoading}
-            className=" text-lg bg-black text-white rounded-sm p-2 px-8">
+          <LoadingButton isLoading={isLoading} disabled={isLoading}>
             {isLoading ? "Updating..." : "Update Email"}
-          </button>
+          </LoadingButton>
         </div>
       </form>
     </>
