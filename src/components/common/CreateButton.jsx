@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const AddTaskBtn = ({ ...argument }) => {
+const CreateButton = ({ children, ...argument }) => {
   const [isMobile, setIsMobile] = useState(768 > window.innerWidth);
 
   const handleResize = () => {
@@ -20,9 +20,9 @@ const AddTaskBtn = ({ ...argument }) => {
       {...argument}
       className="p-3 2xl:p-4 sm:px-5 2xl:px-8 rounded-full sm:rounded-none 
              font-medium bg-dark text-white text-2xl sm:text-sm 2xl:text-base">
-      {isMobile ? <AiOutlinePlus /> : "Create Task"}
+      {isMobile ? <AiOutlinePlus /> : children}
     </button>
   );
 };
 
-export default AddTaskBtn;
+export default CreateButton;

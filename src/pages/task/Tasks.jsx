@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import SingleTask from "./SingleTask";
 import TaskGroup from "./TaskGroup";
-import AddTaskBtn from "./AddTaskBtn";
 import { useGetAllTasksQuery } from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetCreateTaskState } from "../../services/task/taskSlice";
 import TaskSkelton from "../../components/skeleton/TaskSkelton";
 import useTitleSet from "../../hooks/useTitleSet";
 import { userLogout } from "../../services/auth/authSlice";
+import CreateButton from "../../components/common/CreateButton";
 
 const Tasks = () => {
   // State and utility hooks
@@ -90,7 +90,7 @@ const Tasks = () => {
         </div>
         {/* Add task button */}
         <div>
-          <AddTaskBtn onClick={handleModal} />
+          <CreateButton onClick={handleModal}>Create Task</CreateButton>
         </div>
       </div>
 
