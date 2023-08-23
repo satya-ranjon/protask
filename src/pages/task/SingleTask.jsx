@@ -29,8 +29,8 @@ const SingleTask = ({ task }) => {
   };
 
   const avatarList = [
-    user?.avatar,
-    ...assignedUsers?.map((item) => item.avatar),
+    user?.avatar["64"].url,
+    ...assignedUsers?.map((item) => item.avatar["64"].url),
   ];
 
   return (

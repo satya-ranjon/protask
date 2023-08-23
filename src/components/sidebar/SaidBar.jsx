@@ -2,8 +2,12 @@ import Avatar from "../common/Avatar";
 import MenuItem from "./MenuItem";
 import menuItems from "../../data/menu";
 import { images } from "../../constants";
+import { useSelector } from "react-redux";
+import { selectUserAvatar64 } from "../../services/auth/authSelector";
 
 const SaidBar = ({ avatarClick }) => {
+  const avatar = useSelector(selectUserAvatar64);
+
   return (
     <div className=" fixed bottom-0 w-full  left-0  sm:h-screen sm:block overflow-x-hidden sm:w-28 bg-white border-r-2 border-gray-100">
       <div className=" sm:flex sm:flex-col justify-between h-full items-center py-5">
@@ -17,13 +21,10 @@ const SaidBar = ({ avatarClick }) => {
             </MenuItem>
           ))}
 
-          <Avatar
-            cls="sm:hidden"
-            url={"http://source.unsplash.com/100x100/?woman"}
-          />
+          <Avatar cls="sm:hidden" url={avatar} />
         </div>
         <div className="hidden sm:block cursor-pointer" onClick={avatarClick}>
-          <Avatar url={"http://source.unsplash.com/100x100/?woman"} />
+          <Avatar url={avatar} />
         </div>
       </div>
     </div>
