@@ -1,4 +1,11 @@
-const AvatarGroup = ({ avatar = [] }) => {
+import { v4 as uuidv4 } from "uuid";
+
+const AvatarGroup = ({
+  avatar = [],
+  show = 2,
+  width = "w-8",
+  height = "h-8",
+}) => {
   // Render a single avatar
   const renderSingleAvatar = (avatarUrl) => {
     const url =
@@ -7,8 +14,8 @@ const AvatarGroup = ({ avatar = [] }) => {
 
     return (
       <img
-        key={avatarUrl}
-        className="w-8 h-8 rounded-full border-2 border-white"
+        key={uuidv4()}
+        className={`${height} ${width} rounded-full border-2 border-white`}
         src={url}
         alt={avatarUrl}
       />
@@ -20,14 +27,15 @@ const AvatarGroup = ({ avatar = [] }) => {
     return renderSingleAvatar(avatar[0]);
   } else {
     // If there are more than one avatars, display the first two and a count for the rest
-    const firstTwoAvatars = avatar.slice(0, 2);
+    const firstTwoAvatars = avatar.slice(0, show);
 
     return (
-      <div className="flex">
+      <div className="flex  -space-x-4 min-w-fit">
         {firstTwoAvatars.map((item) => renderSingleAvatar(item))}
         {/* Display a count of the remaining avatars */}
-        <span className="flex items-center justify-center font-semibold text-gray-600 text-xs w-8 h-8 rounded-full bg-gray-200 border-2 border-white -ml-3">
-          +{avatar.length - 2}
+        <span
+          className={`${height} ${width} flex items-center justify-center font-semibold text-gray-600 text-xs  rounded-full bg-gray-200 border-2 border-white -ml-3`}>
+          +{avatar.length - show}
         </span>
       </div>
     );
