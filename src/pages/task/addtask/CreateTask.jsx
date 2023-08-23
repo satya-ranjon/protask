@@ -53,9 +53,6 @@ const CreateTask = () => {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       // Update the task using the taskDetails
-      //TODO
-      console.log("update  Task request");
-
       updateTaskMutation({
         data: taskDetails,
         taskId: taskParmId || taskDetails.id,
@@ -80,9 +77,6 @@ const CreateTask = () => {
       clearTimeout(timeoutId);
     };
   }, []);
-
-  //TODO
-  console.log("%cCreateTask", "color:orange");
 
   return isLoading ? (
     <CreateTaskSkelton />

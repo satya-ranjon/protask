@@ -15,9 +15,6 @@ const StatusSet = () => {
   const [filteredStatusOptions, setFilteredStatusOptions] =
     useState(taskStatus);
 
-  //TODO
-  console.log("%cStatusSet", "color:white");
-
   // Redux
   const status = useSelector(selectTaskStatus);
   const dispatch = useDispatch();

@@ -23,9 +23,6 @@ const TagsSet = () => {
   const selectTag = useSelector(selectTaskTags);
   const [filteredData, setFilteredData] = useState(data?.tags);
 
-  //TODO
-  console.log("%cTagsSet", "color:pink");
-
   // Dispatch
   const dispatch = useDispatch();
 

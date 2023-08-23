@@ -9,9 +9,6 @@ const DocumentAdd = () => {
   // Redux dispatch to update the document content
   const dispatch = useDispatch();
 
-  //TODO
-  console.log("%cDocumentAdd", "color:orange");
-
   // Get the current document description from the Redux store
   const description = useSelector(selectTaskDescription);
 
