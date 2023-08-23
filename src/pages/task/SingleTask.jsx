@@ -41,7 +41,7 @@ const SingleTask = ({ task }) => {
           <h1
             onClick={handleNavigate}
             className="font-semibold cursor-pointer text-dark text-xl mb-2 singleTaskTitle">
-            {name}
+            {name ? name : <span className=" text-zinc-300">untitled</span>}
           </h1>
         </div>
         {/* Task status change component */}
