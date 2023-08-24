@@ -6,7 +6,7 @@ import { IoIosAdd } from "react-icons/io";
 import SingleActivate from "./SingleActivate";
 import GridGroup from "./GridGroup";
 import AvatarGroup from "../../components/common/AvatarGroup";
-import SingleEvent from "./SingleEvent";
+import SingleEvent from "../../components/event/SingleEvent";
 
 const avatar = [
   "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
@@ -68,10 +68,10 @@ const Dashboard = () => {
     <>
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10 flex justify-between items-start">
         <div className="w-[80%]">
-          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl">
+          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl text-gray-700">
             Dashboard
           </h1>
-          <p className="hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[799px]">
+          <p className="hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[799px] mt-4">
             This section displays a list of events that are scheduled to take
             place in the near future. You'll find information such as event
             names, dates, times, and brief descriptions. Click on an event for

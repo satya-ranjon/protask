@@ -21,7 +21,7 @@ const SingleActivate = ({ activate }) => {
             {selectedIcon}
           </div>
           <div>
-            <h1 className="font-medium text-xl text-dark">{title}</h1>
+            <h1 className="font-medium text-xl text-gray-700">{title}</h1>
             <div className=" text-sm text-dark-light">
               {dis?.map((item) => (
                 <span

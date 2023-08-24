@@ -78,7 +78,9 @@ const Tasks = () => {
       {/* Header */}
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10 flex justify-between items-start">
         <div className="w-[80%]">
-          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl">Tasks</h1>
+          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl text-gray-700">
+            Tasks
+          </h1>
           {/* Task description */}
           <p className="hidden sm:block text-dark-light text-sm 2xl:text-base">
             Here all tasks in the project. You will find information for each as

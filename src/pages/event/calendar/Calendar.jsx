@@ -7,13 +7,13 @@ const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const Calendar = () => {
   return (
     <>
-      <div className="w-full mt-56 px-4">
+      <div className="w-full px-4">
         <div className="flex justify-between items-center font-semibold text-dark-light border-b-2 border-b-gray-800 pb-10 mb-7">
           {daysOfWeek?.map((day) => (
             <SingleDay key={day}> {day}</SingleDay>
           ))}
         </div>
-        <div className="w-full flex flex-col gap-10 ">
+        <div className="w-full flex flex-col gap-10 2xl:gap-14 ">
           <div className="flex justify-between items-start ">
             {daysOfWeek?.map((day, index) => (
               <SingleDate key={day}> 0{index + 1}</SingleDate>
