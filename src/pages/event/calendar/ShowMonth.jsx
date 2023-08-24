@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uniqID } from "uuid";
-import SingleDate from "./SingleDate";
+import CurrentDate from "./CurrentDate";
+import NotCurrentDate from "./NotCurrentDate";
 import { useState } from "react";
 
 const ShowMonth = ({ year, month }) => {
@@ -31,11 +32,7 @@ const ShowMonth = ({ year, month }) => {
 
       // not-current
       for (let j = 0; j < firstDayOfMonth; j++) {
-        daysRow.push(
-          <SingleDate key={uniqID()}>
-            <span className=" text-zinc-300">{k}</span>
-          </SingleDate>
-        );
+        daysRow.push(<NotCurrentDate key={uniqID()}>{k}</NotCurrentDate>);
         k++;
       }
     }
@@ -46,22 +43,18 @@ const ShowMonth = ({ year, month }) => {
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <SingleDate key={uniqID()}>
-          <span className=" text-primary">{day}</span>
-        </SingleDate>
+        <CurrentDate key={uniqID()} txtColor="text-primary">
+          {day}
+        </CurrentDate>
       );
     } else {
-      daysRow.push(<SingleDate key={uniqID()}> {day}</SingleDate>);
+      daysRow.push(<CurrentDate key={uniqID()}> {day}</CurrentDate>);
     }
 
     if (dow === 6 || day === lastDateOfMonth) {
       let x = 1;
       while (dow < 6) {
-        daysRow.push(
-          <SingleDate key={uniqID()}>
-            <span className=" text-zinc-300">{x}</span>
-          </SingleDate>
-        );
+        daysRow.push(<NotCurrentDate key={uniqID()}>{x}</NotCurrentDate>);
         dow++;
         x++;
       }
