@@ -6,9 +6,24 @@ import CreateButton from "../../components/common/CreateButton";
 import SingleEvent from "../../components/event/SingleEvent";
 import { useState } from "react";
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
   const [currYear, setCurrYear] = useState(new Date().getFullYear());
+  console.log(currYear);
   const nextMonth = () => {
     if (currMonth === 11) {
       setCurrMonth(0);
@@ -30,8 +45,10 @@ const Event = () => {
     <>
       <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
         <div className="w-[80%]">
-          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl flex justify-start gap-5 items-center">
-            <p> Jun ' 2023</p>
+          <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl flex justify-start gap-5 items-center select-none">
+            <p className=" flex justify-start gap-2 items-center ">
+              <p className="w-28 ">{months[currMonth]}</p> <p>'{currYear}</p>
+            </p>
             <div className="flex text-4xl">
               <GrPrevious
                 className="cursor-pointer hover:bg-zinc-100 p-1 duration-300 transition-colors"
@@ -44,7 +61,7 @@ const Event = () => {
               />
             </div>
           </h1>
-          <p className="hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[499px] mt-4">
+          <p className="select-none hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[499px] mt-4">
             Hear all your planned events. You will find information for each
             event as well you can planned new one .
           </p>

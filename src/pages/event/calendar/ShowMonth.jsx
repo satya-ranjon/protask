@@ -44,17 +44,32 @@ const ShowMonth = ({ year, month }) => {
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
         <CurrentDate key={uniqID()} txtColor="text-primary">
-          {day}
+          {day < 10 ? `0${day}` : day}
+          <div className=" -m-2 flex flex-wrap px-4">
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+          </div>
         </CurrentDate>
       );
     } else {
-      daysRow.push(<CurrentDate key={uniqID()}> {day}</CurrentDate>);
+      daysRow.push(
+        <CurrentDate key={uniqID()}> {day < 10 ? `0${day}` : day}</CurrentDate>
+      );
     }
 
     if (dow === 6 || day === lastDateOfMonth) {
       let x = 1;
       while (dow < 6) {
-        daysRow.push(<NotCurrentDate key={uniqID()}>{x}</NotCurrentDate>);
+        daysRow.push(
+          <NotCurrentDate key={uniqID()}>{x < 10 ? `0${x}` : x}</NotCurrentDate>
+        );
         dow++;
         x++;
       }
@@ -71,7 +86,11 @@ const ShowMonth = ({ year, month }) => {
     dow = (dow + 1) % 7;
   }
 
-  return <div className="w-full flex flex-col gap-10  ">{calendarRows}</div>;
+  return (
+    <div className="w-full flex flex-col gap-10 xl:max-h-[590px] 2xl:max-h-[620px] 3xl:max-h-none overflow-scroll  ">
+      {calendarRows}
+    </div>
+  );
 };
 
 export default ShowMonth;
