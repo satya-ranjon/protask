@@ -4,8 +4,28 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import { GoDotFill } from "react-icons/go";
 import CreateButton from "../../components/common/CreateButton";
 import SingleEvent from "../../components/event/SingleEvent";
+import { useState } from "react";
 
 const Event = () => {
+  const [currMonth, setCurrMonth] = useState(new Date().getMonth());
+  const [currYear, setCurrYear] = useState(new Date().getFullYear());
+  const nextMonth = () => {
+    if (currMonth === 11) {
+      setCurrMonth(0);
+      setCurrYear(currYear + 1);
+    } else {
+      setCurrMonth(currMonth + 1);
+    }
+  };
+
+  const previousMonth = () => {
+    if (currMonth === 0) {
+      setCurrMonth(11);
+      setCurrYear(currYear - 1);
+    } else {
+      setCurrMonth(currMonth - 1);
+    }
+  };
   return (
     <>
       <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
@@ -13,9 +33,15 @@ const Event = () => {
           <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl flex justify-start gap-5 items-center">
             <p> Jun ' 2023</p>
             <div className="flex text-4xl">
-              <GrPrevious className="cursor-pointer hover:bg-zinc-100 p-1 duration-300 transition-colors" />
+              <GrPrevious
+                className="cursor-pointer hover:bg-zinc-100 p-1 duration-300 transition-colors"
+                onClick={previousMonth}
+              />
               <GoDotFill />
-              <GrNext className=" cursor-pointer hover:bg-zinc-100 p-1 duration-300 transition-colors" />
+              <GrNext
+                className=" cursor-pointer hover:bg-zinc-100 p-1 duration-300 transition-colors"
+                onClick={nextMonth}
+              />
             </div>
           </h1>
           <p className="hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[499px] mt-4">
@@ -29,7 +55,7 @@ const Event = () => {
       </div>
       <div className="2xl:mx-14 flex flex-col lg:flex-row justify-between lg:gap-7 xl:gap-14">
         <div className="w-full">
-          <Calendar />
+          <Calendar currMonth={currMonth} currYear={currYear} />
         </div>
         <div className="min-w-[600px]">
           <h1 className="px-4 font-medium text-xl text-dark-light mb-4 border-b-2 pb-10 border-b-gray-800 ">

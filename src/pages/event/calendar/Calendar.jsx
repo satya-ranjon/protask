@@ -1,10 +1,12 @@
 import React from "react";
 import SingleDate from "./SingleDate";
 import SingleDay from "./SingleDay";
+import { useState } from "react";
+import ShowMonth from "./ShowMonth";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-const Calendar = () => {
+const Calendar = ({ currMonth, currYear }) => {
   return (
     <>
       <div className="w-full px-4">
@@ -13,50 +15,25 @@ const Calendar = () => {
             <SingleDay key={day}> {day}</SingleDay>
           ))}
         </div>
-        <div className="w-full flex flex-col gap-10 2xl:gap-14 ">
-          <div className="flex justify-between items-start ">
-            {daysOfWeek?.map((day, index) => (
-              <SingleDate key={day}> 0{index + 1}</SingleDate>
-            ))}
-          </div>
-          <div className="flex justify-between items-start ">
-            {daysOfWeek?.map((day, index) => (
-              <SingleDate key={day}> 0{index + 1}</SingleDate>
-            ))}
-          </div>
-
-          <div className="flex justify-between items-start ">
-            <SingleDate>
-              <span>01</span>
-              <div className=" -m-2 flex flex-wrap px-4">
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-                <span style={{ lineHeight: "10px" }}>.</span>
-              </div>
-            </SingleDate>
-            <SingleDate> 01</SingleDate>
-            <SingleDate> 02</SingleDate>
-            <SingleDate> 03</SingleDate>
-            <SingleDate> 04</SingleDate>
-            <SingleDate> 05</SingleDate>
-            <SingleDate> 06</SingleDate>
-          </div>
-
-          <div className="flex justify-between items-start ">
-            {daysOfWeek?.map((day, index) => (
-              <SingleDate key={day}> 0{index + 1}</SingleDate>
-            ))}
-          </div>
-        </div>
+        <ShowMonth year={currYear} month={currMonth} />
       </div>
     </>
   );
 };
 
 export default Calendar;
+
+//  <SingleDate>
+//    <span>01</span>
+//    <div className=" -m-2 flex flex-wrap px-4">
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//      <span style={{ lineHeight: "10px" }}>.</span>
+//    </div>
+//  </SingleDate>;
