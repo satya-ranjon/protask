@@ -1,8 +1,7 @@
 import React from "react";
 import SingleDay from "./SingleDay";
 import ShowMonth from "./ShowMonth";
-
-const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+import { daysOfWeek } from "../../../data/calenderData";
 
 const Calendar = ({ currMonth, currYear }) => {
   const today = new Date();
@@ -13,7 +12,7 @@ const Calendar = ({ currMonth, currYear }) => {
 
   return (
     <div className="w-full px-4">
-      <div className="flex justify-between items-center font-semibold text-dark-light border-b-2 border-b-gray-800 pb-10 mb-7">
+      <div className="flex justify-between items-center font-medium text-dark-light border-b-2 border-b-gray-800 pb-10 mb-7">
         {daysOfWeek?.map((day) => (
           <SingleDay
             key={day}

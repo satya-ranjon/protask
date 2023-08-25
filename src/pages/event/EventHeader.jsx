@@ -19,8 +19,14 @@ const months = [
   "Nov",
   "Dec",
 ];
-const EventHeader = ({ currMonth, currYear, previousMonth, nextMonth }) => {
-  const [toggle, setToggle] = useState(false);
+const EventHeader = ({
+  currMonth,
+  currYear,
+  previousMonth,
+  nextMonth,
+  showBigCalender,
+  setShowBigCalender,
+}) => {
   return (
     <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
       <div className="w-[80%]">
@@ -42,8 +48,8 @@ const EventHeader = ({ currMonth, currYear, previousMonth, nextMonth }) => {
           </div>
           <div
             className="text-3xl p-2 cursor-pointer  hover:bg-zinc-100 duration-300 transition-colors"
-            onClick={() => setToggle(!toggle)}>
-            {toggle ? <SlCalender /> : <MdOutlineCalendarViewDay />}
+            onClick={() => setShowBigCalender(!showBigCalender)}>
+            {showBigCalender ? <MdOutlineCalendarViewDay /> : <SlCalender />}
           </div>
         </h1>
         <p className="select-none hidden sm:block text-dark-light text-sm 2xl:text-base max-w-[499px] mt-4">
