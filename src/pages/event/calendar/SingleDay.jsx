@@ -1,9 +1,11 @@
 import React from "react";
 
-const SingleDay = ({ txtColor, children }) => {
+const SingleDay = ({ active = false, children }) => {
   return (
     <span
-      className={`text-xl w-14 flex flex-col justify-start items-center ${txtColor}`}>
+      className={`text-xl w-14 flex flex-col justify-start items-center ${
+        active && "text-primary"
+      }`}>
       {children}
     </span>
   );

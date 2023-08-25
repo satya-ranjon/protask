@@ -78,7 +78,7 @@ const Dashboard = () => {
             more details.
           </p>
         </div>
-        {/* Add task button */}
+        {/* Add Sleipner button */}
         <div className="flex -space-x-4 min-w-fit">
           {avatar?.map((url, index) => (
             <img

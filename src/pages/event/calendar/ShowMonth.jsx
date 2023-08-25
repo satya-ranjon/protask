@@ -1,12 +1,9 @@
 import React from "react";
 import { v4 as uniqID } from "uuid";
-import CurrentDate from "./CurrentDate";
-import NotCurrentDate from "./NotCurrentDate";
+import SingleDate from "./SingleDate";
 import { useState } from "react";
 
 const ShowMonth = ({ year, month }) => {
-  const [currDay, setCurrDay] = useState(new Date().getDate());
-
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
   const lastDayOfLastMonth =
@@ -22,7 +19,7 @@ const ShowMonth = ({ year, month }) => {
   while (day <= lastDateOfMonth) {
     if (dow === 0) {
       calendarRows.push(
-        <div key={uniqID()} className="flex justify-between items-start ">
+        <div key={uniqID()} className="flex justify-between items-start">
           {daysRow}
         </div>
       );
@@ -32,7 +29,11 @@ const ShowMonth = ({ year, month }) => {
 
       // not-current
       for (let j = 0; j < firstDayOfMonth; j++) {
-        daysRow.push(<NotCurrentDate key={uniqID()}>{k}</NotCurrentDate>);
+        daysRow.push(
+          <SingleDate currentDate={false} key={uniqID()}>
+            {k}
+          </SingleDate>
+        );
         k++;
       }
     }
@@ -40,10 +41,11 @@ const ShowMonth = ({ year, month }) => {
     const today = new Date();
     const chkY = today.getFullYear();
     const chkM = today.getMonth();
+    const currDay = new Date().getDate();
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <CurrentDate key={uniqID()} txtColor="text-primary">
+        <SingleDate active={true} key={uniqID()} txtColor="text-primary">
           {day < 10 ? `0${day}` : day}
           <div className=" -m-2 flex flex-wrap px-4">
             <span style={{ lineHeight: "10px" }}>.</span>
@@ -56,22 +58,22 @@ const ShowMonth = ({ year, month }) => {
             <span style={{ lineHeight: "10px" }}>.</span>
             <span style={{ lineHeight: "10px" }}>.</span>
           </div>
-        </CurrentDate>
+        </SingleDate>
       );
     } else {
       daysRow.push(
-        <CurrentDate key={uniqID()}> {day < 10 ? `0${day}` : day}</CurrentDate>
+        <SingleDate key={uniqID()}> {day < 10 ? `0${day}` : day}</SingleDate>
       );
     }
 
     if (dow === 6 || day === lastDateOfMonth) {
-      let x = 1;
-      while (dow < 6) {
+      // not-current
+      for (let x = 1; dow < 6; x++, dow++) {
         daysRow.push(
-          <NotCurrentDate key={uniqID()}>{x < 10 ? `0${x}` : x}</NotCurrentDate>
+          <SingleDate currentDate={false} key={uniqID()}>
+            {x < 10 ? `0${x}` : x}
+          </SingleDate>
         );
-        dow++;
-        x++;
       }
 
       calendarRows.push(
