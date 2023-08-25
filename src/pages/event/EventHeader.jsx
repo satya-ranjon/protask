@@ -41,7 +41,7 @@ const EventHeader = ({ currMonth, currYear, previousMonth, nextMonth }) => {
             />
           </div>
           <div
-            className="text-3xl lg:p-2 cursor-pointer hover:bg-zinc-100 duration-300 transition-colors"
+            className="text-3xl p-2 cursor-pointer  hover:bg-zinc-100 duration-300 transition-colors"
             onClick={() => setToggle(!toggle)}>
             {toggle ? <SlCalender /> : <MdOutlineCalendarViewDay />}
           </div>
@@ -52,7 +52,7 @@ const EventHeader = ({ currMonth, currYear, previousMonth, nextMonth }) => {
         </p>
       </div>
 
-      {/* Add task button */}
+      {/* Create Event button */}
 
       <CreateButton>Create Event</CreateButton>
     </div>

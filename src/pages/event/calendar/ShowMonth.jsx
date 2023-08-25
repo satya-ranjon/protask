@@ -1,7 +1,6 @@
 import React from "react";
 import { v4 as uniqID } from "uuid";
 import SingleDate from "./SingleDate";
-import { useState } from "react";
 
 const ShowMonth = ({ year, month }) => {
   const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -30,9 +29,7 @@ const ShowMonth = ({ year, month }) => {
       // not-current
       for (let j = 0; j < firstDayOfMonth; j++) {
         daysRow.push(
-          <SingleDate currentDate={false} key={uniqID()}>
-            {k}
-          </SingleDate>
+          <SingleDate currentDate={false} key={uniqID()} day={k}></SingleDate>
         );
         k++;
       }
@@ -45,31 +42,11 @@ const ShowMonth = ({ year, month }) => {
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <SingleDate active={true} key={uniqID()} txtColor="text-primary">
-          {day < 10 ? `0${day}` : day}
-          <div className=" -m-2 flex flex-wrap px-4">
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
+        <SingleDate
+          active={true}
+          key={uniqID()}
+          day={day < 10 ? `0${day}` : day}>
+          <div className=" -m-5 flex flex-wrap px-6 text-center">
             <span style={{ lineHeight: "10px" }}>.</span>
             <span style={{ lineHeight: "10px" }}>.</span>
             <span style={{ lineHeight: "10px" }}>.</span>
@@ -78,7 +55,9 @@ const ShowMonth = ({ year, month }) => {
       );
     } else {
       daysRow.push(
-        <SingleDate key={uniqID()}> {day < 10 ? `0${day}` : day}</SingleDate>
+        <SingleDate
+          key={uniqID()}
+          day={day < 10 ? `0${day}` : day}></SingleDate>
       );
     }
 
@@ -86,9 +65,10 @@ const ShowMonth = ({ year, month }) => {
       // not-current
       for (let x = 1; dow < 6; x++, dow++) {
         daysRow.push(
-          <SingleDate currentDate={false} key={uniqID()}>
-            {x < 10 ? `0${x}` : x}
-          </SingleDate>
+          <SingleDate
+            currentDate={false}
+            key={uniqID()}
+            day={x < 10 ? `0${x}` : x}></SingleDate>
         );
       }
 
@@ -105,7 +85,7 @@ const ShowMonth = ({ year, month }) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-7 2xl:gap-10 3xl:gap-12 ">
+    <div className="w-full flex flex-col gap-7 2xl:gap-9 3xl:gap-12 ">
       {calendarRows}
     </div>
   );

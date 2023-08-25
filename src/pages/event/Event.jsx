@@ -37,7 +37,7 @@ const Event = () => {
         nextMonth={nextMonth}
         previousMonth={previousMonth}
       />
-      <div className="2xl:mx-14 flex flex-col lg:flex-row justify-between lg:gap-7 xl:gap-14">
+      <div className="2xl:mx-14 flex flex-col lg:flex-row justify-between lg:gap-7 xl:gap-14 select-none">
         <Calendar currMonth={currMonth} currYear={currYear} />
         <EventGroup />
       </div>

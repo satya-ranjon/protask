@@ -1,7 +1,5 @@
 import React from "react";
-import SingleDate from "./SingleDate";
 import SingleDay from "./SingleDay";
-import { useState } from "react";
 import ShowMonth from "./ShowMonth";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
