@@ -19,7 +19,7 @@ const CreateButton = ({ children, ...argument }) => {
       type="button"
       {...argument}
       className="p-3 2xl:p-4 sm:px-5 2xl:px-8 rounded-full sm:rounded-none 
-             font-medium bg-gray-800 text-white text-2xl sm:text-sm 2xl:text-base">
+             font-medium bg-gray-800 text-white text-2xl sm:text-sm 2xl:text-base  shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
       {isMobile ? <AiOutlinePlus /> : children}
     </button>
   );

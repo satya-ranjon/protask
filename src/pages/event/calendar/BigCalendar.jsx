@@ -1,6 +1,5 @@
 import React from "react";
 import { daysOfWeek } from "../../../data/calenderData";
-import BigSingleDate from "./BigSingleDate";
 import BigShowMonth from "./BigShowMonth";
 
 const BigCalendar = ({ currMonth, currYear }) => {
