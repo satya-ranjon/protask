@@ -57,6 +57,22 @@ const ShowMonth = ({ year, month }) => {
             <span style={{ lineHeight: "10px" }}>.</span>
             <span style={{ lineHeight: "10px" }}>.</span>
             <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
+            <span style={{ lineHeight: "10px" }}>.</span>
           </div>
         </SingleDate>
       );
@@ -89,7 +105,7 @@ const ShowMonth = ({ year, month }) => {
   }
 
   return (
-    <div className="w-full flex flex-col gap-10 xl:max-h-[590px] 2xl:max-h-[620px] 3xl:max-h-none overflow-scroll  ">
+    <div className="w-full flex flex-col gap-7 2xl:gap-10 3xl:gap-12 ">
       {calendarRows}
     </div>
   );

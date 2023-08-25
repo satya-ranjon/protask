@@ -35,7 +35,7 @@ const TaskGroup = ({ title, taskCount, children }) => {
         <FilterTasks title={title} />
       </div>
       {/* Task list */}
-      <div className="min-h-[25rem] lg:max-h-[45.3rem] 2xl:max-h-[40.7rem] overflow-scroll overflow-x-hidden scroll-m-1 w-full task">
+      <div className="min-h-[25rem] lg:max-h-[45.3rem] 2xl:max-h-[42rem] overflow-scroll overflow-x-hidden scroll-m-1 w-full task">
         {children}
       </div>
     </div>

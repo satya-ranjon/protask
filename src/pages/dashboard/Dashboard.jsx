@@ -107,6 +107,8 @@ const Dashboard = () => {
         <div className="lg:ml-24 min-w-[400px]">
           <GridGroup title="Upcoming events" doc={` 10 events for today`}>
             <SingleEvent />
+            <SingleEvent />
+            <SingleEvent />
           </GridGroup>
         </div>
       </div>
