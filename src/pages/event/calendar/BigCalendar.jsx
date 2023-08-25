@@ -1,27 +1,33 @@
 import React from "react";
 import { daysOfWeek } from "../../../data/calenderData";
 import BigSingleDate from "./BigSingleDate";
+import BigShowMonth from "./BigShowMonth";
 
-const BigCalendar = () => {
+const BigCalendar = ({ currMonth, currYear }) => {
+  const today = new Date();
+  const currentDayIndex = today.getDay();
+  const currentDay = daysOfWeek[currentDayIndex];
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+
   return (
-    <div className="w-full overflow-scroll overflow-y-hidden mx-2 sm:mx-5">
-      <div className="w-full min-w-[914px] ">
-        <div className="flex space-x-5 justify-between w-full text-xl font-medium text-dark-light">
+    <div className="w-full overflow-scroll  mx-2 sm:mx-5">
+      <div className="w-[914px] xl:w-full lg:h-[720px] overflow-y-scroll">
+        <div className="flex space-x-5 justify-between w-full text-xl font-medium text-dark-light mb-8">
           {daysOfWeek?.map((day) => (
-            <div key={day} className="w-full">
+            <div
+              key={day}
+              className={`w-full p-2 pt-0 ${
+                currentDay === day &&
+                currentMonth === currMonth &&
+                currentYear === currYear &&
+                " text-primary"
+              }`}>
               {day}
             </div>
           ))}
         </div>
-        <div className="mt-10 flex space-x-5 justify-between w-full text-4xl font-medium text-gray-800">
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-          <BigSingleDate date="00"></BigSingleDate>
-        </div>
+        <BigShowMonth month={currMonth} year={currYear} />
       </div>
     </div>
   );

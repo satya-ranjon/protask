@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uniqID } from "uuid";
-import SingleDate from "./SingleDate";
+import BigSingleDate from "./BigSingleDate";
 
 const BigShowMonth = ({ year, month }) => {
   const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -18,7 +18,9 @@ const BigShowMonth = ({ year, month }) => {
   while (day <= lastDateOfMonth) {
     if (dow === 0) {
       calendarRows.push(
-        <div key={uniqID()} className="flex justify-between items-start">
+        <div
+          key={uniqID()}
+          className="mt-2 flex space-x-2 xl:space-x-4 justify-between w-full text-4xl font-medium text-gray-800">
           {daysRow}
         </div>
       );
@@ -29,7 +31,10 @@ const BigShowMonth = ({ year, month }) => {
       // not-current
       for (let j = 0; j < firstDayOfMonth; j++) {
         daysRow.push(
-          <SingleDate currentDate={false} key={uniqID()} day={k}></SingleDate>
+          <BigSingleDate
+            currentDate={false}
+            key={uniqID()}
+            date={k}></BigSingleDate>
         );
         k++;
       }
@@ -42,22 +47,32 @@ const BigShowMonth = ({ year, month }) => {
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <SingleDate
+        <BigSingleDate
           active={true}
           key={uniqID()}
-          day={day < 10 ? `0${day}` : day}>
-          <div className=" -m-5 flex flex-wrap px-6 text-center">
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
+          date={day < 10 ? `0${day}` : day}>
+          <div className="w-full flex flex-col gap-2">
+            <div className="w-full text-start">
+              <h1 className="text-[15.5px] leading-5 font-medium">
+                Project overview / and analysis
+              </h1>
+              <h5 className=" text-sm text-dark-light">11:00 - 12:30 PM</h5>
+            </div>
+            <div className="w-full text-start">
+              <h1 className="text-[15.5px] leading-5 font-medium">
+                Project overview / and analysis
+              </h1>
+              <h5 className=" text-sm text-dark-light">11:00 - 12:30 PM</h5>
+            </div>
+            <div className="w-full text-start text-sm">And 3 more</div>
           </div>
-        </SingleDate>
+        </BigSingleDate>
       );
     } else {
       daysRow.push(
-        <SingleDate
+        <BigSingleDate
           key={uniqID()}
-          day={day < 10 ? `0${day}` : day}></SingleDate>
+          date={day < 10 ? `0${day}` : day}></BigSingleDate>
       );
     }
 
@@ -65,15 +80,17 @@ const BigShowMonth = ({ year, month }) => {
       // not-current
       for (let x = 1; dow < 6; x++, dow++) {
         daysRow.push(
-          <SingleDate
+          <BigSingleDate
             currentDate={false}
             key={uniqID()}
-            day={x < 10 ? `0${x}` : x}></SingleDate>
+            date={x < 10 ? `0${x}` : x}></BigSingleDate>
         );
       }
 
       calendarRows.push(
-        <div key={uniqID()} className="flex justify-between items-start ">
+        <div
+          key={uniqID()}
+          className="mt-2 flex space-x-2 xl:space-x-4 justify-between w-full text-4xl font-medium text-gray-800">
           {daysRow}
         </div>
       );
@@ -84,11 +101,7 @@ const BigShowMonth = ({ year, month }) => {
     dow = (dow + 1) % 7;
   }
 
-  return (
-    <div className="w-full flex flex-col gap-7 2xl:gap-9 3xl:gap-12 ">
-      {calendarRows}
-    </div>
-  );
+  return calendarRows;
 };
 
 export default BigShowMonth;

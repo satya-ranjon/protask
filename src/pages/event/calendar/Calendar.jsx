@@ -5,7 +5,7 @@ import { daysOfWeek } from "../../../data/calenderData";
 
 const Calendar = ({ currMonth, currYear }) => {
   const today = new Date();
-  const currentDayIndex = today.getDay(); // Returns a number (0 for Sunday, 1 for Monday, etc.)
+  const currentDayIndex = today.getDay();
   const currentDay = daysOfWeek[currentDayIndex];
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
