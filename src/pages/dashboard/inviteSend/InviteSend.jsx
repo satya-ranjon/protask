@@ -1,7 +1,6 @@
 import { useState } from "react";
-
+import { BsCheckLg } from "react-icons/bs";
 import Button from "../../../components/common/Button";
-import Modal from "../../../components/modal/Modal";
 import { images } from "../../../constants";
 import AddedEmailList from "./AddedEmailList";
 import AddSingleEmail from "./AddSingleEmail";
@@ -14,7 +13,9 @@ const InviteSend = ({ handleAddOrSendSleipner }) => {
     setEmailModal((prev) => !prev);
   };
   const handleAddedEmailList = (email) => {
-    setAddedEmailList([...addedEmailList, email]);
+    if (email) {
+      setAddedEmailList([...addedEmailList, email]);
+    }
   };
   return (
     <>
@@ -27,7 +28,9 @@ const InviteSend = ({ handleAddOrSendSleipner }) => {
       </div>
       <div className="  w-full flex justify-center items-center lg:h-screen">
         <div className="relative max-w-[400px] xl:max-w-[520px]">
-          <h1 className=" font-bold text-2xl xl:text-4xl"> Invite Send </h1>
+          <h1 className=" font-bold text-4xl lg:text-5xl xl:text-6xl">
+            Invite Send
+          </h1>
           <div className=" text-dark-light text-sm xl:text-lg mt-2 xl:mt-4">
             You have add
             <span className=" font-medium text-gray-800"> 3 Members </span> to
@@ -52,7 +55,9 @@ const InviteSend = ({ handleAddOrSendSleipner }) => {
               />
             ) : (
               <>
-                <Button>Done</Button>
+                <Button disabled={addedEmailList?.length === 0}>
+                  <span>Done</span> <BsCheckLg />
+                </Button>
                 <Button type="white" onClick={handleAddSingleEmailModal}>
                   {addedEmailList?.length > 0
                     ? "Add more members"

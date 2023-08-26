@@ -42,33 +42,17 @@ const ShowMonth = ({ year, month }) => {
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <SingleDate
-          active={true}
-          key={uniqID()}
-          day={day < 10 ? `0${day}` : day}>
-          <div className=" -m-5 flex flex-wrap px-6 text-center">
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-            <span style={{ lineHeight: "10px" }}>.</span>
-          </div>
-        </SingleDate>
+        <SingleDate active={true} key={uniqID()} day={day}></SingleDate>
       );
     } else {
-      daysRow.push(
-        <SingleDate
-          key={uniqID()}
-          day={day < 10 ? `0${day}` : day}></SingleDate>
-      );
+      daysRow.push(<SingleDate key={uniqID()} day={day}></SingleDate>);
     }
 
     if (dow === 6 || day === lastDateOfMonth) {
       // not-current
       for (let x = 1; dow < 6; x++, dow++) {
         daysRow.push(
-          <SingleDate
-            currentDate={false}
-            key={uniqID()}
-            day={x < 10 ? `0${x}` : x}></SingleDate>
+          <SingleDate currentDate={false} key={uniqID()} day={x}></SingleDate>
         );
       }
 

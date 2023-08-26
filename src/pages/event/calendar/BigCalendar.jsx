@@ -1,13 +1,10 @@
 import React from "react";
 import { daysOfWeek } from "../../../data/calenderData";
 import BigShowMonth from "./BigShowMonth";
+import useCurrentDMY from "../../../hooks/useCurrentDMY";
 
 const BigCalendar = ({ currMonth, currYear }) => {
-  const today = new Date();
-  const currentDayIndex = today.getDay();
-  const currentDay = daysOfWeek[currentDayIndex];
-  const currentMonth = today.getMonth();
-  const currentYear = today.getFullYear();
+  const { currentDay, currentMonth, currentYear } = useCurrentDMY();
 
   return (
     <div className="w-full overflow-scroll  mx-2 sm:mx-5">

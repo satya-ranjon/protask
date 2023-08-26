@@ -2,13 +2,10 @@ import React from "react";
 import SingleDay from "./SingleDay";
 import ShowMonth from "./ShowMonth";
 import { daysOfWeek } from "../../../data/calenderData";
+import useCurrentDMY from "../../../hooks/useCurrentDMY";
 
 const Calendar = ({ currMonth, currYear }) => {
-  const today = new Date();
-  const currentDayIndex = today.getDay();
-  const currentDay = daysOfWeek[currentDayIndex];
-  const currentMonth = today.getMonth();
-  const currentYear = today.getFullYear();
+  const { currentDay, currentMonth, currentYear } = useCurrentDMY();
 
   return (
     <div className="w-full px-4">

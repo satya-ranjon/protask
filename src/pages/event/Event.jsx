@@ -1,36 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Calendar from "./calendar/Calendar";
-import { GrNext, GrPrevious } from "react-icons/gr";
-import { GoDotFill } from "react-icons/go";
-import CreateButton from "../../components/common/CreateButton";
-import SingleEvent from "../../components/event/SingleEvent";
 import { useState } from "react";
 import EventHeader from "./EventHeader";
 import EventGroup from "./EventGroup";
 import BigCalendar from "./calendar/BigCalendar";
+import { useDispatch } from "react-redux";
+import {
+  selectedDate,
+  selectedMonth,
+  selectedYear,
+} from "../../services/event/eventSlice";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
   const [currYear, setCurrYear] = useState(new Date().getFullYear());
   const [showBigCalender, setShowBigCalender] = useState(false);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(selectedMonth(currMonth));
+    dispatch(selectedYear(currYear));
+  }, [currMonth, currMonth]);
+
+  // Function to navigate to the next month
   const nextMonth = () => {
-    if (currMonth === 11) {
-      setCurrMonth(0);
-      setCurrYear(currYear + 1);
-    } else {
-      setCurrMonth(currMonth + 1);
-    }
+    const newMonth = currMonth === 11 ? 0 : currMonth + 1;
+    updateMonthAndYear(newMonth);
   };
 
+  // Function to navigate to the previous month
   const previousMonth = () => {
-    if (currMonth === 0) {
-      setCurrMonth(11);
-      setCurrYear(currYear - 1);
-    } else {
-      setCurrMonth(currMonth - 1);
-    }
+    const newMonth = currMonth === 0 ? 11 : currMonth - 1;
+    updateMonthAndYear(newMonth);
   };
+
+  // Function to update both month and year
+  const updateMonthAndYear = (newMonth) => {
+    if (newMonth === 0 && currMonth === 11) {
+      setCurrYear(currYear + 1);
+    } else if (newMonth === 11 && currMonth === 0) {
+      setCurrYear(currYear - 1);
+    }
+    setCurrMonth(newMonth);
+    dispatch(selectedDate(null));
+  };
+
   return (
     <>
       <EventHeader
