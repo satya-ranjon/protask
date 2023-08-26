@@ -7,6 +7,7 @@ import DashBoardHeader from "./DashBoardHeader";
 import FullModal from "../../components/modal/FullModal";
 import { useState } from "react";
 import InviteSend from "./inviteSend/InviteSend";
+import AddSleipner from "./addSleipner/AddSleipner";
 
 const avatar = [
   "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
@@ -62,17 +63,21 @@ const demo = [
 ];
 
 const Dashboard = () => {
-  const [addSleipner, setAddSleipner] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [addSleipner, setAddSleipner] = useState(true);
 
   useTitleSet("Dashboard");
 
-  const handleAddSleipner = () => {
+  const handleOpenModal = () => {
+    setModalIsOpen((prv) => !prv);
+  };
+  const handleAddOrSendSleipner = () => {
     setAddSleipner((prv) => !prv);
   };
 
   return (
     <>
-      <DashBoardHeader avatar={avatar} handleAddSleipner={handleAddSleipner} />
+      <DashBoardHeader avatar={avatar} handleAddSleipner={handleOpenModal} />
 
       <div className="2xl:mx-14 flex flex-col lg:flex-row justify-between">
         <div className="w-full">
@@ -91,8 +96,13 @@ const Dashboard = () => {
           </GridGroup>
         </div>
       </div>
-      <FullModal isOpen={addSleipner} onClose={handleAddSleipner}>
-        <InviteSend />
+      <FullModal isOpen={modalIsOpen} onClose={handleOpenModal}>
+        {/* <InviteSend /> */}
+        {addSleipner ? (
+          <AddSleipner handleAddOrSendSleipner={handleAddOrSendSleipner} />
+        ) : (
+          <InviteSend handleAddOrSendSleipner={handleAddOrSendSleipner} />
+        )}
       </FullModal>
     </>
   );

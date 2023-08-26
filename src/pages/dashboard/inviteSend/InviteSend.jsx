@@ -24,14 +24,14 @@ const emails = [
   "email19@example.com",
   "email20@example.com",
 ];
-const InviteSend = () => {
+const InviteSend = ({ handleAddOrSendSleipner }) => {
   return (
     <>
       <div className="flex justify-center items-center lg:absolute lg:left-0 lg:top-0 pointer-events-none">
         <img
           src={images.inviteSend}
           alt="inviteSend image"
-          className="w-56 lg:w-72 xl:w-80 3xl:w-[700px]"
+          className="w-56 lg:w-72 xl:w-96 3xl:w-[700px]"
         />
       </div>
       <div className="w-full flex justify-center items-center lg:h-screen">
@@ -42,7 +42,13 @@ const InviteSend = () => {
             <span className=" font-medium text-gray-800"> 3 Members </span> to
             <span className=" font-medium text-gray-800"> Sleipner </span>
             workspace. You can manage them into the
-            <span className=" font-medium text-primary"> My team </span>
+            <span
+              onClick={handleAddOrSendSleipner}
+              className=" font-medium text-primary border-b border-b-[#f5d592] cursor-pointer
+            ">
+              {" "}
+              My team{" "}
+            </span>
             section
           </div>
           {/* Added email list  */}
