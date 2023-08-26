@@ -70,6 +70,7 @@ const Dashboard = () => {
 
   const handleOpenModal = () => {
     setModalIsOpen((prv) => !prv);
+    setAddSleipner(true);
   };
   const handleAddOrSendSleipner = () => {
     setAddSleipner((prv) => !prv);

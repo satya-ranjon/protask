@@ -19,14 +19,14 @@ const DashBoardHeader = ({ avatar, handleAddSleipner }) => {
         {avatar?.map((url, index) => (
           <img
             key={index}
-            className="w-10 h-10 border-2 border-white rounded-full "
+            className="w-10 h-10 xl:w-12 xl:h-12 border-2 border-white rounded-full "
             src={url}
             alt="avatar"
           />
         ))}
 
         <button
-          className="flex items-center justify-center w-10 h-10 text-xl font-medium text-white border-2 border-white bg-dark rounded-full "
+          className="flex items-center justify-center w-10 h-10 xl:w-12 xl:h-12 text-xl font-medium text-white border-2 border-white bg-dark rounded-full "
           onClick={handleAddSleipner}>
           <IoIosAdd />
         </button>
