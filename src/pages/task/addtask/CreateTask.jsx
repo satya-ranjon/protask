@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import TextareaInput from "../../../components/common/TextareaInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
-import DocumentAdd from "./DocumentAdd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   resetCreateTaskState,
+  updateDocument,
   updateTask,
   updateTitle,
 } from "../../../services/task/taskSlice";
@@ -19,6 +19,7 @@ import CreatedDate from "./CreatedDate";
 import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
 import useTitleSet from "../../../hooks/useTitleSet";
 import { selectTask } from "../../../services/task/taskSelector";
+import DocumentCreate from "../../../components/common/DocumentCreate";
 
 const CreateTask = () => {
   const taskDetails = useSelector(selectTask);
@@ -83,6 +84,10 @@ const CreateTask = () => {
     dispatch(updateTitle(value));
   };
 
+  const handleDocumentValue = (value) => {
+    dispatch(updateDocument(value));
+  };
+
   return isLoading ? (
     <CreateTaskSkelton />
   ) : (
@@ -115,9 +120,17 @@ const CreateTask = () => {
 
       {/* DocumentAdd for entering task notes */}
       {taskParmId ? (
-        taskDetails.description?.length > 0 && <DocumentAdd />
+        taskDetails.description?.length > 0 && (
+          <DocumentCreate
+            value={taskDetails.description}
+            handleValue={handleDocumentValue}
+          />
+        )
       ) : (
-        <DocumentAdd />
+        <DocumentCreate
+          value={taskDetails.description}
+          handleValue={handleDocumentValue}
+        />
       )}
     </div>
   );
