@@ -10,11 +10,13 @@ import {
   selectedMonth,
   selectedYear,
 } from "../../services/event/eventSlice";
+import Modal from "../../components/modal/Modal";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
   const [currYear, setCurrYear] = useState(new Date().getFullYear());
   const [showBigCalender, setShowBigCalender] = useState(false);
+  const [createEventModalIsOpen, setCreateEventModalIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,6 +47,10 @@ const Event = () => {
     dispatch(selectedDate(null));
   };
 
+  const handleCreateEventModal = () => {
+    setCreateEventModalIsOpen((prv) => !prv);
+  };
+
   return (
     <>
       <EventHeader
@@ -54,6 +60,7 @@ const Event = () => {
         previousMonth={previousMonth}
         showBigCalender={showBigCalender}
         setShowBigCalender={setShowBigCalender}
+        handleCreateEventModal={handleCreateEventModal}
       />
       <div
         className={`2xl:mx-14 2xl:ml-10 flex flex-col lg:flex-row justify-between lg:gap-7 xl:gap-14 select-none`}>
@@ -66,6 +73,9 @@ const Event = () => {
           </>
         )}
       </div>
+      <Modal
+        isOpen={createEventModalIsOpen}
+        onClose={handleCreateEventModal}></Modal>
     </>
   );
 };

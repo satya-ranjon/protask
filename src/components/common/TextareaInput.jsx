@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateTitle } from "../../../services/task/taskSlice";
-import { selectTaskName } from "../../../services/task/taskSelector";
 
-const TitleInput = () => {
+const TextareaInput = ({
+  placeholder = "",
+  value = "",
+  handleTitleValue = () => {},
+}) => {
   // const [textareaValue, setTextareaValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
-  const textareaValue = useSelector(selectTaskName);
 
   // Ref to access the textarea DOM element
   const textareaRef = useRef(null);
-  const dispatch = useDispatch();
 
   // Function to check if the textarea content overflows
   const isOverflowing = () => {
@@ -31,26 +30,25 @@ const TitleInput = () => {
   };
 
   // Event handler for textarea change
-  const handleTextareaChange = (event) => {
-    const { value } = event.target;
-    dispatch(updateTitle(value));
+  const handleInputValue = (event) => {
+    handleTitleValue(event.target.value);
   };
 
   // Run adjustHeight whenever textareaValue changes
   useEffect(() => {
     adjustHeight();
-  }, [textareaValue]);
+  }, [value]);
 
   return (
     <textarea
       ref={textareaRef}
       className="p-2 w-full font-bold text-5xl h-fit  overflow-hidden outline-none border-none placeholder:text-gray-300"
-      placeholder="Untitled"
-      value={textareaValue}
+      placeholder={placeholder}
+      value={value}
       style={{ height: `${textareaHeight}px` }}
-      onChange={handleTextareaChange}
+      onChange={handleInputValue}
     />
   );
 };
 
-export default React.memo(TitleInput);
+export default React.memo(TextareaInput);

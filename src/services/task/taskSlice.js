@@ -73,4 +73,5 @@ export const {
   resetCreateTaskState,
   updateFilter,
 } = taskSlice.actions;
+
 export default taskSlice.reducer;

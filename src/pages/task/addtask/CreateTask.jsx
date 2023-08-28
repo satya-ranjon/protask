@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import TitleInput from "./TitleInput";
+import TextareaInput from "../../../components/common/TextareaInput";
 import StatusSet from "./StatusSet";
 import TagsSet from "./TagsSet";
 import DocumentAdd from "./DocumentAdd";
@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   resetCreateTaskState,
   updateTask,
+  updateTitle,
 } from "../../../services/task/taskSlice";
 import {
   useCreateTaskMutation,
@@ -78,6 +79,10 @@ const CreateTask = () => {
     };
   }, []);
 
+  const handleTaskNameValue = (value) => {
+    dispatch(updateTitle(value));
+  };
+
   return isLoading ? (
     <CreateTaskSkelton />
   ) : (
@@ -98,7 +103,11 @@ const CreateTask = () => {
       )}
 
       {/* Input fields for task creation */}
-      <TitleInput />
+      <TextareaInput
+        placeholder="Untitled"
+        value={taskDetails.name}
+        handleTitleValue={handleTaskNameValue}
+      />
       <CreatedDate date={taskDetails.createdAt} />
       <StatusSet />
       <TagsSet />

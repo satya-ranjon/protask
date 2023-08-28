@@ -26,6 +26,7 @@ const EventHeader = ({
   nextMonth,
   showBigCalender,
   setShowBigCalender,
+  handleCreateEventModal,
 }) => {
   return (
     <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
@@ -60,7 +61,7 @@ const EventHeader = ({
 
       {/* Create Event button */}
 
-      <CreateButton>Create Event</CreateButton>
+      <CreateButton onClick={handleCreateEventModal}>Create Event</CreateButton>
     </div>
   );
 };
