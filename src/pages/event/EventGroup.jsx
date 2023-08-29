@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import SingleEvent from "../../components/event/SingleEvent";
 import { selectSelectedDate } from "../../services/event/eventSelector";
@@ -17,7 +18,7 @@ const EventGroup = ({ currMonth, currYear }) => {
   }, []);
 
   const events = date
-    ? data[`${currYear}-${currMonth + 1}-${date}`]
+    ? data[`${currYear}-${currMonth + 1}-${date}`] || []
     : eventsOfMonth;
 
   const showHeader = date
@@ -35,7 +36,7 @@ const EventGroup = ({ currMonth, currYear }) => {
         {events?.map((event) => (
           <SingleEvent key={event._id} event={event} />
         ))}
-        {!events && (
+        {!events[0] && (
           <div className=" w-full flex justify-center items-center select-none mt-10 pointer-events-none">
             <img src={images.eventNotFound} className=" w-28 h-28" />
           </div>
@@ -45,4 +46,4 @@ const EventGroup = ({ currMonth, currYear }) => {
   );
 };
 
-export default EventGroup;
+export default React.memo(EventGroup);

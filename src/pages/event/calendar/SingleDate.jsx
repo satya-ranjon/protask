@@ -60,7 +60,7 @@ const SingleDate = ({
       <span
         className={`${
           currentDate && "hover:bg-hover duration-300 transition-colors  "
-        } p-3 ${isActive && "bg-hover"}  `}>
+        } p-3 ${isActive && "bg-hover text-primary"}  `}>
         {day < 10 ? `0${day}` : day}
       </span>
       {currentDate && eventsOfDot()}
