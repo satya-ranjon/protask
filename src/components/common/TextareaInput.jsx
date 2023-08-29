@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 const TextareaInput = ({
   placeholder = "",
   value = "",
+  size = "lg",
   handleTitleValue = () => {},
 }) => {
   // const [textareaValue, setTextareaValue] = useState("");
@@ -39,10 +40,15 @@ const TextareaInput = ({
     adjustHeight();
   }, [value]);
 
+  const classes =
+    size === "sm"
+      ? "p-1 text-3xl font font-semibold"
+      : "p-2 text-5xl font-bold";
+
   return (
     <textarea
       ref={textareaRef}
-      className="p-2 w-full font-bold text-5xl h-fit  overflow-hidden outline-none border-none placeholder:text-gray-300"
+      className={`${classes} w-full h-fit  overflow-hidden outline-none border-none placeholder:text-gray-300`}
       placeholder={placeholder}
       value={value}
       style={{ height: `${textareaHeight}px` }}
