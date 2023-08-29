@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsCalendarDate } from "react-icons/bs";
 import { CiTimer } from "react-icons/ci";
 import SelectDate from "./SelectDate";
+import SelectTime from "./SelectTime";
 const initialState = {
   title: "",
   description: "",
@@ -39,15 +40,7 @@ const CreateEvent = () => {
       )}
       <TextareaInput placeholder="Untitled" />
       <SelectDate />
-      <div className="flex justify-start items-center w-full text-dark-light text-sm">
-        <div className="w-[25%] flex justify-start items-center gap-2 p-1 text-xl ">
-          <CiTimer />
-          <span className=" text-lg">Start Time</span>
-        </div>
-        <div className="w-[75%]">
-          <input type="date" name="" id="" />
-        </div>
-      </div>
+      <SelectTime />
     </div>
   );
 };

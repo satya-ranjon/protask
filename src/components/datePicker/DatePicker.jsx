@@ -54,7 +54,7 @@ const DatePicker = ({ getValue = () => {} }) => {
             onClick={previousMonth}>
             <GrFormPreviousLink />
           </div>
-          <span>
+          <span className="text-lg font-semibold text-center">
             {months[currMonth]} {currYear}
           </span>
           <div

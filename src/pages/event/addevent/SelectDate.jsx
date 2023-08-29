@@ -43,7 +43,7 @@ const SelectDate = () => {
   return (
     <div
       ref={dropdownRef}
-      className="flex justify-start items-center w-full text-dark-light text-sm">
+      className="flex justify-start items-center w-full text-dark-light text-sm z-10">
       <div className="w-[25%] flex justify-start items-center gap-2 p-1 text-lg ">
         <BsCalendarDate />
         <span className=" text-sm">Date</span>
@@ -60,7 +60,7 @@ const SelectDate = () => {
           <SlCalender />
         </div>
         {openDatePicker && (
-          <div className="absolute top-10 left-0 bg-white">
+          <div className="absolute top-10 left-0 bg-white z-10">
             <DatePicker getValue={selectedDateHandler} />
           </div>
         )}
