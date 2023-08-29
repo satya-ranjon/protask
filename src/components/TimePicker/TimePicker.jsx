@@ -20,8 +20,12 @@ const TimePicker = ({
 }) => {
   const handleTime = (value) => {
     getValue({
-      hour: value?.hour || initialState?.hour,
-      minute: value?.minute || initialState?.minute,
+      hour:
+        value?.hour < 9 ? `0${value?.hour}` : value?.hour || initialState?.hour,
+      minute:
+        value?.minute < 9
+          ? `0${value?.minute}`
+          : value?.minute || initialState?.minute,
     });
   };
 
