@@ -11,6 +11,7 @@ import CreateTask from "../pages/task/addtask/CreateTask";
 import useAuthCheck from "../hooks/useAuthCheck";
 import NotFound from "../pages/notfound/NotFound";
 import Setting from "../pages/setting/Setting";
+import CreateEvent from "../pages/event/addevent/CreateEvent";
 
 const Router = () => {
   const authenticationCheck = useAuthCheck();
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/document" element={<Document />} />
         <Route path="/event" element={<Event />} />
+        <Route path="/event/:eventId" element={<CreateEvent />} />
         <Route path="/setting" element={<Setting />} />
       </Route>
       <Route path="/" element={<PublicRoute />}>

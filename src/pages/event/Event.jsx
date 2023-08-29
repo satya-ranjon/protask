@@ -11,6 +11,7 @@ import {
   selectedYear,
 } from "../../services/event/eventSlice";
 import Modal from "../../components/modal/Modal";
+import CreateEvent from "./addevent/CreateEvent";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
@@ -73,9 +74,9 @@ const Event = () => {
           </>
         )}
       </div>
-      <Modal
-        isOpen={createEventModalIsOpen}
-        onClose={handleCreateEventModal}></Modal>
+      <Modal isOpen={createEventModalIsOpen} onClose={handleCreateEventModal}>
+        <CreateEvent />
+      </Modal>
     </>
   );
 };

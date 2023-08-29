@@ -42,7 +42,7 @@ const DatePicker = ({ getValue = () => {} }) => {
   };
 
   const selectedDate = (day) => {
-    getValue(`${currYear}-${currMonth + 1}-${day}`);
+    getValue({ year: currYear, month: currMonth + 1, day });
   };
 
   return (

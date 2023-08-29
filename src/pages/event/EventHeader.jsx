@@ -3,7 +3,6 @@ import { GoDotFill } from "react-icons/go";
 import { SlCalender } from "react-icons/sl";
 import { MdOutlineCalendarViewDay } from "react-icons/md";
 import CreateButton from "../../components/common/CreateButton";
-import { useState } from "react";
 
 const months = [
   "Jan",
