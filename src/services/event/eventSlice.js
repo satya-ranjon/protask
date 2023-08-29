@@ -174,8 +174,8 @@ const initialState = {
     title: "",
     description: null,
     date: { year: null, month: null, date: null },
-    starttime: { hour: 0, minute: 0 },
-    endtime: { hour: 0, minute: 0 },
+    starttime: { hour: "00", minute: "00" },
+    endtime: { hour: "00", minute: "00" },
     sleipner: [],
   },
 };
