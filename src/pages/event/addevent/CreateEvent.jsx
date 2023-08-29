@@ -1,32 +1,63 @@
 import React from "react";
 import { useState } from "react";
 import TextareaInput from "../../../components/common/TextareaInput";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsCalendarDate } from "react-icons/bs";
 import { CiTimer } from "react-icons/ci";
 import SelectDate from "./SelectDate";
 import SelectTime from "./SelectTime";
-const initialState = {
-  title: "",
-  description: "",
-  date: "",
-  starttime: "",
-  endtime: "",
-  sleipner: [],
-};
+import DocumentCreate from "../../../components/common/DocumentCreate";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateCreateEventDescription,
+  updateCreateEventEndTime,
+  updateCreateEventStartTime,
+  updateCreateEventTitle,
+} from "../../../services/event/eventSlice";
+import { selectCreatedEvent } from "../../../services/event/eventSelector";
+import LoadingButton from "../../../components/common/LoadingButton";
 
 const CreateEvent = () => {
-  const [eventValue, setEventValue] = useState(initialState);
-  const { eventId: eventParmId } = useParams();
+  const { error, setError } = useState({});
+  const { title, description, date, starttime, endtime, sleipner } =
+    useSelector(selectCreatedEvent);
+
+  const { pathname } = useLocation();
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const backToEvent = () => {
     navigate("/event");
   };
 
+  const handleEventTitle = (value) => {
+    dispatch(updateCreateEventTitle(value));
+  };
+  const handleEventStartTime = (value) => {
+    dispatch(updateCreateEventStartTime(value));
+  };
+  const handleEventEndTime = (value) => {
+    dispatch(updateCreateEventEndTime(value));
+  };
+  const handleEventDescription = (value) => {
+    dispatch(updateCreateEventDescription(value));
+  };
+
+  const handleCreateEvent = () => {
+    if (!title) {
+      setError({ title: "Title is required !" });
+    } else {
+      console.log("hello");
+    }
+  };
+
+  const createEventBtnDisabled = title ? true : false;
+
+  const isFullPage = pathname === "/event/create";
   return (
-    <div className="p-8 pt-4">
-      {eventParmId && (
-        <div className="text-dark-light flex justify-start gap-2 items-center">
+    <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
+      {isFullPage && (
+        <div className="text-dark-light flex justify-start gap-2 items-center ">
           <span
             className="p-1 cursor-pointer hover:bg-gray-100"
             onClick={backToEvent}>
@@ -34,13 +65,49 @@ const CreateEvent = () => {
           </span>
           /
           <span className="p-1 cursor-pointer hover:bg-gray-100">
-            {/* {taskDetails.name ? taskDetails.name : "untitled"} */}
+            {title ? title : "untitled"}
           </span>
         </div>
       )}
-      <TextareaInput placeholder="Untitled" />
+      {error?.title && (
+        <div className="text-red-600 text-xs"> {error?.title}</div>
+      )}
+      <TextareaInput
+        value={title}
+        size={isFullPage ? "lg" : "sm"}
+        placeholder="event title is required"
+        handleTitleValue={handleEventTitle}
+      />
       <SelectDate />
-      <SelectTime />
+      <SelectTime
+        label="Start Time"
+        getValue={handleEventStartTime}
+        initialState={starttime}
+      />
+      <SelectTime
+        label="End Time"
+        getValue={handleEventEndTime}
+        initialState={endtime}
+      />
+      <hr className="my-4" />
+      <div
+        className={` ${
+          isFullPage ? "max-h-[600px] " : "max-h-96"
+        } min-h-[100px] overflow-y-scroll`}>
+        <DocumentCreate
+          value={description}
+          handleValue={handleEventDescription}
+        />
+      </div>
+
+      <div className="flex justify-end items-center">
+        <LoadingButton
+          isLoading={false}
+          disabled={!createEventBtnDisabled}
+          onClick={handleCreateEvent}>
+          Create Event
+        </LoadingButton>
+      </div>
     </div>
   );
 };
