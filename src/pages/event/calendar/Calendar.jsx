@@ -7,6 +7,8 @@ import useCurrentDMY from "../../../hooks/useCurrentDMY";
 const Calendar = ({ currMonth, currYear }) => {
   const { currentDay, currentMonth, currentYear } = useCurrentDMY();
 
+  console.log("%cCalendar", "color:yellow");
+
   return (
     <div className="w-full px-4">
       <div className="flex justify-between items-center font-medium text-dark-light border-b-2 border-b-gray-800 pb-10 mb-7">
@@ -27,19 +29,4 @@ const Calendar = ({ currMonth, currYear }) => {
   );
 };
 
-export default Calendar;
-
-//  <SingleDate>
-//    <span>01</span>
-//    <div className=" -m-2 flex flex-wrap px-4">
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//      <span style={{ lineHeight: "10px" }}>.</span>
-//    </div>
-//  </SingleDate>;
+export default React.memo(Calendar);

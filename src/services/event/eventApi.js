@@ -9,7 +9,10 @@ const eventApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getAllEvents: builder.query({
+      query: () => `/event`,
+    }),
   }),
 });
 
-export const { useCreateEventMutation } = eventApi;
+export const { useCreateEventMutation, useGetAllEventsQuery } = eventApi;

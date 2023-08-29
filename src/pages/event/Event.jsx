@@ -4,7 +4,7 @@ import { useState } from "react";
 import EventHeader from "./EventHeader";
 import EventGroup from "./EventGroup";
 import BigCalendar from "./calendar/BigCalendar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectedDate,
   selectedMonth,
@@ -13,6 +13,7 @@ import {
 import Modal from "../../components/modal/Modal";
 import CreateEvent from "./addevent/CreateEvent";
 import { useNavigate } from "react-router-dom";
+import { useGetAllEventsQuery } from "../../services/event/eventApi";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
@@ -23,7 +24,7 @@ const Event = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(selectedMonth(currMonth));
+    dispatch(selectedMonth(currMonth + 1));
     dispatch(selectedYear(currYear));
   }, [currMonth, currMonth]);
 
@@ -58,7 +59,13 @@ const Event = () => {
     navigate("/event/create");
   };
 
-  return (
+  const { data, isLoading, isSuccess } = useGetAllEventsQuery();
+
+  console.log("%cEvent", "color:blue");
+
+  return isLoading ? (
+    "Loading"
+  ) : (
     <>
       <EventHeader
         currMonth={currMonth}
@@ -76,7 +83,7 @@ const Event = () => {
         ) : (
           <>
             <Calendar currMonth={currMonth} currYear={currYear} />
-            <EventGroup />
+            <EventGroup currMonth={currMonth} currYear={currYear} />
           </>
         )}
       </div>

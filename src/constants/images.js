@@ -4,6 +4,7 @@ import Registration from "../assets/images/registration.svg";
 import notfound from "../assets/images/notfound.png";
 import inviteSend from "../assets/images/inviteSend.svg";
 import addSleipner from "../assets/images/addSleipner.svg";
+import eventNotFound from "../assets/images/eventnotfound.png";
 
 const images = {
   Logo,
@@ -12,6 +13,7 @@ const images = {
   notfound,
   inviteSend,
   addSleipner,
+  eventNotFound,
 };
 
 export default images;

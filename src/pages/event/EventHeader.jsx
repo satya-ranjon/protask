@@ -3,21 +3,8 @@ import { GoDotFill } from "react-icons/go";
 import { SlCalender } from "react-icons/sl";
 import { MdOutlineCalendarViewDay } from "react-icons/md";
 import CreateButton from "../../components/common/CreateButton";
+import { months } from "../../data/calenderData";
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 const EventHeader = ({
   currMonth,
   currYear,
@@ -27,12 +14,14 @@ const EventHeader = ({
   setShowBigCalender,
   handleCreateEventModal,
 }) => {
+  //TODO:
+  console.log("%cEventHeader", "color:orange");
   return (
     <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
       <div className="w-[80%]">
         <h1 className="font-bold text-4xl lg:text-5xl 2xl:text-6xl flex justify-start gap-5 items-center select-none">
           <div className=" flex justify-start gap-2 items-center ">
-            <div className="w-16 lg:w-28">{months[currMonth]}</div>
+            <div className="w-16 lg:w-28">{months[currMonth].slice(0, 3)}</div>
             <div>'{currYear}</div>
           </div>
           <div className="flex text-3xl lg:text-4xl">
