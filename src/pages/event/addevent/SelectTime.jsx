@@ -34,13 +34,7 @@ const SelectTime = ({ label = "", initialState, getValue = () => {} }) => {
       <div className="w-[75%] flex justify-start items-center gap-3 relative">
         <span className=" p-1 px-2 bg-hover cursor-pointer ">
           <span>
-            {selectedTime?.hour < 9
-              ? `0${selectedTime?.hour}`
-              : selectedTime?.hour}
-            :
-            {selectedTime?.minute < 9
-              ? `0${selectedTime?.minute}`
-              : selectedTime?.minute}
+            {selectedTime?.hour}:{selectedTime?.minute}
           </span>
         </span>
         <div
