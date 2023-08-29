@@ -170,6 +170,14 @@ const initialState = {
       year: null,
     },
   },
+  create: {
+    title: "",
+    description: null,
+    date: { year: null, month: null, date: null },
+    starttime: { hour: 0, minute: 0 },
+    endtime: { hour: 0, minute: 0 },
+    sleipner: [],
+  },
 };
 
 const eventSlice = createSlice({
@@ -185,9 +193,51 @@ const eventSlice = createSlice({
     selectedYear: (state, action) => {
       state.filter.select.year = action.payload;
     },
+    updateCreateEvent: (state, action) => {
+      state.create.title = action.payload.title || state.create.title;
+      state.create.description =
+        action.payload.description || state.create.description;
+      state.create.starttime =
+        action.payload.starttime || state.create.starttime;
+      state.create.endtime = action.payload.endtime || state.create.endtime;
+      state.create.sleipner = action.payload.sleipner || state.create.sleipner;
+    },
+    updateCreateEventTitle: (state, action) => {
+      state.create.title = action.payload;
+    },
+    updateCreateEventDescription: (state, action) => {
+      state.create.description = action.payload;
+    },
+    updateCreateEventDate: (state, action) => {
+      state.create.date = action.payload;
+    },
+    updateCreateEventStartTime: (state, action) => {
+      state.create.starttime = action.payload;
+    },
+    updateCreateEventEndTime: (state, action) => {
+      state.create.endtime = action.payload;
+    },
+    updateCreateEventSleipner: (state, action) => {
+      state.create.sleipner = action.payload;
+    },
+    resetUpdateCreateEventData: (state, _action) => {
+      state.create = initialState.create;
+    },
   },
 });
 
-export const { selectedDate, selectedMonth, selectedYear } = eventSlice.actions;
+export const {
+  selectedDate,
+  selectedMonth,
+  selectedYear,
+  updateCreateEvent,
+  updateCreateEventTitle,
+  updateCreateEventDescription,
+  updateCreateEventDate,
+  updateCreateEventStartTime,
+  updateCreateEventEndTime,
+  updateCreateEventSleipner,
+  resetUpdateCreateEventData,
+} = eventSlice.actions;
 
 export default eventSlice.reducer;
