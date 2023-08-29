@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import TextareaInput from "../../../components/common/TextareaInput";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { BsCalendarDate } from "react-icons/bs";
-import { CiTimer } from "react-icons/ci";
+import { useLocation, useNavigate } from "react-router-dom";
 import SelectDate from "./SelectDate";
 import SelectTime from "./SelectTime";
 import DocumentCreate from "../../../components/common/DocumentCreate";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  resetUpdateCreateEventData,
   updateCreateEventDescription,
   updateCreateEventEndTime,
   updateCreateEventStartTime,
@@ -16,11 +15,13 @@ import {
 } from "../../../services/event/eventSlice";
 import { selectCreatedEvent } from "../../../services/event/eventSelector";
 import LoadingButton from "../../../components/common/LoadingButton";
+import { useCreateEventMutation } from "../../../services/event/eventApi";
 
 const CreateEvent = () => {
   const { error, setError } = useState({});
   const { title, description, date, starttime, endtime, sleipner } =
     useSelector(selectCreatedEvent);
+  const [createEvent, { isLoading, isSuccess }] = useCreateEventMutation();
 
   const { pathname } = useLocation();
 
@@ -47,9 +48,22 @@ const CreateEvent = () => {
     if (!title) {
       setError({ title: "Title is required !" });
     } else {
-      console.log("hello");
+      createEvent({
+        title,
+        description,
+        date: `${date.year}-${date.month}-${date.day}`,
+        starttime: `${starttime.hour}:${starttime.minute}`,
+        endtime: `${endtime.hour}:${endtime.minute}`,
+        sleipner,
+      });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(resetUpdateCreateEventData());
+    }
+  }, [isSuccess]);
 
   const createEventBtnDisabled = title ? true : false;
 
@@ -102,7 +116,7 @@ const CreateEvent = () => {
 
       <div className="flex justify-end items-center">
         <LoadingButton
-          isLoading={false}
+          isLoading={isLoading}
           disabled={!createEventBtnDisabled}
           onClick={handleCreateEvent}>
           Create Event
