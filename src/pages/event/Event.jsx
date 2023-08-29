@@ -12,6 +12,7 @@ import {
 } from "../../services/event/eventSlice";
 import Modal from "../../components/modal/Modal";
 import CreateEvent from "./addevent/CreateEvent";
+import { useNavigate } from "react-router-dom";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
@@ -19,6 +20,7 @@ const Event = () => {
   const [showBigCalender, setShowBigCalender] = useState(false);
   const [createEventModalIsOpen, setCreateEventModalIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(selectedMonth(currMonth));
@@ -52,6 +54,10 @@ const Event = () => {
     setCreateEventModalIsOpen((prv) => !prv);
   };
 
+  const openFullPageCreateEvent = () => {
+    navigate("/event/create");
+  };
+
   return (
     <>
       <EventHeader
@@ -74,8 +80,13 @@ const Event = () => {
           </>
         )}
       </div>
-      <Modal isOpen={createEventModalIsOpen} onClose={handleCreateEventModal}>
-        <CreateEvent />
+      <Modal
+        isOpen={createEventModalIsOpen}
+        onClose={handleCreateEventModal}
+        fullPage={openFullPageCreateEvent}>
+        <div className="max-h-[700px] overflow-y-scroll ">
+          <CreateEvent />
+        </div>
       </Modal>
     </>
   );
