@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Message from "./Message";
+import Message from "../../components/common/Message";
 import { useChangePasswordMutation } from "../../services/user/userApi";
 import LoadingButton from "../../components/common/LoadingButton";
 

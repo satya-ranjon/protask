@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUpdateUserInfoMutation } from "../../services/user/userApi";
-import Message from "./Message";
+import Message from "../../components/common/Message";
 import { selectUserName } from "../../services/auth/authSelector";
 import LoadingButton from "../../components/common/LoadingButton";
 

@@ -19,14 +19,16 @@ const SelectDate = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      updateCreateEventDate({
-        year: currentYear,
-        month: currentMonth + 1,
-        day: currentDay,
-      })
-    );
-  }, [currentDay, currentMonth, currentYear]);
+    if (!date.year && !date.month && !date.date) {
+      dispatch(
+        updateCreateEventDate({
+          year: currentYear,
+          month: currentMonth + 1,
+          day: currentDay,
+        })
+      );
+    }
+  }, [currentDay, currentMonth, currentYear, date]);
 
   // Custom hook to handle clicks outside the dropdown
   useOutsideClick(dropdownRef, () => {

@@ -16,9 +16,14 @@ import {
 import { selectCreatedEvent } from "../../../services/event/eventSelector";
 import LoadingButton from "../../../components/common/LoadingButton";
 import { useCreateEventMutation } from "../../../services/event/eventApi";
+import Message from "../../../components/common/Message";
 
 const CreateEvent = () => {
-  const { error, setError } = useState({});
+  const [error, setError] = useState({});
+  const [showMessage, setShowMessage] = useState({
+    type: "success",
+    message: "",
+  });
   const { title, description, date, starttime, endtime, sleipner } =
     useSelector(selectCreatedEvent);
   const [createEvent, { isLoading, isSuccess }] = useCreateEventMutation();
@@ -59,9 +64,22 @@ const CreateEvent = () => {
     }
   };
 
+  const clearMessages = () => {
+    setTimeout(() => {
+      setShowMessage({ type: "", message: "" });
+    }, 3000);
+  };
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(resetUpdateCreateEventData());
+
+      setShowMessage({
+        type: "success",
+        message: "Update successfully",
+      });
+      // Handle success message display and timeout
+      clearMessages();
     }
   }, [isSuccess]);
 
@@ -70,6 +88,7 @@ const CreateEvent = () => {
   const isFullPage = pathname === "/event/create";
   return (
     <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
+      <Message type={showMessage?.type} message={showMessage?.message} />
       {isFullPage && (
         <div className="text-dark-light flex justify-start gap-2 items-center ">
           <span
