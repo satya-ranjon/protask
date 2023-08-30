@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLayoutEffect } from "react";
 import { LiaEyeSolid } from "react-icons/lia";
 import { PiEyeSlashLight } from "react-icons/pi";
 
@@ -23,7 +24,7 @@ const InputField = ({ focus = false, type, children, ...argument }) => {
   };
 
   // Effect to focus on the input field when `focus` prop is true
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (inputRef.current && focus) {
       inputRef.current.focus();
     }
