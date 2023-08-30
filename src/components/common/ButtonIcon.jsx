@@ -1,4 +1,11 @@
-const ButtonIcon = ({ tooltipLeft, tooltipRight, children, ...argument }) => {
+const ButtonIcon = ({
+  tooltipLeft,
+  tooltipRight,
+  children,
+  tooltipRightLeft,
+  tooltipLeftRight,
+  ...argument
+}) => {
   return (
     <div className="relative group">
       <button
@@ -15,6 +22,20 @@ const ButtonIcon = ({ tooltipLeft, tooltipRight, children, ...argument }) => {
       {tooltipRight && (
         <div className="absolute -top-8 right-0 w-max bg-dark px-2 rounded-md hidden  group-hover:flex">
           <p className=" text-white font-xs font-normal p-1">{tooltipRight}</p>
+        </div>
+      )}
+      {tooltipLeftRight && (
+        <div className="absolute top-0 left-12 w-max bg-dark px-2 rounded-md hidden  group-hover:flex">
+          <p className=" text-white font-xs font-normal p-1">
+            {tooltipLeftRight}
+          </p>
+        </div>
+      )}
+      {tooltipRightLeft && (
+        <div className="absolute top-0 right-12 w-max bg-dark px-2 rounded-md hidden  group-hover:flex">
+          <p className=" text-white font-xs font-normal p-1">
+            {tooltipRightLeft}
+          </p>
         </div>
       )}
     </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
+
 const hourList = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 0,
+  23, 0,
 ];
 
 const minuteList = [
@@ -28,6 +28,9 @@ const TimePicker = ({
           : value?.minute || initialState?.minute,
     });
   };
+
+  //TODO
+  console.log("%cTimePicker", "color:yellow");
 
   return (
     <div className="absolute top-10 left-0 bg-white z-10">
