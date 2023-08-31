@@ -3,7 +3,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import ButtonIcon from "../common/ButtonIcon";
 import { motion, AnimatePresence } from "framer-motion";
 
-const RightModal = ({ isOpen = false, onClose = () => {}, children }) => {
+const RightModal = ({
+  isOpen = false,
+  onClose = () => {},
+  openFull = () => {},
+  children,
+}) => {
   const modalVariants = {
     hidden: {
       opacity: 0,
@@ -28,7 +33,7 @@ const RightModal = ({ isOpen = false, onClose = () => {}, children }) => {
           exit="hidden"
           variants={modalVariants}>
           <div className=" flex justify-between">
-            <ButtonIcon tooltipLeftRight="Open in full page">
+            <ButtonIcon tooltipLeftRight="Open in full page" onClick={openFull}>
               <MdOpenInFull />
             </ButtonIcon>
             <ButtonIcon tooltipRightLeft="Close" onClick={onClose}>

@@ -2,10 +2,17 @@ import { useRef, useState } from "react";
 import { CiTimer, CiViewTimeline } from "react-icons/ci";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import TimePicker from "../../../components/TimePicker/TimePicker";
+import { useEffect } from "react";
 
 const SelectTime = ({ label = "", initialState, getValue = () => {} }) => {
   const [openTimePicker, setOpenTimePicker] = useState(false);
   const [selectedTime, setSelectedTime] = useState(initialState);
+
+  useEffect(() => {
+    if (setSelectedTime) {
+      setSelectedTime(initialState);
+    }
+  }, [initialState]);
 
   const dropdownRef = useRef(null);
 
