@@ -7,6 +7,7 @@ const initialState = {
       month: null,
       year: null,
     },
+    showAllEvent: false,
   },
   create: {
     title: "",
@@ -88,6 +89,11 @@ const eventSlice = createSlice({
     resetSelectedUpdateEventData: (state, _action) => {
       state.update = initialState.update;
     },
+
+    // showAllEvent
+    showAllEventDispatch: (state, action) => {
+      state.filter.showAllEvent = action.payload;
+    },
   },
 });
 
@@ -112,6 +118,9 @@ export const {
   selectedUpdateEventEndTime,
   selectedUpdateEventSleipner,
   resetSelectedUpdateEventData,
+
+  //
+  showAllEventDispatch,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

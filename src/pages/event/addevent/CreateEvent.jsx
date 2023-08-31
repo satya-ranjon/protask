@@ -130,7 +130,7 @@ const CreateEvent = () => {
       <div
         className={` ${
           isFullPage ? "max-h-[600px] " : "max-h-96"
-        } min-h-[100px] overflow-y-scroll`}>
+        } min-h-[300px] overflow-y-scroll`}>
         <DocumentCreate
           value={description}
           handleValue={handleEventDescription}

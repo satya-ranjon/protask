@@ -5,15 +5,15 @@ import {
   selectFilterSelectYear,
 } from "../../../services/event/eventSelector";
 import { useGetAllEventsQuery } from "../../../services/event/eventApi";
-import { selectedUpdateEvent } from "../../../services/event/eventSlice";
+import {
+  selectedDate,
+  selectedUpdateEvent,
+  showAllEventDispatch,
+} from "../../../services/event/eventSlice";
 
 const BigSingleDate = ({ date, currentDate = true, active = false }) => {
   const curMonth = useSelector(selectFilterSelectMonth);
   const curYear = useSelector(selectFilterSelectYear);
-
-  //TODO
-  console.log("%cBigSingleDate", "color:red", date);
-
   const dispatch = useDispatch();
   const { data } = useGetAllEventsQuery();
   const todayEvents = data[`${curYear}-${curMonth}-${date}`];
@@ -36,6 +36,11 @@ const BigSingleDate = ({ date, currentDate = true, active = false }) => {
     );
   };
 
+  const handleAllEventShow = () => {
+    dispatch(selectedDate(date));
+    dispatch(showAllEventDispatch(true));
+  };
+
   const dateEvent = () => (
     <div className="w-full flex flex-col gap-2">
       {todayEvents?.slice(0, 2).map((event) => (
@@ -53,7 +58,9 @@ const BigSingleDate = ({ date, currentDate = true, active = false }) => {
       ))}
 
       {todayEvents?.length > 2 && (
-        <div className="w-full text-start text-sm hover:text-primary">
+        <div
+          className="w-full text-start text-sm hover:text-primary"
+          onClick={handleAllEventShow}>
           And 3 more
         </div>
       )}

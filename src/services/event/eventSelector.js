@@ -15,6 +15,7 @@ export const selectFilterSelectYear = (state) =>
 
 export const selectSelectedUpdateEventId = (state) => state.events.update._id;
 export const selectSelectedUpdateEvent = (state) => state.events.update;
+export const selectShowAllEvent = (state) => state.events.filter.showAllEvent;
 
 // Memoized selector selectFilterSelectYear
 // export const selectMemoizedFilterSelectYear = createSelector();

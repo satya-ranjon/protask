@@ -10,6 +10,7 @@ import {
   selectedDate,
   selectedMonth,
   selectedYear,
+  showAllEventDispatch,
 } from "../../services/event/eventSlice";
 import Modal from "../../components/modal/Modal";
 import CreateEvent from "./addevent/CreateEvent";
@@ -17,7 +18,11 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllEventsQuery } from "../../services/event/eventApi";
 import RightModal from "../../components/modal/RightModal";
 import UpdateEvent from "./addevent/UpdateEvent";
-import { selectSelectedUpdateEventId } from "../../services/event/eventSelector";
+import {
+  selectSelectedUpdateEventId,
+  selectShowAllEvent,
+} from "../../services/event/eventSelector";
+import ShowAllDateEvent from "./ShowAllDateEvent";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
@@ -73,6 +78,14 @@ const Event = () => {
     navigate(`/event/${selectedEventId}`);
   };
 
+  const showAllEventModal = useSelector(selectShowAllEvent);
+
+  const handleCloseShowAllEventModal = () => {
+    dispatch(showAllEventDispatch(false));
+    dispatch(selectedDate(null));
+  };
+  console.log(showAllEventModal);
+
   console.log("%cEvent", "color:blue");
 
   return isLoading ? (
@@ -114,6 +127,12 @@ const Event = () => {
         openFull={handleUpdateEventFullPage}>
         <UpdateEvent />
       </RightModal>
+
+      <Modal isOpen={showAllEventModal} onClose={handleCloseShowAllEventModal}>
+        <div className="max-h-[600px] min-h-[400px] overflow-y-scroll">
+          <ShowAllDateEvent currMonth={currMonth} currYear={currYear} />
+        </div>
+      </Modal>
     </>
   );
 };

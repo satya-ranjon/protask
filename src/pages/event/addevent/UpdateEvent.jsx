@@ -12,9 +12,9 @@ import {
   selectedUpdateEventDescription,
   selectedUpdateEventStartTime,
   selectedUpdateEventEndTime,
-  selectedUpdateEventSleipner,
   selectedUpdateEvent,
   selectedUpdateEventDate,
+  resetSelectedUpdateEventData,
 } from "../../../services/event/eventSlice";
 import { selectSelectedUpdateEvent } from "../../../services/event/eventSelector";
 import LoadingButton from "../../../components/common/LoadingButton";
@@ -74,6 +74,7 @@ const UpdateEvent = () => {
 
   const backToEvent = () => {
     navigate("/event");
+    dispatch(resetSelectedUpdateEventData());
   };
 
   const handleEventTitle = (value) => {
@@ -173,7 +174,7 @@ const UpdateEvent = () => {
         <div
           className={` ${
             eventParmId ? "max-h-[600px] " : "max-h-96"
-          } min-h-[100px] overflow-y-scroll`}>
+          } min-h-[300px] overflow-y-scroll`}>
           <DocumentCreate
             value={description}
             handleValue={handleEventDescription}
