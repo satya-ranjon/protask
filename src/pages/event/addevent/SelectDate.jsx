@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateCreateEventDate } from "../../../services/event/eventSlice";
 
-const SelectDate = ({ date }) => {
+const SelectDate = ({ date, getValue }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dropdownRef = useRef(null);
   const { currentMonth, currentYear } = useCurrentDMY();
@@ -38,6 +38,7 @@ const SelectDate = ({ date }) => {
   };
 
   const selectedDateHandler = (date) => {
+    getValue(date);
     dispatch(updateCreateEventDate(date));
   };
 

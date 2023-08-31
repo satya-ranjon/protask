@@ -8,6 +8,7 @@ import DocumentCreate from "../../../components/common/DocumentCreate";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetUpdateCreateEventData,
+  updateCreateEventDate,
   updateCreateEventDescription,
   updateCreateEventEndTime,
   updateCreateEventStartTime,
@@ -47,6 +48,9 @@ const CreateEvent = () => {
   };
   const handleEventDescription = (value) => {
     dispatch(updateCreateEventDescription(value));
+  };
+  const handleEventDate = (value) => {
+    dispatch(updateCreateEventDate(value));
   };
 
   const handleCreateEvent = () => {
@@ -111,7 +115,7 @@ const CreateEvent = () => {
         placeholder="event title is required"
         handleTitleValue={handleEventTitle}
       />
-      <SelectDate date={date} />
+      <SelectDate date={date} getValue={handleEventDate} />
       <SelectTime
         label="Start Time"
         getValue={handleEventStartTime}

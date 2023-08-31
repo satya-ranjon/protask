@@ -21,7 +21,7 @@ const BigSingleDate = ({ date, currentDate = true, active = false }) => {
   const handleDetailsEvent = (event) => {
     const startTimeHour = event.starttime.split(":")[0];
     const startTimeMinute = event.starttime.split(":")[1];
-    const endTimeHour = event.endtime.split(":")[1];
+    const endTimeHour = event.endtime.split(":")[0];
     const endTimeMinute = event.endtime.split(":")[1];
     const dateYear = event.date.split("-")[0];
     const dateMonth = event.date.split("-")[1];

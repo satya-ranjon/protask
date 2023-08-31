@@ -41,8 +41,6 @@ const eventApi = apiSlice.injectEndpoints({
         body: data,
       }),
       async onQueryStarted({ eventId, data }, { dispatch, queryFulfilled }) {
-        console.log("onQuerYStarted eventId", eventId);
-        console.log("onQuerYStarted data", data);
         // update getAllTasks cache
         const updateGetAllEventCache = dispatch(
           apiSlice.util.updateQueryData(
@@ -71,6 +69,17 @@ const eventApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    getSingleEvent: builder.query({
+      query: (id) => `/event/${id}`,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("getSingleEvent query", data);
+          dispatch();
+        } catch {}
+      },
+    }),
   }),
 });
 
@@ -78,4 +87,5 @@ export const {
   useCreateEventMutation,
   useGetAllEventsQuery,
   useUpdateEventMutation,
+  useGetSingleEventQuery,
 } = eventApi;

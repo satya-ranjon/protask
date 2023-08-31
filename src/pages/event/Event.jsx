@@ -6,6 +6,7 @@ import EventGroup from "./EventGroup";
 import BigCalendar from "./calendar/BigCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  resetSelectedUpdateEventData,
   selectedDate,
   selectedMonth,
   selectedYear,
@@ -14,6 +15,9 @@ import Modal from "../../components/modal/Modal";
 import CreateEvent from "./addevent/CreateEvent";
 import { useNavigate } from "react-router-dom";
 import { useGetAllEventsQuery } from "../../services/event/eventApi";
+import RightModal from "../../components/modal/RightModal";
+import UpdateEvent from "./addevent/UpdateEvent";
+import { selectSelectedUpdateEventId } from "../../services/event/eventSelector";
 
 const Event = () => {
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
@@ -59,7 +63,15 @@ const Event = () => {
     navigate("/event/create");
   };
 
-  const { data, isLoading, isSuccess } = useGetAllEventsQuery();
+  const { isLoading } = useGetAllEventsQuery();
+  const selectedEventId = useSelector(selectSelectedUpdateEventId);
+  const handleUpdateEventModal = () => {
+    dispatch(resetSelectedUpdateEventData());
+  };
+
+  const handleUpdateEventFullPage = () => {
+    navigate(`/event/${selectedEventId}`);
+  };
 
   console.log("%cEvent", "color:blue");
 
@@ -95,6 +107,13 @@ const Event = () => {
           <CreateEvent />
         </div>
       </Modal>
+
+      <RightModal
+        isOpen={selectedEventId}
+        onClose={handleUpdateEventModal}
+        openFull={handleUpdateEventFullPage}>
+        <UpdateEvent />
+      </RightModal>
     </>
   );
 };
