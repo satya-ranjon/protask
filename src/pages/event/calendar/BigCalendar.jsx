@@ -5,7 +5,8 @@ import useCurrentDMY from "../../../hooks/useCurrentDMY";
 
 const BigCalendar = ({ currMonth, currYear }) => {
   const { currentDay, currentMonth, currentYear } = useCurrentDMY();
-
+  //TODO
+  console.log("BigCalendar");
   return (
     <div className="w-full overflow-scroll  mx-2 sm:mx-5">
       <div className="w-[914px] xl:w-full lg:h-[720px] overflow-y-scroll">
@@ -29,7 +30,7 @@ const BigCalendar = ({ currMonth, currYear }) => {
   );
 };
 
-export default BigCalendar;
+export default React.memo(BigCalendar);
 
 {
   /* <div className="w-full flex flex-col gap-2">
