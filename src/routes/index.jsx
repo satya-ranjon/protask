@@ -12,6 +12,7 @@ import useAuthCheck from "../hooks/useAuthCheck";
 import NotFound from "../pages/notfound/NotFound";
 import Setting from "../pages/setting/Setting";
 import CreateEvent from "../pages/event/addevent/CreateEvent";
+import UpdateEvent from "../pages/event/addevent/UpdateEvent";
 
 const Router = () => {
   const authenticationCheck = useAuthCheck();
@@ -27,6 +28,7 @@ const Router = () => {
         <Route path="/document" element={<Document />} />
         <Route path="/event" element={<Event />} />
         <Route path="/event/create" element={<CreateEvent />} />
+        <Route path="/event/:eventId" element={<UpdateEvent />} />
         <Route path="/setting" element={<Setting />} />
       </Route>
       <Route path="/" element={<PublicRoute />}>
