@@ -56,7 +56,7 @@ const CreateEvent = () => {
       createEvent({
         title,
         description,
-        date: `${date.year}-${date.month}-${date.day}`,
+        date: `${date.year}-${date.month}-${date.date}`,
         starttime: `${starttime.hour}:${starttime.minute}`,
         endtime: `${endtime.hour}:${endtime.minute}`,
         sleipner,
@@ -111,7 +111,7 @@ const CreateEvent = () => {
         placeholder="event title is required"
         handleTitleValue={handleEventTitle}
       />
-      <SelectDate />
+      <SelectDate date={date} />
       <SelectTime
         label="Start Time"
         getValue={handleEventStartTime}
