@@ -5,17 +5,15 @@ import DatePicker from "../../../components/datePicker/DatePicker";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import useCurrentDMY from "../../../hooks/useCurrentDMY";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateCreateEventDate } from "../../../services/event/eventSlice";
-import { selectCreatedEventDate } from "../../../services/event/eventSelector";
 
-const SelectDate = () => {
+const SelectDate = ({ date }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dropdownRef = useRef(null);
   const { currentMonth, currentYear } = useCurrentDMY();
   const currentDay = String(new Date().getDate()).padStart(2, "0");
 
-  const date = useSelector(selectCreatedEventDate);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +22,7 @@ const SelectDate = () => {
         updateCreateEventDate({
           year: currentYear,
           month: currentMonth + 1,
-          day: currentDay,
+          date: currentDay,
         })
       );
     }
@@ -54,7 +52,7 @@ const SelectDate = () => {
       <div className="w-[75%] flex justify-start items-center gap-3 relative">
         <span className=" p-1 px-2 bg-hover cursor-pointer">
           <span>
-            {date?.year}-{date?.month}-{date?.day}
+            {date?.year}-{date?.month}-{date?.date}
           </span>
         </span>
         <div
