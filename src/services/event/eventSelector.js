@@ -10,9 +10,11 @@ export const selectCreatedEventEndTime = (state) => state.events.create.endtime;
 export const selectFilterSelectMonth = (state) =>
   state.events.filter.select.month;
 
-export const selectFilterSelectYear = (state) => {
-  return state.events.filter.select.year;
-};
+export const selectFilterSelectYear = (state) =>
+  state.events.filter.select.year;
+
+export const selectSelectedUpdateEventId = (state) => state.events.update._id;
+export const selectSelectedUpdateEvent = (state) => state.events.update;
 
 // Memoized selector selectFilterSelectYear
 // export const selectMemoizedFilterSelectYear = createSelector();

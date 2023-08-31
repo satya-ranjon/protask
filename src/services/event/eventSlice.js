@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  events: {},
   filter: {
     select: {
       date: null,
@@ -10,6 +9,15 @@ const initialState = {
     },
   },
   create: {
+    title: "",
+    description: null,
+    date: { year: null, month: null, date: null },
+    starttime: { hour: "00", minute: "00" },
+    endtime: { hour: "00", minute: "00" },
+    sleipner: [],
+  },
+  update: {
+    _id: null,
     title: "",
     description: null,
     date: { year: null, month: null, date: null },
@@ -32,15 +40,6 @@ const eventSlice = createSlice({
     selectedYear: (state, action) => {
       state.filter.select.year = action.payload;
     },
-    updateCreateEvent: (state, action) => {
-      state.create.title = action.payload.title || state.create.title;
-      state.create.description =
-        action.payload.description || state.create.description;
-      state.create.starttime =
-        action.payload.starttime || state.create.starttime;
-      state.create.endtime = action.payload.endtime || state.create.endtime;
-      state.create.sleipner = action.payload.sleipner || state.create.sleipner;
-    },
     updateCreateEventTitle: (state, action) => {
       state.create.title = action.payload;
     },
@@ -62,8 +61,32 @@ const eventSlice = createSlice({
     resetUpdateCreateEventData: (state, _action) => {
       state.create = initialState.create;
     },
-    addEventsData: (state, action) => {
-      state.events = action.payload;
+
+    // Selected Update Event
+
+    selectedUpdateEvent: (state, action) => {
+      state.update = action.payload;
+    },
+    selectedUpdateEventTitle: (state, action) => {
+      state.update.title = action.payload;
+    },
+    selectedUpdateEventDescription: (state, action) => {
+      state.update.description = action.payload;
+    },
+    selectedUpdateEventDate: (state, action) => {
+      state.update.date = action.payload;
+    },
+    selectedUpdateEventStartTime: (state, action) => {
+      state.update.starttime = action.payload;
+    },
+    selectedUpdateEventEndTime: (state, action) => {
+      state.update.endtime = action.payload;
+    },
+    selectedUpdateEventSleipner: (state, action) => {
+      state.update.sleipner = action.payload;
+    },
+    resetSelectedUpdateEventData: (state, _action) => {
+      state.update = initialState.update;
     },
   },
 });
@@ -80,6 +103,15 @@ export const {
   updateCreateEventEndTime,
   updateCreateEventSleipner,
   resetUpdateCreateEventData,
+  // Selected Update Event
+  selectedUpdateEvent,
+  selectedUpdateEventTitle,
+  selectedUpdateEventDescription,
+  selectedUpdateEventDate,
+  selectedUpdateEventStartTime,
+  selectedUpdateEventEndTime,
+  selectedUpdateEventSleipner,
+  resetSelectedUpdateEventData,
 } = eventSlice.actions;
 
 export default eventSlice.reducer;

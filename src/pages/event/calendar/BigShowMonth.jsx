@@ -3,6 +3,8 @@ import { v4 as uniqID } from "uuid";
 import BigSingleDate from "./BigSingleDate";
 
 const BigShowMonth = ({ year, month }) => {
+  //TODO
+  console.log("BigShowMonth");
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
   const lastDayOfLastMonth =
@@ -47,33 +49,10 @@ const BigShowMonth = ({ year, month }) => {
 
     if (chkY === year && chkM === month && day === currDay) {
       daysRow.push(
-        <BigSingleDate
-          active={true}
-          key={uniqID()}
-          date={day < 10 ? `0${day}` : day}>
-          <div className="w-full flex flex-col gap-2">
-            <div className="w-full text-start">
-              <h1 className="text-[15.5px] leading-5 font-medium">
-                Project overview / and analysis
-              </h1>
-              <h5 className=" text-sm text-dark-light">11:00 - 12:30 PM</h5>
-            </div>
-            <div className="w-full text-start">
-              <h1 className="text-[15.5px] leading-5 font-medium">
-                Project overview / and analysis
-              </h1>
-              <h5 className=" text-sm text-dark-light">11:00 - 12:30 PM</h5>
-            </div>
-            <div className="w-full text-start text-sm">And 3 more</div>
-          </div>
-        </BigSingleDate>
+        <BigSingleDate active={true} key={uniqID()} date={day}></BigSingleDate>
       );
     } else {
-      daysRow.push(
-        <BigSingleDate
-          key={uniqID()}
-          date={day < 10 ? `0${day}` : day}></BigSingleDate>
-      );
+      daysRow.push(<BigSingleDate key={uniqID()} date={day}></BigSingleDate>);
     }
 
     if (dow === 6 || day === lastDateOfMonth) {
@@ -83,7 +62,7 @@ const BigShowMonth = ({ year, month }) => {
           <BigSingleDate
             currentDate={false}
             key={uniqID()}
-            date={x < 10 ? `0${x}` : x}></BigSingleDate>
+            date={x}></BigSingleDate>
         );
       }
 
