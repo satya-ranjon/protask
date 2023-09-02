@@ -3,10 +3,10 @@ import { GoTasklist } from "react-icons/go";
 import { IoDocumentOutline } from "react-icons/io5";
 
 const menuItems = [
+  { path: "/", icon: <AiOutlineDashboard /> },
   { path: "/tasks", icon: <GoTasklist /> },
-  { path: "/dashboard", icon: <AiOutlineDashboard /> },
   { path: "/event", icon: <AiOutlineCalendar /> },
-  { path: "/document", icon: <IoDocumentOutline /> },
+  // { path: "/document", icon: <IoDocumentOutline /> },
 ];
 
 export default menuItems;

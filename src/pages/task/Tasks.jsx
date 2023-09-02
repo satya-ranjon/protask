@@ -118,7 +118,9 @@ const Tasks = () => {
         isOpen={modalIsOpen}
         onClose={handleModal}
         fullPage={taskCreateFullPageHandle}>
-        <CreateTask />
+        <div className="min-h-[600px] max-h-[700px] ">
+          <CreateTask />
+        </div>
       </Modal>
     </>
   );

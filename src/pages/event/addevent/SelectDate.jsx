@@ -12,7 +12,7 @@ const SelectDate = ({ date, getValue }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dropdownRef = useRef(null);
   const { currentMonth, currentYear } = useCurrentDMY();
-  const currentDay = String(new Date().getDate()).padStart(2, "0");
+  const currentDay = String(new Date().getDate());
 
   const dispatch = useDispatch();
 
@@ -39,7 +39,6 @@ const SelectDate = ({ date, getValue }) => {
 
   const selectedDateHandler = (date) => {
     getValue(date);
-    dispatch(updateCreateEventDate(date));
   };
 
   return (

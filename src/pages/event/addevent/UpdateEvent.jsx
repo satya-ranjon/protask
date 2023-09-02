@@ -43,9 +43,15 @@ const UpdateEvent = () => {
     data,
     isSuccess: isSuccessDataFetch,
     isLoading: isLoadingDataFetch,
+    isError,
+    error: fetchError,
   } = useGetSingleEventQuery(eventParmId, {
     skip: !fetchRequest,
   });
+
+  useEffect(() => {
+    fetchError?.status === 500 && navigate("/notfound");
+  }, [isError]);
 
   useEffect(() => {
     if (isSuccessDataFetch) {
@@ -56,9 +62,6 @@ const UpdateEvent = () => {
       const dateYear = data.date.split("-")[0];
       const dateMonth = data.date.split("-")[1];
       const dateDate = data.date.split("-")[2];
-      console.log({ hour: endTimeHour, minute: endTimeMinute });
-      console.log({ hour: startTimeHour, minute: startTimeMinute });
-      console.log({ year: dateYear, month: dateMonth, date: dateDate });
       dispatch(
         selectedUpdateEvent({
           ...data,

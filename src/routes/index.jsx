@@ -22,9 +22,9 @@ const Router = () => {
   ) : (
     <Routes>
       <Route path="/" element={<PrivateRoute />}>
+        <Route path="/" element={<Dashboard />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/task/:taskId" element={<CreateTask />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/document" element={<Document />} />
         <Route path="/event" element={<Event />} />
         <Route path="/event/create" element={<CreateEvent />} />

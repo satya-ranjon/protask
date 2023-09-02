@@ -33,15 +33,24 @@ const CreateTask = () => {
   // Function to navigate back to the tasks list and reset create task state
   const backToTasks = () => {
     dispatch(resetCreateTaskState());
-    navigate("/task");
+    navigate("/tasks");
   };
 
   const [createTask] = useCreateTaskMutation();
 
   // Fetch task data if taskParmId is provided
-  const { data, isSuccess, isLoading } = useGetTaskQuery(taskParmId, {
-    skip: taskParmId && !taskDetails.id ? false : true,
-  });
+  const { data, isSuccess, isLoading, isError, error } = useGetTaskQuery(
+    taskParmId,
+    {
+      skip: taskParmId && !taskDetails.id ? false : true,
+    }
+  );
+
+  useEffect(() => {
+    if (error?.status === 500) {
+      navigate("/notfound");
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -119,19 +128,21 @@ const CreateTask = () => {
       <hr className="my-4" />
 
       {/* DocumentAdd for entering task notes */}
-      {taskParmId ? (
-        taskDetails.description?.length > 0 && (
+      <div className="max-h-[400px] overflow-y-scroll">
+        {taskParmId ? (
+          taskDetails.description?.length > 0 && (
+            <DocumentCreate
+              value={taskDetails.description}
+              handleValue={handleDocumentValue}
+            />
+          )
+        ) : (
           <DocumentCreate
             value={taskDetails.description}
             handleValue={handleDocumentValue}
           />
-        )
-      ) : (
-        <DocumentCreate
-          value={taskDetails.description}
-          handleValue={handleDocumentValue}
-        />
-      )}
+        )}
+      </div>
     </div>
   );
 };

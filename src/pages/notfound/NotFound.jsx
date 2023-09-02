@@ -16,7 +16,7 @@ const NotFound = () => {
           to the dashboard page
         </p>
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/")}
           className=" bg-black text-white border-none p-2 px-5 mt-3 rounded-lg">
           Go Dashboard
         </button>

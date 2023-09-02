@@ -27,6 +27,7 @@ const CreateEvent = () => {
   });
   const { title, description, date, starttime, endtime, sleipner } =
     useSelector(selectCreatedEvent);
+
   const [createEvent, { isLoading, isSuccess }] = useCreateEventMutation();
 
   const { pathname } = useLocation();
