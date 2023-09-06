@@ -4,6 +4,7 @@ import authReducer from "../services/auth/authSlice";
 import taskReducer from "../services/task/taskSlice";
 import authApi from "../services/auth/authApi";
 import eventReducer from "../services/event/eventSlice";
+import userReducer from "../services/user/userSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     auth: authReducer,
     taskSlice: taskReducer,
     events: eventReducer,
+    users: userReducer,
   },
   middleware: (defaultMiddleware) =>
     defaultMiddleware().concat(apiSlice.middleware, authApi.middleware),

@@ -8,6 +8,8 @@ import FullModal from "../../components/modal/FullModal";
 import { useState } from "react";
 import InviteSend from "./inviteSend/InviteSend";
 import AddSleipner from "./addSleipner/AddSleipner";
+import { useDispatch } from "react-redux";
+import { resetSearchResult } from "../../services/user/userSlice";
 
 const avatar = [
   "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
@@ -65,6 +67,7 @@ const demo = [
 const Dashboard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [addSleipner, setAddSleipner] = useState(true);
+  const dispatch = useDispatch();
 
   useTitleSet("Dashboard");
 
@@ -74,6 +77,7 @@ const Dashboard = () => {
   };
   const handleAddOrSendSleipner = () => {
     setAddSleipner((prv) => !prv);
+    dispatch(resetSearchResult());
   };
 
   return (

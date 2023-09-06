@@ -1,5 +1,6 @@
 import apiSlice from "../api/api";
 import { userLogin } from "../auth/authSlice";
+import { addSearchResult } from "./userSlice";
 
 const updateUserCaseDate = async (queryFulfilled, dispatch) => {
   try {
@@ -89,6 +90,28 @@ const userApi = apiSlice.injectEndpoints({
         await updateUserCaseDate(queryFulfilled, dispatch);
       },
     }),
+
+    getSearchUsers: builder.query({
+      query: ({ nameOrEmail, page, perPage }) =>
+        `user/search?nameOremail=${nameOrEmail}&page=${page}&perPage=${perPage}`,
+      // cacheTime: 0,
+      provides: "nothing",
+
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(addSearchResult(data));
+        } catch (error) {}
+      },
+    }),
+
+    addSleipner: builder.mutation({
+      query: (data) => ({
+        url: "/user/sleipner",
+        method: "PATCH",
+        body: { id: data },
+      }),
+    }),
   }),
 });
 
@@ -99,4 +122,6 @@ export const {
   useUpdateUserInfoMutation,
   useChangePasswordMutation,
   useUpdateProfilePictureMutation,
+  useGetSearchUsersQuery,
+  useAddSleipnerMutation,
 } = userApi;
