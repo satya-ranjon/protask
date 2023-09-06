@@ -2,42 +2,82 @@ import { images } from "../../../constants";
 import { BsSearch } from "react-icons/bs";
 import SingleSearchResult from "./SingleSearchResult";
 import { useEffect, useState } from "react";
-import { useGetSearchUsersQuery } from "../../../services/user/userApi";
+
 import { useSelector } from "react-redux";
-import { selectSearchResult } from "../../../services/user/userSelector";
 import SingleSearchResultSkelton from "../../../components/skeleton/SingleSearchResultSkelton";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { selectAuthAccessToken } from "../../../services/auth/authSelector";
 
 const AddSleipner = ({ handleAddOrSendSleipner }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [fetch, setFetch] = useState(true);
-  const searchResult = useSelector(selectSearchResult); // Retrieve search results from Redux state
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const token = useSelector(selectAuthAccessToken);
+  const fetchData = async () => {
+    if (isLoading) return;
 
-  // Fetch search results using a custom query hook
-  const { isLoading, isSuccess } = useGetSearchUsersQuery(
-    {
-      nameOrEmail: searchQuery,
-      page: 1,
-      perPage: 10,
-    },
-    {
-      skip: fetch,
-    }
-  );
+    setIsLoading(true);
 
-  // Effect to set 'fetch' to true when search results are successfully loaded
-  useEffect(() => {
-    if (isSuccess) {
-      setFetch(true);
-    }
-  }, [isSuccess]);
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
-  // Handle Enter key press in the search input
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      setFetch(false);
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_BASE_API_URL
+        }user/search?nameOremail=${searchQuery}&page=${page}&perPage=${
+          import.meta.env.VITE_BASE_PARPAGE_SEARCH_RESULT
+        }`,
+        {
+          method: "GET",
+          headers,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP Error! Status: ${response.status}`);
+      }
+
+      const newData = await response.json();
+
+      if (newData.length === 0) {
+        setHasMore(false); // No more data to load
+      } else {
+        // Append new data to existing data
+        setSearchResult((prevData) => [...prevData, ...newData]);
+        setPage((prv) => prv + 1);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (searchQuery) {
+      const timeoutId = setTimeout(async () => {
+        fetchData();
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    } else {
+    }
+  }, [searchQuery]);
+
+  const handleKeyDown = (e) => {
+    setSearchResult([]);
+    setPage(1);
+    setSearchQuery(e.target.value);
+  };
+
+  console.log(isLoading);
 
   return (
     <>
@@ -60,8 +100,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
               placeholder="Search by name or email"
               name="search"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
+              onChange={(e) => handleKeyDown(e)}
               className=" w-full text-xl outline-none p-1 placeholder:text-sm placeholder:text-zinc-500"
             />
             <BsSearch className=" text-xl" />
@@ -74,19 +113,22 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
             Or invite by email address
           </span>
           {/* Display search results or loading skeleton */}
-          <div className="w-full mt-3 h-80 overflow-y-scroll">
-            {isLoading ? (
-              // Display loading skeletons while data is loading
-              <>
-                <SingleSearchResultSkelton />
-                <SingleSearchResultSkelton />
-              </>
+          <div className="w-full mt-3  overflow-y-scroll" id="scrollableDiv">
+            {searchResult?.length > 0 ? (
+              <InfiniteScroll
+                dataLength={searchResult?.length}
+                next={fetchData}
+                hasMore={hasMore}
+                height={"350px"}>
+                {searchResult?.map((user) => (
+                  <SingleSearchResult key={user._id} user={user} />
+                ))}
+                {isLoading && <SingleSearchResultSkelton />}
+              </InfiniteScroll>
             ) : (
-              // Map and display search results if available
-              searchResult?.length > 0 &&
-              searchResult?.map((user) => (
-                <SingleSearchResult key={user._id} user={user} />
-              ))
+              <div className=" w-full flex justify-center items-center">
+                <img src={images.eventNotFound} alt="not" />
+              </div>
             )}
           </div>
         </div>
