@@ -12,6 +12,8 @@ import { useGetAllSleipnerQuery } from "../../services/user/userApi";
 import useCurrentDMY from "../../hooks/useCurrentDMY";
 import { useGetAllEventsQuery } from "../../services/event/eventApi";
 import { images } from "../../constants";
+import { useDispatch } from "react-redux";
+import { selectedUpdateEvent } from "../../services/event/eventSlice";
 
 const demo = [
   {
@@ -71,6 +73,7 @@ const Dashboard = () => {
     [];
 
   useTitleSet("Dashboard");
+  const dispatch = useDispatch();
 
   const handleOpenModal = () => {
     setModalIsOpen((prv) => !prv);
@@ -78,6 +81,24 @@ const Dashboard = () => {
   };
   const handleAddOrSendSleipner = () => {
     setAddSleipner((prv) => !prv);
+  };
+
+  const handleDetailsEvent = (event) => {
+    const startTimeHour = event.starttime.split(":")[0];
+    const startTimeMinute = event.starttime.split(":")[1];
+    const endTimeHour = event.endtime.split(":")[0];
+    const endTimeMinute = event.endtime.split(":")[1];
+    const dateYear = event.date.split("-")[0];
+    const dateMonth = event.date.split("-")[1];
+    const dateDate = event.date.split("-")[2];
+    dispatch(
+      selectedUpdateEvent({
+        ...event,
+        date: { year: dateYear, month: dateMonth, date: dateDate },
+        starttime: { hour: startTimeHour, minute: startTimeMinute },
+        endtime: { hour: endTimeHour, minute: endTimeMinute },
+      })
+    );
   };
 
   return (
@@ -101,7 +122,11 @@ const Dashboard = () => {
           <GridGroup title="ToDay events" doc={` 10 events for today`}>
             {todayEvent?.length > 0 &&
               todayEvent?.map((event) => (
-                <SingleEvent key={event._id} event={event} />
+                <SingleEvent
+                  key={event._id}
+                  event={event}
+                  onClick={() => handleDetailsEvent(event)}
+                />
               ))}
             {!todayEvent[0] && (
               <div className=" w-full flex justify-center items-center select-none mt-10 pointer-events-none">

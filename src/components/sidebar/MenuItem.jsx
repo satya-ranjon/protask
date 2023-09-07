@@ -1,11 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const MenuItem = ({ path, children }) => {
+const MenuItem = ({ path, children, onClick }) => {
   const { pathname } = useLocation();
   return (
     <Link
       to={path}
+      onClick={onClick}
       className={`group relative transition-all text-3xl sm:text-4xl duration-500 hover:text-primary  ${
         pathname === path && "text-primary -top-3 sm:-top-0"
       }`}>

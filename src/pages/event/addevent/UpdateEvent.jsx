@@ -64,16 +64,16 @@ const UpdateEvent = () => {
       const dateDate = data.date.split("-")[2];
       dispatch(
         selectedUpdateEvent({
-          ...data,
-          date: { year: dateYear, month: dateMonth, date: dateDate },
-          starttime: { hour: startTimeHour, minute: startTimeMinute },
-          endtime: { hour: endTimeHour, minute: endTimeMinute },
+          data: {
+            ...data,
+            date: { year: dateYear, month: dateMonth, date: dateDate },
+            starttime: { hour: startTimeHour, minute: startTimeMinute },
+            endtime: { hour: endTimeHour, minute: endTimeMinute },
+          },
         })
       );
     }
   }, [isSuccessDataFetch]);
-
-  console.log(data);
 
   const backToEvent = () => {
     navigate("/event");
