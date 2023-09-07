@@ -6,7 +6,8 @@ const useCurrentDMY = () => {
   const currentDay = daysOfWeek[currentDayIndex];
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
-  return { currentDay, currentMonth, currentYear };
+  const currentDate = today.getDate();
+  return { currentDay, currentMonth, currentYear, currentDate };
 };
 
 export default useCurrentDMY;

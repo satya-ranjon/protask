@@ -96,6 +96,7 @@ const userApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { id: data },
       }),
+      invalidatesTags: ["getAllSleipner"],
     }),
 
     getAllSleipner: builder.query({
@@ -103,6 +104,7 @@ const userApi = apiSlice.injectEndpoints({
         `user/sleipners?page=${page}&perPage=${
           import.meta.env.VITE_BASE_PARPAGE_SLEIPNERS
         }`,
+      providesTags: ["getAllSleipner"],
     }),
   }),
 });

@@ -9,6 +9,9 @@ import { useState } from "react";
 import InviteSend from "./inviteSend/InviteSend";
 import AddSleipner from "./addSleipner/AddSleipner";
 import { useGetAllSleipnerQuery } from "../../services/user/userApi";
+import useCurrentDMY from "../../hooks/useCurrentDMY";
+import { useGetAllEventsQuery } from "../../services/event/eventApi";
+import { images } from "../../constants";
 
 const demo = [
   {
@@ -59,6 +62,13 @@ const Dashboard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [addSleipner, setAddSleipner] = useState(true);
   const { data: sleipners, isLoading } = useGetAllSleipnerQuery(1);
+  const { currentMonth, currentYear, currentDate } = useCurrentDMY();
+  const { data: allEvents, isSuccess: getAllEventsSuccess } =
+    useGetAllEventsQuery();
+  const todayEvent =
+    (getAllEventsSuccess &&
+      allEvents[`${currentYear}-${currentMonth + 1}-${currentDate}`]) ||
+    [];
 
   useTitleSet("Dashboard");
 
@@ -88,10 +98,16 @@ const Dashboard = () => {
         </div>
 
         <div className="lg:ml-24 min-w-[400px]">
-          <GridGroup title="Upcoming events" doc={` 10 events for today`}>
-            <SingleEvent />
-            <SingleEvent />
-            <SingleEvent />
+          <GridGroup title="ToDay events" doc={` 10 events for today`}>
+            {todayEvent?.length > 0 &&
+              todayEvent?.map((event) => (
+                <SingleEvent key={event._id} event={event} />
+              ))}
+            {!todayEvent[0] && (
+              <div className=" w-full flex justify-center items-center select-none mt-10 pointer-events-none">
+                <img src={images.eventNotFound} className=" w-28 h-28" />
+              </div>
+            )}
           </GridGroup>
         </div>
       </div>
