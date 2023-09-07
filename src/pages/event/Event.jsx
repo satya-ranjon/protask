@@ -69,15 +69,6 @@ const Event = () => {
   };
 
   const { isLoading } = useGetAllEventsQuery();
-  // const selectedEventId = useSelector(selectSelectedUpdateEventId);
-
-  // const handleUpdateEventModal = () => {
-  //   dispatch(resetSelectedUpdateEventData());
-  // };
-
-  // const handleUpdateEventFullPage = () => {
-  //   navigate(`/event/${selectedEventId}`);
-  // };
 
   const showAllEventModal = useSelector(selectShowAllEvent);
 
@@ -120,13 +111,6 @@ const Event = () => {
           <CreateEvent />
         </div>
       </Modal>
-
-      {/* <RightModal
-        isOpen={selectedEventId}
-        onClose={handleUpdateEventModal}
-        openFull={handleUpdateEventFullPage}>
-        <UpdateEvent />
-      </RightModal> */}
 
       <Modal isOpen={showAllEventModal} onClose={handleCloseShowAllEventModal}>
         <div className="max-h-[600px] min-h-[400px] overflow-y-scroll">

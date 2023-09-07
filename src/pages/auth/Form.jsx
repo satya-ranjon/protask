@@ -61,7 +61,7 @@ const Form = () => {
         // Handle API request errors and update the errors state
         setErrors({
           ...errors,
-          requestError: error?.error || error?.data?.message,
+          requestError: "authentication error, try again !",
         });
       }
     }

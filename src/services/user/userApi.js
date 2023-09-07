@@ -29,6 +29,8 @@ const userApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["getAllActivate"],
+
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           userApi.util.updateQueryData("getAllTags", undefined, (tagsData) => {
@@ -96,7 +98,7 @@ const userApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: { id: data },
       }),
-      invalidatesTags: ["getAllSleipner"],
+      invalidatesTags: ["getAllSleipner", "getAllActivate"],
     }),
 
     getAllSleipner: builder.query({

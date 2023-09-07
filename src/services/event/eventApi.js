@@ -12,6 +12,8 @@ const eventApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["getAllActivate"],
+
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -40,6 +42,7 @@ const eventApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["getAllActivate"],
       async onQueryStarted({ eventId, data }, { dispatch, queryFulfilled }) {
         // update getAllTasks cache
         const updateGetAllEventCache = dispatch(

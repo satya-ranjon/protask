@@ -14,6 +14,8 @@ const taskApi = apiSlice.injectEndpoints({
         url: `/task`,
         method: "POST",
       }),
+      invalidatesTags: ["getAllActivate"],
+
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const {
