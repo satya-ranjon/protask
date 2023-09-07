@@ -97,6 +97,13 @@ const userApi = apiSlice.injectEndpoints({
         body: { id: data },
       }),
     }),
+
+    getAllSleipner: builder.query({
+      query: (page) =>
+        `user/sleipners?page=${page}&perPage=${
+          import.meta.env.VITE_BASE_PARPAGE_SLEIPNERS
+        }`,
+    }),
   }),
 });
 
@@ -108,6 +115,7 @@ export const {
   useChangePasswordMutation,
   useUpdateProfilePictureMutation,
   useAddSleipnerMutation,
+  useGetAllSleipnerQuery,
 } = userApi;
 
 export default userApi;

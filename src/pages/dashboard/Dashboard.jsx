@@ -8,15 +8,7 @@ import FullModal from "../../components/modal/FullModal";
 import { useState } from "react";
 import InviteSend from "./inviteSend/InviteSend";
 import AddSleipner from "./addSleipner/AddSleipner";
-import { useDispatch } from "react-redux";
-
-const avatar = [
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1664309906/f/images/profile/profile_ob28l3.webp",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1664309906/f/images/profile/profile_ob28l3.webp",
-];
+import { useGetAllSleipnerQuery } from "../../services/user/userApi";
 
 const demo = [
   {
@@ -66,6 +58,7 @@ const demo = [
 const Dashboard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [addSleipner, setAddSleipner] = useState(true);
+  const { data: sleipners, isLoading } = useGetAllSleipnerQuery(1);
 
   useTitleSet("Dashboard");
 
@@ -79,7 +72,11 @@ const Dashboard = () => {
 
   return (
     <>
-      <DashBoardHeader avatar={avatar} handleAddSleipner={handleOpenModal} />
+      <DashBoardHeader
+        avatar={sleipners}
+        isLoading={isLoading}
+        handleAddSleipner={handleOpenModal}
+      />
 
       <div className="2xl:mx-14 flex flex-col lg:flex-row justify-between">
         <div className="w-full">
