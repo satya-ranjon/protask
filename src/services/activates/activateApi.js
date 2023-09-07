@@ -4,7 +4,10 @@ import { updateHasMore, updatePage } from "./activateSlice";
 const activateApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllActivate: builder.query({
-      query: () => `activates?page=1&perPage=10`,
+      query: () =>
+        `activates?page=1&perPage=${
+          import.meta.env.VITE_BASE_PARPAGE_ACTIVATES
+        }`,
       providesTags: ["getAllActivate"],
 
       async onQueryStarted(args, { queryFulfilled, dispatch }) {
@@ -16,7 +19,10 @@ const activateApi = apiSlice.injectEndpoints({
       },
     }),
     getMoreActivate: builder.query({
-      query: (page) => `activates?page=${page}&perPage=10`,
+      query: (page) =>
+        `activates?page=${page}&perPage=${
+          import.meta.env.VITE_BASE_PARPAGE_ACTIVATES
+        }`,
       // cachePolicy: "cacheNever",
       keepUnusedDataFor: 0,
 
