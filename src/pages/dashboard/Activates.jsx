@@ -45,22 +45,19 @@ const Activates = () => {
         </div>
       </div>
       <div className=" pt-5">
-        {!isLoading && (
+        {data?.length > 0 && (
           <InfiniteScroll
             dataLength={data?.length}
             next={fetchData}
             hasMore={hasMore}
             height={"40.3rem"}>
-            {data?.length > 0 ? (
-              data?.map((activate) => (
-                <SingleActivate key={activate._id} activate={activate} />
-              ))
-            ) : (
-              <h1>You have no activate</h1>
-            )}
+            {data?.map((activate) => (
+              <SingleActivate key={activate._id} activate={activate} />
+            ))}
           </InfiniteScroll>
         )}
         {isLoading && <ActivatesSkelton />}
+        {!isLoading && !data?.length > 0 && <h1>You have no activate</h1>}
       </div>
     </div>
   );

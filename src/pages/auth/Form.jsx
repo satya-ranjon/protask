@@ -58,6 +58,7 @@ const Form = () => {
           window.location.reload();
         }
       } catch (error) {
+        console.log("auth error", error);
         // Handle API request errors and update the errors state
         setErrors({
           ...errors,
