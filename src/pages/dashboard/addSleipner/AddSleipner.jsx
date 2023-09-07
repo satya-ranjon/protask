@@ -112,7 +112,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
           </span>
           {/* Display search results or loading skeleton */}
           <div className="w-full mt-3  overflow-y-scroll" id="scrollableDiv">
-            {searchResult?.length > 0 ? (
+            {searchResult?.length > 0 && (
               <InfiniteScroll
                 dataLength={searchResult?.length}
                 next={fetchData}
@@ -121,9 +121,10 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
                 {searchResult?.map((user) => (
                   <SingleSearchResult key={user._id} user={user} />
                 ))}
-                {isLoading && <SingleSearchResultSkelton />}
               </InfiniteScroll>
-            ) : (
+            )}
+            {isLoading && <SingleSearchResultSkelton />}
+            {!isLoading && !searchResult?.length > 0 && (
               <div className=" w-full flex justify-center items-center">
                 <img src={images.eventNotFound} alt="not" />
               </div>
