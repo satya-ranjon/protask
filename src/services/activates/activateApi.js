@@ -31,10 +31,8 @@ const activateApi = apiSlice.injectEndpoints({
       // ],
 
       async onQueryStarted(args, { queryFulfilled, dispatch }) {
-        console.log("getMore");
         try {
           const { data } = await queryFulfilled;
-          console.log("data", data);
           if (data?.length === 0) {
             dispatch(updateHasMore(false));
           }

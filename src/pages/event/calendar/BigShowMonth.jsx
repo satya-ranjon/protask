@@ -3,8 +3,6 @@ import { v4 as uniqID } from "uuid";
 import BigSingleDate from "./BigSingleDate";
 
 const BigShowMonth = ({ year, month }) => {
-  //TODO
-  console.log("BigShowMonth");
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
   const lastDayOfLastMonth =

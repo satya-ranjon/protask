@@ -10,7 +10,6 @@ const ShowAllDateEvent = ({ currMonth, currYear }) => {
   const date = useSelector(selectSelectedDate);
   const { data } = useGetAllEventsQuery();
   const events = (date && data[`${currYear}-${currMonth + 1}-${date}`]) || [];
-  console.log(events);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

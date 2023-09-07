@@ -77,8 +77,6 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
     setSearchQuery(e.target.value);
   };
 
-  console.log(isLoading);
-
   return (
     <>
       <div className="flex justify-center items-center lg:absolute lg:left-0 lg:top-0 pointer-events-none">

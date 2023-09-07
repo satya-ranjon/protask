@@ -29,7 +29,6 @@ const Activates = () => {
 
   const fetchData = () => {
     dispatch(updatePage(page + 1));
-    console.log("fetch");
   };
 
   return (

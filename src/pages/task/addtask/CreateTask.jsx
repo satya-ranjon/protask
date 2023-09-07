@@ -79,7 +79,6 @@ const CreateTask = () => {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (!taskDetails.id && !taskParmId) {
-        console.log("create Task request");
         createTask();
       }
     }, 500);

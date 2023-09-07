@@ -14,8 +14,6 @@ const EventHeader = ({
   setShowBigCalender,
   handleCreateEventModal,
 }) => {
-  //TODO:
-  console.log("%cEventHeader", "color:orange");
   return (
     <div className="mx-3 sm:mx-5 2xl:mx-16 text-gray-700 py-3 2xl:py-10 flex justify-between items-start">
       <div className="w-[80%]">

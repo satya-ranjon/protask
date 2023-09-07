@@ -77,8 +77,6 @@ const Event = () => {
     dispatch(selectedDate(null));
   };
 
-  console.log("%cEvent", "color:blue");
-
   return isLoading ? (
     "Loading"
   ) : (

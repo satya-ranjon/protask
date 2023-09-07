@@ -49,12 +49,7 @@ const Months = ({ year, month, selectedDay }) => {
       );
     } else {
       daysRow.push(
-        <SingleDay
-          selectedDay={selectedDay}
-          day={day}
-          onClick={() => console.log("day", day)}
-          key={uniqID()}
-        />
+        <SingleDay selectedDay={selectedDay} day={day} key={uniqID()} />
       );
     }
 

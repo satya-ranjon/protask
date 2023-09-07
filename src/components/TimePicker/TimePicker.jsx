@@ -29,9 +29,6 @@ const TimePicker = ({
     });
   };
 
-  //TODO
-  console.log("%cTimePicker", "color:yellow");
-
   return (
     <div className="absolute top-10 left-0 bg-white z-10">
       <div className=" flex justify-between items-center border border-grey-light">
