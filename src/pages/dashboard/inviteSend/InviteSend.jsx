@@ -1,22 +1,60 @@
 import { useState } from "react";
-import { BsCheckLg } from "react-icons/bs";
+import { BsSend } from "react-icons/bs";
+import { GiCheckMark } from "react-icons/gi";
 import Button from "../../../components/common/Button";
 import { images } from "../../../constants";
 import AddedEmailList from "./AddedEmailList";
 import AddSingleEmail from "./AddSingleEmail";
+import LoadingIcon from "../../../components/common/LoadingIcon";
+import { useSendInviteMutation } from "../../../services/inviteSleipner/inviteApi";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../services/auth/authSelector";
+import { useEffect } from "react";
 
 const InviteSend = ({ handleAddOrSendSleipner }) => {
   const [sentEmailModal, setEmailModal] = useState(false);
   const [addedEmailList, setAddedEmailList] = useState([]);
+  const { name, avatar } = useSelector(selectUser);
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const [sendInvite, { isLoading, isSuccess }] = useSendInviteMutation();
+
+  useEffect(() => {
+    setLoading(isLoading);
+    setSuccess(isSuccess);
+  }, [isLoading, isSuccess]);
 
   const handleAddSingleEmailModal = () => {
     setEmailModal((prev) => !prev);
   };
   const handleAddedEmailList = (email) => {
     if (email) {
+      setSuccess(false);
       setAddedEmailList([...addedEmailList, email]);
     }
   };
+  console.log(addedEmailList?.join(","));
+
+  const handleDeleteSingleEmail = (value) => {
+    const newEmailList = addedEmailList?.filter((email) => email !== value);
+    setAddedEmailList(newEmailList);
+  };
+
+  const handleSendInvite = () => {
+    if (addedEmailList?.length > 0) {
+      sendInvite({
+        resiveremail: addedEmailList?.join(","),
+        username: name,
+        userimage: avatar["64"].url,
+        navigateLink: `${
+          import.meta.env.VITE_BASE_THIS_SITE_DOMEN_NAME
+        }/register`,
+      });
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center items-center lg:absolute lg:left-0 lg:top-0 pointer-events-none">
@@ -46,17 +84,28 @@ const InviteSend = ({ handleAddOrSendSleipner }) => {
             section
           </div>
           {/* Added email list  */}
-          <AddedEmailList emails={addedEmailList} />
+          <AddedEmailList
+            isLoading={loading}
+            isSuccess={success}
+            emails={addedEmailList}
+            handleDeleteSingleEmail={handleDeleteSingleEmail}
+          />
           <div className="w-full mt-3 xl:mt-6 flex justify-start items-center gap-10">
             {sentEmailModal ? (
               <AddSingleEmail
                 handleAddedEmailList={handleAddedEmailList}
                 handleAddSingleEmailModal={handleAddSingleEmailModal}
+                emailList={addedEmailList}
               />
             ) : (
               <>
-                <Button disabled={addedEmailList?.length === 0}>
-                  <span>Done</span> <BsCheckLg />
+                <Button
+                  disabled={addedEmailList?.length === 0}
+                  onClick={handleSendInvite}>
+                  <span>Send</span>
+                  {!loading && !success && <BsSend />}
+                  {loading && <LoadingIcon />}
+                  {success && <GiCheckMark />}
                 </Button>
                 <Button type="white" onClick={handleAddSingleEmailModal}>
                   {addedEmailList?.length > 0
