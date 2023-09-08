@@ -24,7 +24,7 @@ const SingleSearchResult = ({ user }) => {
   };
 
   return (
-    <div className="w-full  hover:bg-hover duration-300 transition-colors border-t hover:border-t-primary">
+    <div className="w-full px-4  hover:bg-hover duration-300 transition-colors border-t hover:border-t-primary">
       <div className="w-full flex justify-between items-center py-4 border-b">
         <div className="flex justify-start items-center gap-4">
           {/* Display user avatar */}

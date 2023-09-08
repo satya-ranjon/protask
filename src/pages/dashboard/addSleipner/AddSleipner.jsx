@@ -63,7 +63,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
     if (searchQuery) {
       const timeoutId = setTimeout(async () => {
         fetchData();
-      }, 1000);
+      }, 500);
 
       return () => {
         clearTimeout(timeoutId);
@@ -113,7 +113,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
           </span>
           {/* Display search results or loading skeleton */}
           <div
-            className={`w-full mt-3 px-4 ${
+            className={`w-full mt-3 ${
               !searchResult?.length > 0 && "h-[350px] overflow-y-scroll"
             } `}>
             {searchResult?.length > 0 && (

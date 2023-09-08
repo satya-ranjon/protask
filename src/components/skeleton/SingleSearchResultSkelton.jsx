@@ -1,6 +1,6 @@
 const SingleSearchResultSkelton = () => {
   return (
-    <div role="status" className="w-full animate-pulse ">
+    <div role="status" className="w-full animate-pulse px-4 ">
       <div className="flex justify-start items-start">
         <div>
           <svg
