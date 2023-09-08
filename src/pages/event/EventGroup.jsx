@@ -6,26 +6,31 @@ import { months } from "../../data/calenderData";
 import { useGetAllEventsQuery } from "../../services/event/eventApi";
 import { images } from "../../constants";
 import { selectedUpdateEvent } from "../../services/event/eventSlice";
+import SingleEventSkelton from "../../components/skeleton/SingleEventSkelton";
 
 const EventGroup = ({ currMonth, currYear }) => {
   const date = useSelector(selectSelectedDate);
-  const { data } = useGetAllEventsQuery();
+  const { data, isLoading, isSuccess } = useGetAllEventsQuery();
   const dispatch = useDispatch();
 
-  const eventsOfMonth = Object.keys(data).reduce((accumulator, date) => {
-    if (date.startsWith(`${currYear}-${currMonth + 1}`)) {
-      return accumulator.concat(data[date]);
-    }
-    return accumulator;
-  }, []);
+  const eventsOfMonth =
+    isSuccess &&
+    Object.keys(data).reduce((accumulator, date) => {
+      if (date.startsWith(`${currYear}-${currMonth + 1}`)) {
+        return accumulator.concat(data[date]);
+      }
+      return accumulator;
+    }, []);
 
-  const events = date
-    ? data[`${currYear}-${currMonth + 1}-${date}`] || []
-    : eventsOfMonth;
+  const events =
+    isSuccess && date
+      ? data[`${currYear}-${currMonth + 1}-${date}`] || []
+      : eventsOfMonth;
 
-  const showHeader = date
-    ? `${date < 9 ? "0" + date : date} ${months[currMonth]} ${currYear} `
-    : `${months[currMonth]} ${currYear}`;
+  const showHeader =
+    isSuccess && date
+      ? `${date < 9 ? "0" + date : date} ${months[currMonth]} ${currYear} `
+      : `${months[currMonth]} ${currYear}`;
 
   const handleDetailsEvent = (event) => {
     const startTimeHour = event.starttime.split(":")[0];
@@ -51,17 +56,25 @@ const EventGroup = ({ currMonth, currYear }) => {
         {showHeader}
       </h1>
       <div className="lg:max-h-[590px] 2xl:max-h-[640px]  overflow-scroll">
-        {events?.map((event) => (
-          <SingleEvent
-            key={event._id}
-            event={event}
-            onClick={() => handleDetailsEvent(event)}
-          />
-        ))}
-        {!events[0] && (
+        {isSuccess &&
+          events?.map((event) => (
+            <SingleEvent
+              key={event._id}
+              event={event}
+              onClick={() => handleDetailsEvent(event)}
+            />
+          ))}
+        {isSuccess && !events[0] && (
           <div className=" w-full flex justify-center items-center select-none mt-10 pointer-events-none">
             <img src={images.eventNotFound} className=" w-28 h-28" />
           </div>
+        )}
+        {isLoading && (
+          <>
+            <SingleEventSkelton />
+            <SingleEventSkelton />
+            <SingleEventSkelton />
+          </>
         )}
       </div>
     </div>

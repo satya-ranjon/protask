@@ -77,9 +77,13 @@ const Event = () => {
     dispatch(selectedDate(null));
   };
 
-  return isLoading ? (
-    "Loading"
-  ) : (
+  // return isLoading ? (
+  //   "Loading"
+  // ) : (
+
+  // );
+
+  return (
     <>
       <EventHeader
         currMonth={currMonth}

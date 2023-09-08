@@ -21,8 +21,9 @@ const SingleDate = ({
   const selectedCurrentDate = useSelector(selectSelectedDate);
 
   const dispatch = useDispatch();
-  const { data } = useGetAllEventsQuery();
-  const todayEvents = data[`${curYear}-${curMonth}-${day}`];
+  const { data, isSuccess } = useGetAllEventsQuery();
+  const todayEvents =
+    (isSuccess && data[`${curYear}-${curMonth}-${day}`]) || [];
 
   const eventsOfDot = () => {
     return (
