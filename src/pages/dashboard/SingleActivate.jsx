@@ -7,23 +7,35 @@ import {
 } from "react-icons/ai";
 import { RxKeyboard } from "react-icons/rx";
 import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
+import { useNavigate } from "react-router-dom";
 
 const icons = {
-  task: <GoTasklist />,
-  user: <AiOutlineUser />,
-  event: <AiOutlineCalendar />,
-  tags: <AiOutlineTags />,
-  sleipner: <AiOutlineUser />,
-  login: <RxKeyboard />,
+  task: { icon: <GoTasklist />, url: "/task" },
+  user: { icon: <AiOutlineUser /> },
+  event: { icon: <AiOutlineCalendar />, url: "/event" },
+  tags: { icon: <AiOutlineTags /> },
+  sleipner: { icon: <AiOutlineUser /> },
+  login: { icon: <RxKeyboard /> },
 };
 
 const SingleActivate = ({ activate }) => {
   const { _id, type, title, dis, createdAt, activateId } = activate || {};
 
-  const selectedIcon = icons[type] || null;
+  const selectedIcon = icons[type].icon || null;
+  const selectedUrl = icons[type]?.url || null;
+  const url = (selectedUrl && `${selectedUrl}/${activateId}`) || null;
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    if (url) {
+      navigate(url);
+    }
+  };
 
   return (
     <div
+      onClick={handleNavigate}
       className={`${
         activateId && "cursor-pointer"
       } select-none py-3 px-4 border-b-2 border-t-2 border-t-transparent bg-transparent hover:border-t-primary  border-gray-100 duration-300 transition-colors hover:bg-hover singleTask`}>
