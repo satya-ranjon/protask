@@ -1,5 +1,6 @@
 import React from "react";
 import { GoTasklist } from "react-icons/go";
+import { BsSend } from "react-icons/bs";
 import {
   AiOutlineUser,
   AiOutlineCalendar,
@@ -16,6 +17,7 @@ const icons = {
   tags: { icon: <AiOutlineTags /> },
   sleipner: { icon: <AiOutlineUser /> },
   login: { icon: <RxKeyboard /> },
+  invite: { icon: <BsSend /> },
 };
 
 const SingleActivate = ({ activate }) => {

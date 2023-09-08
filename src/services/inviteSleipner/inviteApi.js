@@ -8,6 +8,8 @@ const inviteApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+
+      invalidatesTags: ["getAllActivate"],
     }),
   }),
 });
