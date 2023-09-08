@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCreateTaskState } from "../../services/task/taskSlice";
-import TaskSkelton from "../../components/skeleton/TaskSkelton";
+import { TaskItemSkelton } from "../../components/skeleton/TaskSkelton";
 import useTitleSet from "../../hooks/useTitleSet";
 import { userLogout } from "../../services/auth/authSlice";
 import CreateButton from "../../components/common/CreateButton";
@@ -44,7 +44,13 @@ const Tasks = () => {
   }, [taskIdParm, modalIsOpen]);
 
   // Fetch task data using query
-  const { data: taskData, isSuccess, isError, error } = useGetAllTasksQuery();
+  const {
+    data: taskData,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetAllTasksQuery();
 
   useEffect(() => {
     if (error?.status === 404) {
@@ -71,9 +77,7 @@ const Tasks = () => {
           .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
-  return !isSuccess ? (
-    <TaskSkelton />
-  ) : (
+  return (
     <>
       {/* Header */}
       <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10 flex justify-between items-start">
@@ -109,6 +113,13 @@ const Tasks = () => {
             {getFilteredTasks(filterItem.id, filterItem.order).map((task) => (
               <SingleTask key={task._id} task={task} />
             ))}
+            {isLoading && (
+              <>
+                <TaskItemSkelton />
+                <TaskItemSkelton />
+                <TaskItemSkelton />
+              </>
+            )}
           </TaskGroup>
         ))}
       </div>
