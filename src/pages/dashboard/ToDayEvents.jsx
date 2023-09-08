@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { images } from "../../constants";
 import GridGroup from "./GridGroup";
 import SingleEvent from "../../components/event/SingleEvent";
+import SingleEventSkelton from "../../components/skeleton/SingleEventSkelton";
 
 const ToDayEvents = () => {
   const { currentMonth, currentYear, currentDate } = useCurrentDMY();
 
-  const { data: allEvents, isSuccess: getAllEventsSuccess } =
-    useGetAllEventsQuery();
+  const { data: allEvents, isSuccess, isLoading } = useGetAllEventsQuery();
   const todayEvent =
-    (getAllEventsSuccess &&
+    (isSuccess &&
       allEvents[`${currentYear}-${currentMonth + 1}-${currentDate}`]) ||
     [];
 
@@ -48,10 +48,18 @@ const ToDayEvents = () => {
             onClick={() => handleDetailsEvent(event)}
           />
         ))}
-      {!todayEvent[0] && (
+      {!isLoading && !todayEvent[0] && (
         <div className=" w-full flex justify-center items-center select-none mt-10 pointer-events-none">
           <img src={images.eventNotFound} className=" w-28 h-28" />
         </div>
+      )}
+
+      {isLoading && (
+        <>
+          <SingleEventSkelton />
+          <SingleEventSkelton />
+          <SingleEventSkelton />
+        </>
       )}
     </GridGroup>
   );

@@ -1,7 +1,11 @@
 import { IoIosAdd } from "react-icons/io";
 import AvatarGroupSkelton from "../../components/skeleton/AvatarGroupSkelton";
+import { useGetAllSleipnerQuery } from "../../services/user/userApi";
 
-const DashBoardHeader = ({ avatar, isLoading, handleAddSleipner }) => {
+const DashBoardHeader = ({ handleAddSleipner }) => {
+  const { data, isLoading } = useGetAllSleipnerQuery(1);
+  const { sleipners, count } = data || {};
+
   return (
     <div className="mx-3 sm:mx-5 2xl:mx-16 py-3 2xl:py-10 flex justify-between items-start">
       <div className="w-[80%]">
@@ -20,8 +24,8 @@ const DashBoardHeader = ({ avatar, isLoading, handleAddSleipner }) => {
         <AvatarGroupSkelton />
       ) : (
         <div className="flex -space-x-4 min-w-fit">
-          {avatar?.length > 0 &&
-            avatar?.map((sleipner, index) => (
+          {sleipners?.length > 0 &&
+            sleipners?.map((sleipner, index) => (
               <img
                 key={index}
                 className="w-10 h-10 xl:w-12 xl:h-12 border-2 border-white rounded-full "
@@ -29,14 +33,18 @@ const DashBoardHeader = ({ avatar, isLoading, handleAddSleipner }) => {
                 alt="avatar"
               />
             ))}
-
-          <button
-            className="flex items-center justify-center w-10 h-10 xl:w-12 xl:h-12 text-xl font-medium text-white border-2 border-white bg-dark rounded-full "
-            onClick={handleAddSleipner}>
-            <IoIosAdd />
-          </button>
+          {count > import.meta.env.VITE_BASE_PARPAGE_SLEIPNERS && (
+            <div className="flex items-center justify-center w-10 h-10 xl:w-12 xl:h-12 text-xs font-medium text-white border-2 border-white bg-primary rounded-full">
+              {count - import.meta.env.VITE_BASE_PARPAGE_SLEIPNERS}
+            </div>
+          )}
         </div>
       )}
+      <button
+        className="flex items-center justify-center w-10 h-10 xl:w-12 xl:h-12 text-xl font-medium text-white border-2 border-white bg-dark rounded-full "
+        onClick={handleAddSleipner}>
+        <IoIosAdd />
+      </button>
     </div>
   );
 };

@@ -15,6 +15,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const token = useSelector(selectAuthAccessToken);
+
   const fetchData = async () => {
     if (isLoading) return;
 
@@ -71,7 +72,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
     }
   }, [searchQuery]);
 
-  const handleKeyDown = (e) => {
+  const handleInputChange = (e) => {
     setSearchResult([]);
     setPage(1);
     setSearchQuery(e.target.value);
@@ -98,7 +99,7 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
               placeholder="Search by name or email"
               name="search"
               value={searchQuery}
-              onChange={(e) => handleKeyDown(e)}
+              onChange={(e) => handleInputChange(e)}
               className=" w-full text-xl outline-none p-1 placeholder:text-sm placeholder:text-zinc-500"
             />
             <BsSearch className=" text-xl" />
@@ -111,19 +112,33 @@ const AddSleipner = ({ handleAddOrSendSleipner }) => {
             Or invite by email address
           </span>
           {/* Display search results or loading skeleton */}
-          <div className="w-full mt-3  overflow-y-scroll" id="scrollableDiv">
+          <div
+            className={`w-full mt-3 px-4 ${
+              !searchResult?.length > 0 && "h-[350px] overflow-y-scroll"
+            } `}>
             {searchResult?.length > 0 && (
               <InfiniteScroll
                 dataLength={searchResult?.length}
                 next={fetchData}
                 hasMore={hasMore}
+                loader={
+                  <>
+                    <SingleSearchResultSkelton />
+                    <SingleSearchResultSkelton />
+                  </>
+                }
                 height={"350px"}>
                 {searchResult?.map((user) => (
                   <SingleSearchResult key={user._id} user={user} />
                 ))}
               </InfiniteScroll>
             )}
-            {isLoading && <SingleSearchResultSkelton />}
+            {isLoading && !searchResult?.length > 0 && (
+              <>
+                <SingleSearchResultSkelton />
+                <SingleSearchResultSkelton />
+              </>
+            )}
             {!isLoading && !searchResult?.length > 0 && (
               <div className=" w-full flex justify-center items-center">
                 <img src={images.eventNotFound} alt="not" />
