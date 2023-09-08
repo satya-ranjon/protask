@@ -23,6 +23,7 @@ import {
   useUpdateEventMutation,
 } from "../../../services/event/eventApi";
 import Message from "../../../components/common/Message";
+import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
 
 const UpdateEvent = () => {
   const [error, setError] = useState({});
@@ -64,12 +65,10 @@ const UpdateEvent = () => {
       const dateDate = data.date.split("-")[2];
       dispatch(
         selectedUpdateEvent({
-          data: {
-            ...data,
-            date: { year: dateYear, month: dateMonth, date: dateDate },
-            starttime: { hour: startTimeHour, minute: startTimeMinute },
-            endtime: { hour: endTimeHour, minute: endTimeMinute },
-          },
+          ...data,
+          date: { year: dateYear, month: dateMonth, date: dateDate },
+          starttime: { hour: startTimeHour, minute: startTimeMinute },
+          endtime: { hour: endTimeHour, minute: endTimeMinute },
         })
       );
     }
@@ -136,64 +135,64 @@ const UpdateEvent = () => {
 
   const createEventBtnDisabled = title ? true : false;
 
-  return (
-    !isLoadingDataFetch && (
-      <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
-        <Message type={showMessage?.type} message={showMessage?.message} />
-        {eventParmId && (
-          <div className="text-dark-light flex justify-start gap-2 items-center ">
-            <span
-              className="p-1 cursor-pointer hover:bg-gray-100"
-              onClick={backToEvent}>
-              Events
-            </span>
-            /
-            <span className="p-1 cursor-pointer hover:bg-gray-100">
-              {title ? title : "untitled"}
-            </span>
-          </div>
-        )}
-        {error?.title && (
-          <div className="text-red-600 text-xs"> {error?.title}</div>
-        )}
-        <TextareaInput
-          value={title}
-          size={eventParmId ? "lg" : "sm"}
-          placeholder="event title is required"
-          handleTitleValue={handleEventTitle}
-        />
-        <SelectDate date={date} getValue={handleEventDate} />
-        <SelectTime
-          label="Start Time"
-          getValue={handleEventStartTime}
-          initialState={starttime}
-        />
-        <SelectTime
-          label="End Time"
-          getValue={handleEventEndTime}
-          initialState={endtime}
-        />
-        <hr className="my-4" />
-        <div
-          className={` ${
-            eventParmId ? "max-h-[600px] " : "max-h-96"
-          } min-h-[300px] overflow-y-scroll`}>
-          <DocumentCreate
-            value={description}
-            handleValue={handleEventDescription}
-          />
+  return isLoadingDataFetch ? (
+    <CreateTaskSkelton />
+  ) : (
+    <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
+      <Message type={showMessage?.type} message={showMessage?.message} />
+      {eventParmId && (
+        <div className="text-dark-light flex justify-start gap-2 items-center ">
+          <span
+            className="p-1 cursor-pointer hover:bg-gray-100"
+            onClick={backToEvent}>
+            Events
+          </span>
+          /
+          <span className="p-1 cursor-pointer hover:bg-gray-100">
+            {title ? title : "untitled"}
+          </span>
         </div>
-
-        <div className="flex justify-end items-center">
-          <LoadingButton
-            isLoading={isLoading}
-            disabled={!createEventBtnDisabled}
-            onClick={handleCreateEvent}>
-            Update Event
-          </LoadingButton>
-        </div>
+      )}
+      {error?.title && (
+        <div className="text-red-600 text-xs"> {error?.title}</div>
+      )}
+      <TextareaInput
+        value={title}
+        size={eventParmId ? "lg" : "sm"}
+        placeholder="event title is required"
+        handleTitleValue={handleEventTitle}
+      />
+      <SelectDate date={date} getValue={handleEventDate} />
+      <SelectTime
+        label="Start Time"
+        getValue={handleEventStartTime}
+        initialState={starttime}
+      />
+      <SelectTime
+        label="End Time"
+        getValue={handleEventEndTime}
+        initialState={endtime}
+      />
+      <hr className="my-4" />
+      <div
+        className={` ${
+          eventParmId ? "max-h-[600px] " : "max-h-96"
+        } min-h-[300px] overflow-y-scroll`}>
+        <DocumentCreate
+          value={description}
+          handleValue={handleEventDescription}
+        />
       </div>
-    )
+
+      <div className="flex justify-end items-center">
+        <LoadingButton
+          isLoading={isLoading}
+          disabled={!createEventBtnDisabled}
+          onClick={handleCreateEvent}>
+          Update Event
+        </LoadingButton>
+      </div>
+    </div>
   );
 };
 
