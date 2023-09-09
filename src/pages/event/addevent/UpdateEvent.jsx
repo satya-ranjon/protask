@@ -104,6 +104,7 @@ const UpdateEvent = () => {
   const sleipnerIdList = sleipner.map((sl) => sl._id);
 
   const handleCreateEvent = () => {
+    if (isLoading) return;
     if (!title) {
       setError({ title: "Title is required !" });
     } else {

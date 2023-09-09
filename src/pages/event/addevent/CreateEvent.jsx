@@ -72,6 +72,7 @@ const CreateEvent = () => {
 
   // Function to handle event creation
   const handleCreateEvent = () => {
+    if (isLoading) return;
     if (!title) {
       setError({ title: "Title is required !" });
     } else {
