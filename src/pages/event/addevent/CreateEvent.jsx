@@ -11,6 +11,7 @@ import {
   updateCreateEventDate,
   updateCreateEventDescription,
   updateCreateEventEndTime,
+  updateCreateEventSleipner,
   updateCreateEventStartTime,
   updateCreateEventTitle,
 } from "../../../services/event/eventSlice";
@@ -18,6 +19,7 @@ import { selectCreatedEvent } from "../../../services/event/eventSelector";
 import LoadingButton from "../../../components/common/LoadingButton";
 import { useCreateEventMutation } from "../../../services/event/eventApi";
 import Message from "../../../components/common/Message";
+import AddSleipnerToProject from "../../../components/addSlipner/AddSleipnerToProject";
 
 const CreateEvent = () => {
   const [error, setError] = useState({});
@@ -25,19 +27,28 @@ const CreateEvent = () => {
     type: "success",
     message: "",
   });
+  const [resetSelectedSleipner, setResetSelectedSleipner] = useState(false);
+
+  // Select data from Redux store
   const { title, description, date, starttime, endtime, sleipner } =
     useSelector(selectCreatedEvent);
 
+  // Mutation function for creating an event
   const [createEvent, { isLoading, isSuccess }] = useCreateEventMutation();
 
+  // React Router location and navigation
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
+
+  // Redux dispatch function
   const dispatch = useDispatch();
+
+  // Function to navigate back to the events page
   const backToEvent = () => {
     navigate("/event");
   };
 
+  // Event handler functions for updating Redux store
   const handleEventTitle = (value) => {
     dispatch(updateCreateEventTitle(value));
   };
@@ -53,7 +64,13 @@ const CreateEvent = () => {
   const handleEventDate = (value) => {
     dispatch(updateCreateEventDate(value));
   };
+  const handleSleipner = (value) => {
+    dispatch(updateCreateEventSleipner(value));
+  };
 
+  const sleipnerIdList = sleipner.map((sl) => sl._id);
+
+  // Function to handle event creation
   const handleCreateEvent = () => {
     if (!title) {
       setError({ title: "Title is required !" });
@@ -64,20 +81,23 @@ const CreateEvent = () => {
         date: `${date.year}-${date.month}-${date.date}`,
         starttime: `${starttime.hour}:${starttime.minute}`,
         endtime: `${endtime.hour}:${endtime.minute}`,
-        sleipner,
+        sleipner: sleipnerIdList,
       });
     }
   };
 
+  // Function to clear success message after a delay
   const clearMessages = () => {
     setTimeout(() => {
       setShowMessage({ type: "", message: "" });
     }, 3000);
   };
 
+  // useEffect to handle success message display and Redux state reset
   useEffect(() => {
     if (isSuccess) {
       dispatch(resetUpdateCreateEventData());
+      setResetSelectedSleipner(true);
 
       setShowMessage({
         type: "success",
@@ -88,12 +108,17 @@ const CreateEvent = () => {
     }
   }, [isSuccess]);
 
+  // Determine if the create event button should be disabled
   const createEventBtnDisabled = title ? true : false;
 
+  // Determine if the page is in full screen mode
   const isFullPage = pathname === "/event/create";
   return (
     <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
+      {/* Display success or error messages */}
       <Message type={showMessage?.type} message={showMessage?.message} />
+
+      {/* Display breadcrumb navigation */}
       {isFullPage && (
         <div className="text-dark-light flex justify-start gap-2 items-center ">
           <span
@@ -107,27 +132,47 @@ const CreateEvent = () => {
           </span>
         </div>
       )}
+
+      {/* Display error message for the event title */}
       {error?.title && (
         <div className="text-red-600 text-xs"> {error?.title}</div>
       )}
+
+      {/* Input field for event title */}
       <TextareaInput
         value={title}
         size={isFullPage ? "lg" : "sm"}
         placeholder="event title is required"
         handleTitleValue={handleEventTitle}
       />
+
+      {/* Select date component */}
       <SelectDate date={date} getValue={handleEventDate} />
+
+      {/* Select start time component */}
       <SelectTime
         label="Start Time"
         getValue={handleEventStartTime}
         initialState={starttime}
       />
+
+      {/* Select end time component */}
       <SelectTime
         label="End Time"
         getValue={handleEventEndTime}
         initialState={endtime}
       />
+
+      {/* Component for adding Sleipner to project */}
+      <AddSleipnerToProject
+        initialState={sleipner}
+        getSelectedSleipner={handleSleipner}
+        resetValue={resetSelectedSleipner}
+      />
+
       <hr className="my-4" />
+
+      {/* Document creation component */}
       <div
         className={` ${
           isFullPage ? "max-h-[600px] " : "max-h-96"
@@ -138,6 +183,7 @@ const CreateEvent = () => {
         />
       </div>
 
+      {/* Button to create event */}
       <div className="flex justify-end items-center">
         <LoadingButton
           isLoading={isLoading}
