@@ -13,6 +13,8 @@ import NotFound from "../pages/notfound/NotFound";
 import Setting from "../pages/setting/Setting";
 import CreateEvent from "../pages/event/addevent/CreateEvent";
 import UpdateEvent from "../pages/event/addevent/UpdateEvent";
+import Loader from "../components/common/Loader";
+import VerifySuccess from "../pages/verify/VerifySuccess";
 
 const Router = () => {
   const authenticationCheck = useAuthCheck();
@@ -34,6 +36,7 @@ const Router = () => {
       <Route path="/" element={<PublicRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify/:token" element={<VerifySuccess />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

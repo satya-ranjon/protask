@@ -34,13 +34,6 @@ const authApi = createApi({
         method: "POST",
         body: data,
       }),
-
-      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
-        await handleAuthResult(queryFulfilled, dispatch);
-      },
-      onQueryFailed(_arg, err, { dispatch }) {
-        dispatch(authError(err.message));
-      },
     }),
 
     login: builder.mutation({
@@ -56,8 +49,15 @@ const authApi = createApi({
         dispatch(authError(err.message));
       },
     }),
+    getVerifyAccount: builder.query({
+      query: (token) => `verify/${token}`,
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useGetVerifyAccountQuery,
+} = authApi;
 export default authApi;
