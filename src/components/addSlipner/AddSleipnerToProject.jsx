@@ -10,6 +10,7 @@ import { useEffect } from "react";
 const AddSleipnerToProject = ({
   initialState = [],
   getSelectedSleipner = () => {},
+  resetValue = false,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,6 +19,12 @@ const AddSleipnerToProject = ({
   useEffect(() => {
     getSelectedSleipner(selectedSleipner);
   }, [selectedSleipner]);
+
+  useEffect(() => {
+    if (resetValue) {
+      setSelectedSleipner([]);
+    }
+  }, [resetValue]);
 
   const dropdownRef = useRef(null);
 
