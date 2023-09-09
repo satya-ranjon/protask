@@ -2,7 +2,7 @@ import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { PiKeyholeDuotone } from "react-icons/pi";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useLoginMutation,
   useRegisterMutation,
@@ -11,7 +11,7 @@ import authInputValidator from "../../utils/authInputValidator";
 
 const initialState = { name: "", email: "", password: "" };
 
-const Form = () => {
+const Form = ({ getSuccessValue = () => {} }) => {
   const [inputValue, setInputValue] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
 
@@ -20,7 +20,17 @@ const Form = () => {
   const isRegister = pathname === "/register";
 
   // Auth-related mutations for registration and login
-  const [register, { isLoading: isLoadingRegister }] = useRegisterMutation();
+  const [
+    register,
+    { isLoading: isLoadingRegister, isSuccess: registerSuccess },
+  ] = useRegisterMutation();
+
+  useEffect(() => {
+    if (registerSuccess) {
+      getSuccessValue(registerSuccess);
+    }
+  }, [registerSuccess]);
+
   const [login, { isLoading: isLoadingLogin }] = useLoginMutation();
 
   // Handle input changes in the form fields
@@ -48,7 +58,7 @@ const Form = () => {
             email: inputValue.email,
             password: inputValue.password,
           }).unwrap();
-          window.location.reload();
+          // window.location.reload();
         } else {
           // Perform login using the login mutation
           await login({
@@ -58,10 +68,13 @@ const Form = () => {
           window.location.reload();
         }
       } catch (error) {
+        console.log(error);
         // Handle API request errors and update the errors state
         setErrors({
           ...errors,
-          requestError: "authentication failed, try again !",
+          requestError: error?.data?.message
+            ? error?.data?.message
+            : "authentication failed, try again !",
         });
       }
     }

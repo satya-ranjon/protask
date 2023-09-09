@@ -2,10 +2,21 @@ import { Link } from "react-router-dom";
 import { images } from "../../constants";
 import Form from "./Form";
 import useTitleSet from "../../hooks/useTitleSet";
+import { useState } from "react";
+import RegisterSuccessMessage from "./RegisterSuccessMessage";
 
 const Register = () => {
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+
   useTitleSet("Register");
-  return (
+
+  const handleRegisterSuccessValue = (value) => {
+    setRegisterSuccess(value);
+  };
+
+  return registerSuccess ? (
+    <RegisterSuccessMessage />
+  ) : (
     <div className=" container mx-auto font-roboto flex flex-col items-center justify-center h-screen w-full select-none">
       <div className=" flex justify-between gap-10 items-start relative ">
         <img
@@ -24,7 +35,7 @@ const Register = () => {
           </h1>
 
           {/* Render the registration form */}
-          <Form />
+          <Form getSuccessValue={handleRegisterSuccessValue} />
 
           {/* Link to navigate to the login page */}
           <p className=" text-sm font-normal text-dark-light my-4">
