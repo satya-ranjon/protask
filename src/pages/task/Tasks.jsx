@@ -32,8 +32,10 @@ const Tasks = () => {
 
   // Function to handle creating a task and opening the modal
   const taskCreateFullPageHandle = () => {
-    navigate(`/task/${taskId}`);
-    handleModal();
+    if (taskId) {
+      navigate(`/task/${taskId}`);
+      handleModal();
+    }
   };
 
   // Reset task state when taskIdParm is not provided or modal is not open
