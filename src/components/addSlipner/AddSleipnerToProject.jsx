@@ -5,26 +5,13 @@ import { useState } from "react";
 import { useRef } from "react";
 import SelectedSleipners from "./SelectedSleipners";
 import SleipnerList from "./SleipnerList";
-import { useEffect } from "react";
 
 const AddSleipnerToProject = ({
   initialState = [],
   getSelectedSleipner = () => {},
-  resetValue = false,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSleipner, setSelectedSleipner] = useState(initialState);
-
-  useEffect(() => {
-    getSelectedSleipner(selectedSleipner);
-  }, [selectedSleipner]);
-
-  useEffect(() => {
-    if (resetValue) {
-      setSelectedSleipner([]);
-    }
-  }, [resetValue]);
 
   const dropdownRef = useRef(null);
 
@@ -33,16 +20,14 @@ const AddSleipnerToProject = ({
   });
 
   const handleSelectedSleipners = (value) => {
-    const findSleipner = selectedSleipner?.find(
-      (item) => item._id === value._id
-    );
-    if (!findSleipner) setSelectedSleipner((prev) => [...prev, value]);
+    const findSleipner = initialState?.find((item) => item._id === value._id);
+    if (!findSleipner) getSelectedSleipner([...initialState, value]);
   };
 
   const handleSelectedSleipnersRemove = (id, event) => {
     event.stopPropagation();
-    const newSleipners = selectedSleipner?.filter((item) => item._id !== id);
-    setSelectedSleipner(newSleipners);
+    const newSleipners = initialState?.filter((item) => item._id !== id);
+    getSelectedSleipner(newSleipners);
   };
 
   return (
@@ -57,17 +42,16 @@ const AddSleipnerToProject = ({
 
       {/* Dropdown Section */}
       <div className="w-[75%] flex justify-start items-center gap-3 relative">
-        <SelectedSleipners
-          sleipners={selectedSleipner}
-          getSleipnerIdOrEvent={handleSelectedSleipnersRemove}
-        />
-
         {/* Add Button */}
         <button
-          className="flex items-center justify-center w-10 h-10 text-xl font-medium text-white border-2 border-white bg-dark rounded-full"
+          className="flex items-center justify-center w-10 h-10 p-2 text-xl font-medium text-white border-2 border-white bg-dark rounded-full"
           onClick={() => setIsDropdownOpen(true)}>
           <IoIosAdd />
         </button>
+        <SelectedSleipners
+          sleipners={initialState}
+          getSleipnerIdOrEvent={handleSelectedSleipnersRemove}
+        />
 
         {/* Dropdown Content */}
         {isDropdownOpen && (
@@ -86,7 +70,7 @@ const AddSleipnerToProject = ({
 
             {/* Selected Sleipners */}
             <SelectedSleipners
-              sleipners={selectedSleipner}
+              sleipners={initialState}
               getSleipnerIdOrEvent={handleSelectedSleipnersRemove}
             />
 

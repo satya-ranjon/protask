@@ -15,6 +15,7 @@ import {
   selectedUpdateEvent,
   selectedUpdateEventDate,
   resetSelectedUpdateEventData,
+  selectedUpdateEventSleipner,
 } from "../../../services/event/eventSlice";
 import { selectSelectedUpdateEvent } from "../../../services/event/eventSelector";
 import LoadingButton from "../../../components/common/LoadingButton";
@@ -24,6 +25,7 @@ import {
 } from "../../../services/event/eventApi";
 import Message from "../../../components/common/Message";
 import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
+import AddSleipnerToProject from "../../../components/addSlipner/AddSleipnerToProject";
 
 const UpdateEvent = () => {
   const [error, setError] = useState({});
@@ -33,6 +35,7 @@ const UpdateEvent = () => {
   });
   const { _id, title, description, date, starttime, endtime, sleipner } =
     useSelector(selectSelectedUpdateEvent);
+
   const [updateEvent, { isLoading, isSuccess }] = useUpdateEventMutation();
 
   const { eventId: eventParmId } = useParams();
@@ -94,6 +97,11 @@ const UpdateEvent = () => {
   const handleEventDate = (value) => {
     dispatch(selectedUpdateEventDate(value));
   };
+  const handleSleipner = (value) => {
+    dispatch(selectedUpdateEventSleipner(value));
+  };
+
+  const sleipnerIdList = sleipner.map((sl) => sl._id);
 
   const handleCreateEvent = () => {
     if (!title) {
@@ -108,7 +116,7 @@ const UpdateEvent = () => {
           date: `${date.year}-${date.month}-${date.date}`,
           starttime: `${starttime.hour}:${starttime.minute}`,
           endtime: `${endtime.hour}:${endtime.minute}`,
-          sleipner,
+          sleipner: sleipnerIdList,
         },
       });
     }
@@ -173,6 +181,12 @@ const UpdateEvent = () => {
         getValue={handleEventEndTime}
         initialState={endtime}
       />
+
+      <AddSleipnerToProject
+        initialState={sleipner}
+        getSelectedSleipner={handleSleipner}
+      />
+
       <hr className="my-4" />
       <div
         className={` ${
