@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   resetCreateTaskState,
+  updateAssignedUsers,
   updateDocument,
   updateTask,
   updateTitle,
@@ -20,6 +21,7 @@ import CreateTaskSkelton from "../../../components/skeleton/CreateTaskSkelton";
 import useTitleSet from "../../../hooks/useTitleSet";
 import { selectTask } from "../../../services/task/taskSelector";
 import DocumentCreate from "../../../components/common/DocumentCreate";
+import AddSleipnerToProject from "../../../components/addSlipner/AddSleipnerToProject";
 
 const CreateTask = () => {
   const taskDetails = useSelector(selectTask);
@@ -95,6 +97,9 @@ const CreateTask = () => {
   const handleDocumentValue = (value) => {
     dispatch(updateDocument(value));
   };
+  const handleSleipnerValue = (value) => {
+    dispatch(updateAssignedUsers(value));
+  };
 
   return isLoading ? (
     <CreateTaskSkelton />
@@ -124,6 +129,10 @@ const CreateTask = () => {
       <CreatedDate date={taskDetails.createdAt} />
       <StatusSet />
       <TagsSet />
+      <AddSleipnerToProject
+        initialState={taskDetails.assignedUsers}
+        getSelectedSleipner={handleSleipnerValue}
+      />
       <hr className="my-4" />
 
       {/* DocumentAdd for entering task notes */}

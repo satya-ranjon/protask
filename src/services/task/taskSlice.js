@@ -50,6 +50,9 @@ const taskSlice = createSlice({
     updateDocument: (state, action) => {
       state.task.description = action.payload;
     },
+    updateAssignedUsers: (state, action) => {
+      state.task.assignedUsers = action.payload;
+    },
     resetCreateTaskState: () => initialState,
 
     updateFilter: (state, action) => {
@@ -72,6 +75,7 @@ export const {
   updateDocument,
   resetCreateTaskState,
   updateFilter,
+  updateAssignedUsers,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
