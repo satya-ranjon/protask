@@ -45,31 +45,29 @@ const eventApi = apiSlice.injectEndpoints({
       invalidatesTags: ["getAllActivate"],
       async onQueryStarted({ eventId, data }, { dispatch, queryFulfilled }) {
         // update getAllTasks cache
-        const updateGetAllEventCache = dispatch(
-          apiSlice.util.updateQueryData(
-            "getAllEvents",
-            undefined,
-            (eventData) => {
-              const newEventDate = data.date;
-              eventData[newEventDate]?.map((event) => {
-                if (event._id === data._id) {
-                  event.title = data.title;
-                  event.description = data.description;
-                  event.date = data.date;
-                  event.starttime = data.starttime;
-                  event.endtime = data.endtime;
-                  event.sleipner = data.sleipner;
-                }
-                return event;
-              });
-            }
-          )
-        );
         try {
-          await queryFulfilled;
-        } catch {
-          updateGetAllEventCache.undo();
-        }
+          const { data } = await queryFulfilled;
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAllEvents",
+              undefined,
+              (eventData) => {
+                const newEventDate = data.date;
+                eventData[newEventDate]?.map((event) => {
+                  if (event._id === data._id) {
+                    event.title = data.title;
+                    event.description = data.description;
+                    event.date = data.date;
+                    event.starttime = data.starttime;
+                    event.endtime = data.endtime;
+                    event.sleipner = data.sleipner;
+                  }
+                  return event;
+                });
+              }
+            )
+          );
+        } catch {}
       },
     }),
 

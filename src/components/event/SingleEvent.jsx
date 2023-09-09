@@ -1,21 +1,14 @@
-import AvatarGroup from "../common/AvatarGroup";
-const avatar = [
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1692791687/user_profiles/k6gslc4ewmzpgri7gu0m.png",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1664309906/f/images/profile/profile_ob28l3.webp",
-  "https://res.cloudinary.com/dcpbu1ffy/image/upload/v1664309906/f/images/profile/profile_ob28l3.webp",
-];
-
 const SingleEvent = ({
   event,
   titleLength = 30,
   docLength = 25,
   ...argument
 }) => {
-  const { title, starttime, endtime, description } = event || {};
+  const { title, starttime, endtime, description, sleipner } = event || {};
 
   const doc = description?.find((item) => item.content[0])?.content[0]?.text;
+
+  const numOfAvatarShow = 4;
   return (
     <div
       {...argument}
@@ -31,7 +24,24 @@ const SingleEvent = ({
           </div>
         )}
       </div>
-      <AvatarGroup avatar={avatar} show={4} height="h-10" width="w-10" />
+      {sleipner?.length > 0 && (
+        <div className="flex -space-x-4 ">
+          {sleipner?.slice(0, numOfAvatarShow)?.map((item) => (
+            <img
+              key={item._id}
+              src={item?.avatar["64"]?.url}
+              alt="avatar"
+              className="h-10 w-10 rounded-full border border-white"
+            />
+          ))}
+          {sleipner?.length > numOfAvatarShow && (
+            <div className="h-10 w-10 rounded-full border border-white flex bg-hover justify-center items-center text-lg font-medium">
+              {sleipner?.length - numOfAvatarShow}
+            </div>
+          )}
+        </div>
+      )}
+      {/* <AvatarGroup avatar={avatar} show={4} height="h-10" width="w-10" /> */}
     </div>
   );
 };
