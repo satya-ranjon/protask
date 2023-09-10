@@ -131,7 +131,7 @@ const Tasks = () => {
         isOpen={modalIsOpen}
         onClose={handleModal}
         fullPage={taskCreateFullPageHandle}>
-        <div className="min-h-[600px] max-h-[700px] ">
+        <div className="min-h-[600px] max-h-[700px] overflow-y-scroll">
           <CreateTask />
         </div>
       </Modal>

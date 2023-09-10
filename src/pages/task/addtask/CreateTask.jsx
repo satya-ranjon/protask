@@ -136,21 +136,19 @@ const CreateTask = () => {
       <hr className="my-4" />
 
       {/* DocumentAdd for entering task notes */}
-      <div className="max-h-[400px] overflow-y-scroll">
-        {taskParmId ? (
-          taskDetails.description?.length > 0 && (
-            <DocumentCreate
-              value={taskDetails.description}
-              handleValue={handleDocumentValue}
-            />
-          )
-        ) : (
+      {taskParmId ? (
+        taskDetails.description?.length > 0 && (
           <DocumentCreate
             value={taskDetails.description}
             handleValue={handleDocumentValue}
           />
-        )}
-      </div>
+        )
+      ) : (
+        <DocumentCreate
+          value={taskDetails.description}
+          handleValue={handleDocumentValue}
+        />
+      )}
     </div>
   );
 };
