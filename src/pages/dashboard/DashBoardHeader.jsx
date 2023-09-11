@@ -40,7 +40,7 @@ const DashBoardHeader = ({ handleAddSleipner }) => {
               ))}
           {count > showNumOfSleipners && (
             <div className="flex items-center justify-center w-10 h-10 xl:w-12 xl:h-12 text-xs font-medium text-white border-2 border-white bg-primary rounded-full">
-              {count - showNumOfSleipners}
+              <p> {count - showNumOfSleipners} +</p>
             </div>
           )}
         </div>
