@@ -1,3 +1,4 @@
+import images from "../../constants/images";
 import { useGetAllSleipnerQuery } from "../../services/user/userApi";
 import SingleSleipnerSkelton from "../skeleton/SingleSleipnerSkelton";
 
@@ -30,7 +31,11 @@ const SleipnerList = ({ searchQuery, getSleipner }) => {
             </p>
           </div>
         ))}
-
+      {!isLoading && filteredSleipners?.length === 0 && (
+        <div className="flex justify-center items-center">
+          <img src={images.eventNotFound} alt="notfound" className=" w-24 " />
+        </div>
+      )}
       {/* Skeleton components for loading */}
       {isLoading && (
         <>
