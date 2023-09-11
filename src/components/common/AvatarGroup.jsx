@@ -33,10 +33,12 @@ const AvatarGroup = ({
       <div className="flex  -space-x-4 min-w-fit">
         {firstTwoAvatars.map((item) => renderSingleAvatar(item))}
         {/* Display a count of the remaining avatars */}
-        <span
-          className={`${height} ${width} flex items-center justify-center font-semibold text-gray-600 text-xs  rounded-full bg-gray-200 border-2 border-white -ml-3`}>
-          +{avatar.length - show}
-        </span>
+        {avatar.length > show && (
+          <span
+            className={`${height} ${width} flex items-center justify-center font-semibold text-gray-600 text-xs  rounded-full bg-gray-200 border-2 border-white -ml-3`}>
+            {avatar.length - show} +
+          </span>
+        )}
       </div>
     );
   }
