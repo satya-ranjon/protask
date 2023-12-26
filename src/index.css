@@ -31,3 +31,13 @@
 .modal {
   transition: width 0.3s ease-in-out, width 0.3s ease-in-out;
 }
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 28px !important;
+  color: #252728 !important;
+}
+
+.slick-center {
+  background: #ffff;
+}

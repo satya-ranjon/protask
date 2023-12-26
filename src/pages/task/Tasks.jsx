@@ -33,7 +33,7 @@ const Tasks = () => {
   // Function to handle creating a task and opening the modal
   const taskCreateFullPageHandle = () => {
     if (taskId) {
-      navigate(`/task/${taskId}`);
+      navigate(`/dashboard/task/${taskId}`);
       handleModal();
     }
   };

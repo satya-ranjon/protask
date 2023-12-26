@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "url": "https://cdn-cashy-static-assets.lucidchart.com/marketing/pages/home/H2-2023/Persona_Animations/Engineering-matched.mp4",
+    "name": "Developers",
+    "description": "Streamline your coding process by organizing tasks, setting priorities, and collaborating seamlessly with your team.",
+    "features": [
+      "Code integration with popular repositories.",
+      "Developer-specific task tracking and progress visualization.",
+      "Collaboration tools for efficient teamwork."
+    ]
+  },
+  {
+    "id": "2",
+    "url": "https://cdn-cashy-static-assets.lucidchart.com/marketing/pages/home/H2-2023/Persona_Animations/ProdUX-matched.mp4",
+    "name": "Corporate Professionals",
+    "description": "Enhance productivity and efficiency in the corporate world with our comprehensive task management platform.",
+    "features": [
+      "Calendar integration for meeting schedules.",
+      "Task prioritization for project management.",
+      "Real-time updates and notifications for team collaboration."
+    ]
+  },
+  {
+    "id": "3",
+    "url": "https://cdn-cashy-static-assets.lucidchart.com/marketing/pages/home/H2-2023/Persona_Animations/GTM-matched.mp4",
+    "name": "Bankers",
+    "description": "Stay on top of financial tasks and deadlines with our secure and user-friendly task management solution.",
+    "features": [
+      "Secure encryption for sensitive financial information.",
+      "Automated reminders for important financial deadlines.",
+      "Customizable task categories for various banking activities."
+    ]
+  },
+  {
+    "id": "4",
+    "url": "https://cdn-cashy-static-assets.lucidchart.com/marketing/pages/home/H2-2023/Persona_Animations/GenAdmin-matched.mp4",
+    "name": "Entrepreneurs",
+    "description": "Manage your business tasks efficiently, from project planning to client communication, with our all-in-one solution.",
+    "features": [
+      "Project milestone tracking.",
+      "Client communication and feedback integration.",
+      "Business analytics for performance assessment."
+    ]
+  },
+  {
+    "id": "5",
+    "url": "https://cdn-cashy-static-assets.lucidchart.com/marketing/pages/home/H2-2023/Persona_Animations/IT-matched.mp4",
+    "name": "Students",
+    "description": "Simplify your academic life by organizing assignments, deadlines, and study sessions effortlessly.",
+    "features": [
+      "Education-specific task categories (assignments, exams, projects).",
+      "Progress tracking for academic goals.",
+      "Collaboration tools for group projects."
+    ]
+  }
+]

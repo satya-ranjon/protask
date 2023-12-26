@@ -11,9 +11,9 @@ import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import { useNavigate } from "react-router-dom";
 
 const icons = {
-  task: { icon: <GoTasklist />, url: "/task" },
+  task: { icon: <GoTasklist />, url: "/dashboard/task" },
   user: { icon: <AiOutlineUser /> },
-  event: { icon: <AiOutlineCalendar />, url: "/event" },
+  event: { icon: <AiOutlineCalendar />, url: "/dashboard/event" },
   tags: { icon: <AiOutlineTags /> },
   sleipner: { icon: <AiOutlineUser /> },
   login: { icon: <RxKeyboard /> },

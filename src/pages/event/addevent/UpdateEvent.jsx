@@ -78,7 +78,7 @@ const UpdateEvent = () => {
   }, [isSuccessDataFetch]);
 
   const backToEvent = () => {
-    navigate("/event");
+    navigate("/dashboard/event");
     dispatch(resetSelectedUpdateEventData());
   };
 

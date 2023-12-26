@@ -18,7 +18,7 @@ const LogoutAndSetting = ({ setIsOpen }) => {
   };
 
   const handleNavigate = () => {
-    navigate("/setting");
+    navigate("/dashboard/setting");
     setIsOpen(false);
   };
 

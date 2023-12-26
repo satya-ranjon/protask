@@ -30,7 +30,7 @@ const ShowAllDateEvent = ({ currMonth, currYear }) => {
         endtime: { hour: endTimeHour, minute: endTimeMinute },
       })
     );
-    navigate(`/event/${event._id}`);
+    navigate(`/dashboard/event/${event._id}`);
   };
 
   return (

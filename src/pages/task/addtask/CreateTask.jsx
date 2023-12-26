@@ -35,7 +35,7 @@ const CreateTask = () => {
   // Function to navigate back to the tasks list and reset create task state
   const backToTasks = () => {
     dispatch(resetCreateTaskState());
-    navigate("/tasks");
+    navigate("/dashboard/tasks");
   };
 
   const [createTask] = useCreateTaskMutation();

@@ -25,7 +25,7 @@ const SingleTask = ({ task }) => {
   // Use the react-router-dom hook for navigation
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/task/${_id}`); // Navigate to the task details page when clicked
+    navigate(`/dashboard/task/${_id}`); // Navigate to the task details page when clicked
   };
 
   const avatarList = [

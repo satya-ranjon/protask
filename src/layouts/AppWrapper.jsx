@@ -7,7 +7,7 @@ import UpdateEvent from "../pages/event/addevent/UpdateEvent";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSelectedUpdateEventId } from "../services/event/eventSelector";
 import { resetSelectedUpdateEventData } from "../services/event/eventSlice";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AppWrapper = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,14 +28,15 @@ const AppWrapper = ({ children }) => {
   const selectedEventId = useSelector(selectSelectedUpdateEventId);
 
   const modalIsActive =
-    selectedEventId && (pathname === "/event" || pathname === "/");
+    selectedEventId &&
+    (pathname === "/dashboard/event" || pathname === "/dashboard");
 
   const handleUpdateEventModal = () => {
     dispatch(resetSelectedUpdateEventData());
   };
 
   const handleUpdateEventFullPage = () => {
-    navigate(`/event/${selectedEventId}`);
+    navigate(`/dashboard/event/${selectedEventId}`);
   };
   return (
     <div ref={dropdownRef} className="flex font-roboto ">
