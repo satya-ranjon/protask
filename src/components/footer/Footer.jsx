@@ -26,7 +26,7 @@ const Footer = () => {
                 Protask
               </span>
             </div>
-            <h1 className="  mt-4 max-w-sm text-sm xl:text-lg xl:text-xl text-gray-200">
+            <h1 className="  mt-4 max-w-sm text-sm xl:text-lg  text-gray-200">
               Try our reliable task manager today and experience the difference
               it can make for you team
             </h1>

@@ -45,7 +45,7 @@ const CreateEvent = () => {
 
   // Function to navigate back to the events page
   const backToEvent = () => {
-    navigate("/event");
+    navigate("/dashboard/event");
   };
 
   // Event handler functions for updating Redux store
@@ -113,7 +113,7 @@ const CreateEvent = () => {
   const createEventBtnDisabled = title ? true : false;
 
   // Determine if the page is in full screen mode
-  const isFullPage = pathname === "/event/create";
+  const isFullPage = pathname === "/dashboard/event/create";
   return (
     <div className="p-8 pt-4 min-w-[550px] overflow-x-scroll">
       {/* Display success or error messages */}

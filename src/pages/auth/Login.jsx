@@ -15,11 +15,13 @@ const Login = () => {
         />
         <div className="w-full">
           <h1 className="text-center flex gap-3 justify-center items-center text-primary text-4xl font-bold my-3">
-            <img
-              className="pointer-events-none w-12"
-              src={images.Logo}
-              alt={images.Logo}
-            />
+            <Link to="/">
+              <img
+                className="pointer-events-none w-12"
+                src={images.Logo}
+                alt={images.Logo}
+              />
+            </Link>
             Login
           </h1>
 

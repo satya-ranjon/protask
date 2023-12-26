@@ -28,14 +28,15 @@ const AppWrapper = ({ children }) => {
   const selectedEventId = useSelector(selectSelectedUpdateEventId);
 
   const modalIsActive =
-    selectedEventId && (pathname === "/event" || pathname === "/");
+    selectedEventId &&
+    (pathname === "/dashboard/event" || pathname === "/dashboard");
 
   const handleUpdateEventModal = () => {
     dispatch(resetSelectedUpdateEventData());
   };
 
   const handleUpdateEventFullPage = () => {
-    navigate(`/event/${selectedEventId}`);
+    navigate(`/dashboard/event/${selectedEventId}`);
   };
   return (
     <div ref={dropdownRef} className="flex font-roboto ">

@@ -26,11 +26,13 @@ const Register = () => {
         />
         <div className="w-full">
           <h1 className="text-center flex gap-3 justify-center items-center text-primary text-4xl font-bold my-3">
-            <img
-              className=" w-12 pointer-events-none"
-              src={images.Logo}
-              alt=""
-            />
+            <Link to="/">
+              <img
+                className=" w-12 pointer-events-none"
+                src={images.Logo}
+                alt={images.Logo}
+              />
+            </Link>
             Create a Account
           </h1>
 
