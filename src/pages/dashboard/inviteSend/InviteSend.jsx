@@ -35,7 +35,6 @@ const InviteSend = ({ handleAddOrSendSleipner }) => {
       setAddedEmailList([...addedEmailList, email]);
     }
   };
-  console.log(addedEmailList?.join(","));
 
   const handleDeleteSingleEmail = (value) => {
     const newEmailList = addedEmailList?.filter((email) => email !== value);
