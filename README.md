@@ -13,4 +13,3 @@
 <img src="./src/assets/task12.png" />
 <img src="./src/assets/task11.png" />
 
-git commit -m "add live link README.md file"
