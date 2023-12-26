@@ -7,7 +7,7 @@ import UpdateEvent from "../pages/event/addevent/UpdateEvent";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSelectedUpdateEventId } from "../services/event/eventSelector";
 import { resetSelectedUpdateEventData } from "../services/event/eventSlice";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AppWrapper = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);

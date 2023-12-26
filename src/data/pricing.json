@@ -1,0 +1,41 @@
+[
+  {
+    "name": "basic",
+    "doc": "Unlimited task and priority supports",
+    "price": "Free",
+    "features": [
+      "Unlimited Tasks",
+      "Basic Collaboration",
+      "Mobile Access",
+      "Deadline Management",
+      "Basic Support",
+      "Email Support"
+    ]
+  },
+  {
+    "name": "Pro plan",
+    "doc": "Enhance team collaboration",
+    "price": "$11.99",
+    "features": [
+      "Customizable Workflows",
+      "Advanced Collaboration",
+      "Integrations",
+      "Priority Support",
+      "Enhanced Security",
+      "Email Support"
+    ]
+  },
+  {
+    "name": "Enterprise plan",
+    "doc": "Get personalized assistance",
+    "price": "$25.99",
+    "features": [
+      "Custom Integrations",
+      "Advanced Analytics",
+      "Training and Onboarding",
+      "24/7 Premium Support",
+      "All features",
+      "Account manager"
+    ]
+  }
+]
