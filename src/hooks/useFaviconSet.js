@@ -6,9 +6,9 @@ const useFaviconSet = () => {
     // Conditionally set the favicon based on a condition
     const faviconLink = document.getElementById("favicon");
     if (matches) {
-      faviconLink.href = "/favicon11.svg";
+      // faviconLink.href = "/favicon11.svg";
     } else {
-      faviconLink.href = "/favicon2.svg";
+      // faviconLink.href = "/favicon2.svg";
     }
   }, []);
 };
