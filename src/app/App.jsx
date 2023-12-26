@@ -4,7 +4,7 @@ import Router from "../routes";
 import useFaviconSet from "../hooks/useFaviconSet";
 
 const App = () => {
-  useFaviconSet();
+  // useFaviconSet();
   return (
     <Provider store={store}>
       <Router />
