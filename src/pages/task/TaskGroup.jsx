@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import FilterTasks from "./FilterTasks";
 
-const TaskGroup = ({ title, taskCount, children }) => {
+const TaskGroup = forwardRef(({ title, taskCount, children }, ref) => {
   // Function to select border and background color based on task status
   function borderBgColorSelector(id) {
     const colorMap = {
@@ -15,7 +15,7 @@ const TaskGroup = ({ title, taskCount, children }) => {
   }
 
   return (
-    <div>
+    <div ref={ref}>
       {/* Task group header */}
       <div className="px-4 pr-2 flex justify-between items-start pb-5 border-b-2 border-dark">
         <div>
@@ -35,11 +35,11 @@ const TaskGroup = ({ title, taskCount, children }) => {
         <FilterTasks title={title} />
       </div>
       {/* Task list */}
-      <div className="min-h-[25rem] lg:max-h-[45.3rem] 2xl:max-h-[42rem] overflow-scroll overflow-x-hidden scroll-m-1 w-full task">
+      <div className="  min-h-[25rem] lg:max-h-[45.3rem] 2xl:max-h-[42rem] overflow-scroll overflow-x-hidden scroll-m-1 w-full task">
         {children}
       </div>
     </div>
   );
-};
+});
 
 export default TaskGroup;

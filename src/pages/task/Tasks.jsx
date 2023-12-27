@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SingleTask from "./SingleTask";
 import TaskGroup from "./TaskGroup";
-import { useGetAllTasksQuery } from "../../services/task/taskApi";
+import {
+  useGetAllTasksQuery,
+  useUpdateTaskMutation,
+} from "../../services/task/taskApi";
 import Modal from "../../components/modal/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateTask from "./addtask/CreateTask";
@@ -11,6 +14,7 @@ import { TaskItemSkelton } from "../../components/skeleton/TaskSkelton";
 import useTitleSet from "../../hooks/useTitleSet";
 import { userLogout } from "../../services/auth/authSlice";
 import CreateButton from "../../components/common/CreateButton";
+import { useDrop } from "react-dnd";
 
 const Tasks = () => {
   // State and utility hooks
@@ -79,6 +83,9 @@ const Tasks = () => {
           .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
+  // Mutation for updating task status
+  const [updateTask] = useUpdateTaskMutation();
+
   return (
     <>
       {/* Header */}
@@ -104,26 +111,46 @@ const Tasks = () => {
 
       {/* Task groups */}
       <div className="2xl:mx-14 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 ">
-        {filter?.map((filterItem) => (
-          <TaskGroup
-            key={filterItem.id}
-            title={filterItem.id}
-            taskCount={
-              getFilteredTasks(filterItem.id, filterItem.order).length
-            }>
-            {/* Display filtered and sorted tasks */}
-            {getFilteredTasks(filterItem.id, filterItem.order).map((task) => (
-              <SingleTask key={task._id} task={task} />
-            ))}
-            {isLoading && (
-              <>
-                <TaskItemSkelton />
-                <TaskItemSkelton />
-                <TaskItemSkelton />
-              </>
-            )}
-          </TaskGroup>
-        ))}
+        {filter?.map((filterItem) => {
+          const [{ isOver }, drop] = useDrop(() => ({
+            accept: "task",
+            drop: (item) => addItemToTaskGroup(item),
+            collect: (monitor) => ({
+              isOver: !!monitor.isOver(),
+            }),
+          }));
+
+          const addItemToTaskGroup = (item) => {
+            console.log(filterItem.id);
+            if (filterItem.id !== item?.status) {
+              updateTask({ data: { status: filterItem.id }, taskId: item._id });
+            }
+          };
+
+          return (
+            <TaskGroup
+              ref={drop}
+              key={filterItem.id}
+              title={filterItem.id}
+              taskCount={
+                getFilteredTasks(filterItem.id, filterItem.order).length
+              }>
+              {isOver && <div className=" w-full h-20 bg-hover"></div>}
+
+              {/* Display filtered and sorted tasks */}
+              {getFilteredTasks(filterItem.id, filterItem.order).map((task) => (
+                <SingleTask key={task._id} task={task} />
+              ))}
+              {isLoading && (
+                <>
+                  <TaskItemSkelton />
+                  <TaskItemSkelton />
+                  <TaskItemSkelton />
+                </>
+              )}
+            </TaskGroup>
+          );
+        })}
       </div>
       {/* Modal for adding tasks */}
       <Modal

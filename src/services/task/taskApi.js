@@ -72,6 +72,7 @@ const taskApi = apiSlice.injectEndpoints({
               taskData.assignedUsers = data.assignedUsers;
             })
           );
+
           // update getAllTasks cache
           dispatch(
             apiSlice.util.updateQueryData(

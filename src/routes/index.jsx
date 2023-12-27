@@ -20,6 +20,8 @@ import Home from "../pages/home/Home";
 import MainWrapper from "../layouts/MainWrapper";
 import Features from "../pages/features/Features";
 import Pricing from "../pages/pricing/Pricing";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Router = () => {
   const authenticationCheck = useAuthCheck();
@@ -35,7 +37,14 @@ const Router = () => {
       </Route>
       <Route path="dashboard" element={<PrivateRoute />}>
         <Route path="" element={<Dashboard />} />
-        <Route path="tasks" element={<Tasks />} />
+        <Route
+          path="tasks"
+          element={
+            <DndProvider backend={HTML5Backend}>
+              <Tasks />
+            </DndProvider>
+          }
+        />
         <Route path="task/:taskId" element={<CreateTask />} />
         <Route path="document" element={<Document />} />
         <Route path="event" element={<Event />} />
