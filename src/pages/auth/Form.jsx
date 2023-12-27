@@ -78,7 +78,6 @@ const Form = ({ getSuccessValue = () => {} }) => {
           window.location.reload();
         }
       } catch (error) {
-        console.log(error);
         // Handle API request errors and update the errors state
         setErrors({
           ...errors,
