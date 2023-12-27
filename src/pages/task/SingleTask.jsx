@@ -4,6 +4,7 @@ import convertISOToCustomFormat from "../../utils/convertISOToCustomFormat";
 import AvatarGroup from "../../components/common/AvatarGroup";
 import { useNavigate } from "react-router-dom";
 import useDisplay from "../../hooks/useDisplay";
+import { useDrag } from "react-dnd";
 
 const SingleTask = ({ task }) => {
   const [windowWidth] = useDisplay();
@@ -36,8 +37,20 @@ const SingleTask = ({ task }) => {
     ...assignedUsers?.map((item) => item.avatar["64"].url),
   ];
 
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item: task,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <div className="py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-hover singleTask select-none cursor-grab">
+    <div
+      ref={drag}
+      className={`py-3 px-4 border-b-2 bg-transparent hover:border-b-primary border-t-2 border-gray-100 duration-300 transition-colors hover:bg-hover singleTask select-none cursor-grab ${
+        isDragging && "opacity-25"
+      }`}>
       <div className="flex justify-between items-start">
         <div>
           {/* Task title: Make the title clickable */}
