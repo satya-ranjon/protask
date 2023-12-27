@@ -2,8 +2,11 @@ import React from "react";
 import Container from "../../components/common/Container";
 import SectionTitle from "../../components/common/SectionTitle";
 import { images } from "../../constants";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Features = () => {
+  useTitleSet("Features");
+
   return (
     <div className=" py-24">
       <Container>

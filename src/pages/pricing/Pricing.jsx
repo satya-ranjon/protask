@@ -2,8 +2,10 @@ import Container from "../../components/common/Container";
 import SectionTitle from "../../components/common/SectionTitle";
 import pricing from "../../data/pricing.json";
 import { FaCheck } from "react-icons/fa6";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Pricing = () => {
+  useTitleSet("Pricing");
   return (
     <div className=" py-24 bg-[#f5f3ff57] ">
       <Container>

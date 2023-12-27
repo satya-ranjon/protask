@@ -22,6 +22,7 @@ const modalVariants = {
 
 const Benefits = () => {
   const [active, setActive] = useState(1);
+
   return (
     <div className=" py-28">
       <Container>
