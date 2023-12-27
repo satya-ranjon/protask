@@ -19,6 +19,17 @@ const Form = ({ getSuccessValue = () => {} }) => {
   const { pathname } = useLocation();
   const isRegister = pathname === "/register";
 
+  // Set default values for login form for demonstration purposes
+  useEffect(() => {
+    if (pathname === "/login") {
+      setInputValue((prev) => ({
+        ...prev,
+        email: "demo@gmail.com",
+        password: "123456",
+      }));
+    }
+  }, [pathname]);
+
   // Auth-related mutations for registration and login
   const [
     register,
@@ -58,7 +69,6 @@ const Form = ({ getSuccessValue = () => {} }) => {
             email: inputValue.email,
             password: inputValue.password,
           }).unwrap();
-          // window.location.reload();
         } else {
           // Perform login using the login mutation
           await login({

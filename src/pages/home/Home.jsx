@@ -4,8 +4,10 @@ import Reviews from "./Reviews";
 import Features from "../features/Features";
 import Pricing from "../pricing/Pricing";
 import Navbar from "../../components/navbar/Navbar";
+import useTitleSet from "../../hooks/useTitleSet";
 
 const Home = () => {
+  useTitleSet("Home");
   return (
     <div>
       {/* Navbar & Hero Section  */}
